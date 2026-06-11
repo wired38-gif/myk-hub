@@ -35,6 +35,10 @@ if (BRAIN_ENABLED) {
   );
 }
 
+app.get(['/health', '/_health/liveness', '/_health/readiness'], (_req, res) => {
+  res.json({ ok: true, service: 'myk-hub' });
+});
+
 // Serve static assets (css, js, images) per site if needed in future
 app.use((req, res, next) => {
   const host = (req.headers.host || '').toLowerCase().split(':')[0];
