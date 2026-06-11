@@ -7,6 +7,8 @@ const BRAIN_PREFIX = (process.env.BRAIN_PROXY_PREFIX || '/brain').replace(/\/$/,
 const BRAIN_TARGET = (process.env.BRAIN_PROXY_TARGET || '').replace(/\/$/, '');
 const BRAIN_ENABLED = process.env.BRAIN_PROXY_ENABLED === '1' && BRAIN_TARGET;
 
+console.log(`[myk-hub] BRAIN_PROXY enabled=${!!BRAIN_ENABLED} prefix=${BRAIN_PREFIX} target=${BRAIN_TARGET ? BRAIN_TARGET.slice(0,40)+'...' : '(empty)'}`);
+
 // Map each hostname to its site folder
 const SITE_MAP = {
   'patemusic.live':      'pate',
