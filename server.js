@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'sites', site, 'index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 20010;
 app.listen(PORT, () => {
   console.log(`MYK Hub running on port ${PORT}`);
   if (BRAIN_ENABLED) {
