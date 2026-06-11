@@ -1,6 +1,11 @@
 const express = require('express');
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
+
+const BRAIN_PREFIX = (process.env.BRAIN_PROXY_PREFIX || '/brain').replace(/\/$/, '');
+const BRAIN_TARGET = (process.env.BRAIN_PROXY_TARGET || '').replace(/\/$/, '');
+const BRAIN_ENABLED = process.env.BRAIN_PROXY_ENABLED === '1' && BRAIN_TARGET;
 
 // Map each hostname to its site folder
 const SITE_MAP = {
@@ -11,6 +16,24 @@ const SITE_MAP = {
   'ltibyjmichael.com':   'lti',
   'www.ltibyjmichael.com': 'lti',
 };
+
+if (BRAIN_ENABLED) {
+  app.use(
+    BRAIN_PREFIX,
+    createProxyMiddleware({
+      target: BRAIN_TARGET,
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: { [`^${BRAIN_PREFIX}`]: '' },
+      on: {
+        proxyReq(proxyReq) {
+          proxyReq.setHeader('X-Forwarded-Prefix', BRAIN_PREFIX);
+          proxyReq.setHeader('X-Forwarded-Proto', 'https');
+        },
+      },
+    })
+  );
+}
 
 // Serve static assets (css, js, images) per site if needed in future
 app.use((req, res, next) => {
@@ -29,4 +52,7 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`MYK Hub running on port ${PORT}`);
+  if (BRAIN_ENABLED) {
+    console.log(`Brain proxy: ${BRAIN_PREFIX} -> ${BRAIN_TARGET}`);
+  }
 });
