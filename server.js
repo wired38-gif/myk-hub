@@ -50,8 +50,9 @@ app.use((req, res, next) => {
 });
 
 const PORT = process.env.PORT || 20010;
-app.listen(PORT, () => {
-  console.log(`MYK Hub running on port ${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`MYK Hub running on ${HOST}:${PORT}`);
   if (BRAIN_ENABLED) {
     console.log(`Brain proxy: ${BRAIN_PREFIX} -> ${BRAIN_TARGET}`);
   }
