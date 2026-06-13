@@ -4,7 +4,8 @@
   "description": "MYK multi-domain hub — serves patemusic.live, myk.ac, and ltibyjmichael.com from one Node.js app",
   "main": "server.js",
   "scripts": {
-    "build": "npm install --omit=dev",
+    "build": "npm install --omit=dev && node scripts/ensure-sites.js",
+    "prestart": "node scripts/ensure-sites.js",
     "start": "node server.js"
   },
   "engines": {
