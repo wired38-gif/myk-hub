@@ -3,1763 +3,699 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PATE — Country-Rap · Houston, TX</title>
-  <meta name="description" content="PATE is an independent Country-Rap artist from Houston, Texas. Debut album '808's & Tailgates' streaming everywhere. New single 'Two-Step in the Trap' dropping soon." />
-  <meta property="og:title" content="PATE — Country-Rap · Houston, TX" />
-  <meta property="og:description" content="Country grit meets heavy 808s. Independent artist from Houston. Stream '808's & Tailgates' now." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://patemusic.live" />
-  <link rel="canonical" href="https://patemusic.live" />
+  <title>PATE | Country × Hip-Hop Artist | Houston 072 | SWAT Nation</title>
+  <meta name="description" content="PATE is a Country × Hip-Hop artist from Houston's 072. Stream debut album 'Growing Up in the 072 – S.W.A.T. Nation' on Spotify, Apple Music, Amazon & YouTube." />
+  <meta name="keywords" content="PATE, Houston country hip hop artist, country rap, 072 music, SWAT Nation, Southwest Alief music, Houston independent artist, Growing Up in the 072, country hip hop crossover, Southern rap Houston, Houston 072, independent country rap 2024, Houston slab culture country music, Houston music scene, country western hip hop fusion, Houston 072 artist, SWAT Nation Houston, DJ Screw Houston country, country rap artist Texas, Alief Houston music, patemusic.live" />
+  <meta name="author" content="PATE" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://patemusic.live/" />
 
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="music.musician" />
+  <meta property="og:site_name" content="PATE Music" />
+  <meta property="og:title" content="PATE — Country × Hip-Hop | Houston 072 | SWAT Nation" />
+  <meta property="og:description" content="PATE comes out of Houston's 072 carrying the South's full weight — country roads, concrete, and 808s. Stream 'Growing Up in the 072' now on all platforms." />
+  <meta property="og:url" content="https://patemusic.live/" />
+  <meta property="og:image" content="https://patemusic.live/assets/images/hero.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="PATE — Country × Hip-Hop artist from Houston 072" />
+  <meta property="music:musician" content="https://open.spotify.com/user/3136dwxv7y5mxdcffjxxp2nw2twa" />
 
-  <style>
-    /* ─── Design Tokens ─── */
-    :root {
-      --color-bg: #0a0a08;
-      --color-surface: #111110;
-      --color-surface-2: #1a1917;
-      --color-border: #2a2926;
-      --color-text: #e8e6e1;
-      --color-text-muted: #8a8884;
-      --color-text-faint: #504e4b;
-      --color-primary: #c8682a;
-      --color-primary-hover: #a8501e;
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@patecountry" />
+  <meta name="twitter:creator" content="@patecountry" />
+  <meta name="twitter:title" content="PATE — Country × Hip-Hop | Houston 072" />
+  <meta name="twitter:description" content="PATE comes out of Houston's 072 — country roads, concrete, and 808s. Stream 'Growing Up in the 072' now." />
+  <meta name="twitter:image" content="https://patemusic.live/assets/images/hero.jpg" />
 
-      --font-display: 'Clash Display', 'Georgia', serif;
-      --font-body: 'Satoshi', 'Helvetica Neue', sans-serif;
-
-      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
-      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
-      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
-      --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
-      --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
-      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
-      --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
-      --text-hero: clamp(4rem,     1rem    + 10vw,   11rem);
-
-      --space-1:  0.25rem;
-      --space-2:  0.5rem;
-      --space-3:  0.75rem;
-      --space-4:  1rem;
-      --space-5:  1.25rem;
-      --space-6:  1.5rem;
-      --space-8:  2rem;
-      --space-10: 2.5rem;
-      --space-12: 3rem;
-      --space-16: 4rem;
-      --space-20: 5rem;
-      --space-24: 6rem;
-      --space-32: 8rem;
-
-      --radius-sm:   0.375rem;
-      --radius-md:   0.5rem;
-      --radius-lg:   0.75rem;
-      --radius-xl:   1rem;
-      --radius-full: 9999px;
-
-      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
-
-      --content-narrow:  640px;
-      --content-default: 960px;
-      --content-wide:    1200px;
-
-      --nav-height: 68px;
-    }
-
-    /* ─── Base Reset ─── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html {
-      -webkit-text-size-adjust: none;
-      text-size-adjust: none;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      scroll-behavior: smooth;
-      scroll-padding-top: var(--nav-height);
-    }
-    body {
-      min-height: 100dvh;
-      font-family: var(--font-body);
-      font-size: var(--text-base);
-      color: var(--color-text);
-      background-color: var(--color-bg);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-    img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
-    ul[role="list"], ol[role="list"] { list-style: none; }
-    input, button, textarea, select { font: inherit; color: inherit; }
-    h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.12; }
-    p, li, figcaption { text-wrap: pretty; max-width: 68ch; }
-    button { cursor: pointer; background: none; border: none; }
-    a { color: inherit; text-decoration: none; }
-
-    ::selection {
-      background: rgba(200, 104, 42, 0.3);
-      color: var(--color-text);
-    }
-    :focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 3px;
-      border-radius: var(--radius-sm);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+  <!-- JSON-LD: MusicGroup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "PATE",
+    "url": "https://patemusic.live",
+    "image": "https://patemusic.live/assets/images/artist_guitar.jpg",
+    "genre": ["Country", "Hip-Hop", "Southern Rap", "Country Rap"],
+    "foundingDate": "2024",
+    "foundingLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Houston",
+        "addressRegion": "TX",
+        "addressCountry": "US"
       }
-    }
+    },
+    "description": "PATE is an independent Country × Hip-Hop artist from Houston's 072 / SWAT Nation. His debut album 'Growing Up in the 072 – S.W.A.T. Nation' (2024) blends Southern rap, country acoustic, and Houston slab culture.",
+    "member": [{"@type": "Person","name": "PATE","roleName": ["Vocalist", "Songwriter", "Producer"]}],
+    "sameAs": [
+      "https://open.spotify.com/user/3136dwxv7y5mxdcffjxxp2nw2twa",
+      "https://music.apple.com/us/artist/pate/6771612574",
+      "https://music.amazon.com/artists/B000TDU0XU/pate",
+      "https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw",
+      "https://www.instagram.com/pate.music",
+      "https://www.tiktok.com/@patemusic.live",
+      "https://x.com/patecountry",
+      "https://m.facebook.com/PateCountry/"
+    ],
+    "album": [{"@type": "MusicAlbum","name": "Growing Up in the 072 – S.W.A.T. Nation","url": "https://music.apple.com/us/album/growing-up-in-the-072-s-w-a-t-nation/6773266215","image": "https://patemusic.live/assets/images/hero.jpg","datePublished": "2024-01-01","albumReleaseType": "https://schema.org/AlbumRelease","albumProductionType": "https://schema.org/StudioAlbum","byArtist": {"@type": "MusicGroup","name": "PATE"}}]
+  }
+  </script>
 
-    /* ─── Utilities ─── */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
-    }
-    .container {
-      width: 100%;
-      max-width: var(--content-wide);
-      margin-inline: auto;
-      padding-inline: clamp(var(--space-5), 5vw, var(--space-16));
-    }
-    .container--narrow {
-      max-width: var(--content-default);
-    }
+  <!-- JSON-LD: MusicAlbum -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicAlbum",
+    "name": "Growing Up in the 072 – S.W.A.T. Nation",
+    "url": "https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/",
+    "image": "https://patemusic.live/assets/images/hero.jpg",
+    "datePublished": "2024-01-01",
+    "albumReleaseType": "https://schema.org/AlbumRelease",
+    "albumProductionType": "https://schema.org/StudioAlbum",
+    "description": "Debut studio album from Houston's PATE — a full-length document of growing up in the 072, blending country acoustic with Southern rap and Houston slab culture.",
+    "byArtist": {"@type": "MusicGroup","name": "PATE","url": "https://patemusic.live"}
+  }
+  </script>
 
-    /* ─── Noise Overlay ─── */
-    .noise-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 200px 200px;
-    }
+  <!-- JSON-LD: VideoObject -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "They Doubled I Doubled — Studio Session",
+    "description": "Behind the scenes studio session with PATE & the boys from Houston's 072 / SWAT Nation.",
+    "thumbnailUrl": "https://img.youtube.com/vi/PmNR6i_MANs/maxresdefault.jpg",
+    "uploadDate": "2024-01-01T00:00:00Z",
+    "embedUrl": "https://www.youtube.com/embed/PmNR6i_MANs",
+    "url": "https://www.youtube.com/watch?v=PmNR6i_MANs",
+    "author": {"@type": "MusicGroup","name": "PATE","url": "https://patemusic.live"}
+  }
+  </script>
 
-    /* ─── Navigation ─── */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      height: var(--nav-height);
-      display: flex;
-      align-items: center;
-      background: rgba(10, 10, 8, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid transparent;
-      transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
-    }
-    .nav.scrolled {
-      border-bottom-color: var(--color-border);
-      box-shadow: var(--shadow-sm);
-    }
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: var(--content-wide);
-      margin-inline: auto;
-      padding-inline: clamp(var(--space-5), 5vw, var(--space-16));
-    }
-    .nav__logo {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav__logo-svg {
-      width: 36px;
-      height: 36px;
-    }
-    .nav__logo-text {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 700;
-      color: var(--color-text);
-      letter-spacing: -0.02em;
-    }
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: var(--space-8);
-      list-style: none;
-    }
-    .nav__links a {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-text-muted);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color var(--transition-interactive);
-    }
-    .nav__links a:hover { color: var(--color-text); }
+  <!-- Fonts: Raleway (ultra-light headline) + Cormorant (editorial accent) + Satoshi (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
 
-    /* Hamburger */
-    .nav__hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      padding: var(--space-2);
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 110;
-    }
-    .nav__hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--color-text);
-      transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
-      transform-origin: center;
-    }
-    .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav__hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  <link rel="stylesheet" href="style.css?v=1780615176" />
 
-    /* Mobile menu */
-    .nav__mobile {
-      display: none;
-      position: fixed;
-      inset: 0;
-      top: var(--nav-height);
-      background: var(--color-bg);
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-10);
-      z-index: 99;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s var(--ease-out);
-    }
-    .nav__mobile.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .nav__mobile a {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 600;
-      color: var(--color-text-muted);
-      letter-spacing: -0.02em;
-      transition: color var(--transition-interactive);
-    }
-    .nav__mobile a:hover { color: var(--color-primary); }
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23D4AF37'/><text x='16' y='23' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='18' fill='%230A0902'>P</text></svg>" />
 
-    @media (max-width: 720px) {
-      .nav__links { display: none; }
-      .nav__hamburger { display: flex; }
-      .nav__mobile { display: flex; }
-    }
-
-    /* ─── Hero ─── */
-    .hero {
-      position: relative;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      padding-top: var(--nav-height);
-    }
-
-    /* Animated grain background */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: -50%;
-      width: 200%;
-      height: 200%;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,104,42,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(200,104,42,0.04) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 50% at 80% 20%, rgba(200,104,42,0.03) 0%, transparent 50%);
-      animation: heroGlow 12s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes heroGlow {
-      0%   { transform: scale(1) rotate(0deg); }
-      100% { transform: scale(1.05) rotate(1deg); }
-    }
-
-    /* Animated scanlines */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.012) 2px,
-        rgba(255,255,255,0.012) 4px
-      );
-      pointer-events: none;
-    }
-
-    .hero__content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-8);
-    }
-
-    .hero__eyebrow {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-    }
-    .hero__eyebrow::before,
-    .hero__eyebrow::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--color-primary);
-      opacity: 0.6;
-    }
-
-    .hero__name {
-      font-family: var(--font-display);
-      font-size: var(--text-hero);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 0.9;
-      color: var(--color-text);
-      /* Subtle gradient text */
-      background: linear-gradient(160deg, #f0ede8 30%, #c8682a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero__subtitle {
-      font-size: var(--text-base);
-      color: var(--color-text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .hero__ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      justify-content: center;
-      margin-top: var(--space-4);
-    }
-
-    /* ─── Buttons ─── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-3) var(--space-8);
-      border-radius: var(--radius-sm);
-      font-size: var(--text-sm);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition:
-        background var(--transition-interactive),
-        color var(--transition-interactive),
-        box-shadow var(--transition-interactive),
-        transform var(--transition-interactive),
-        border-color var(--transition-interactive);
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-
-    .btn--primary {
-      background: var(--color-primary);
-      color: #fff;
-      border: 1px solid var(--color-primary);
-    }
-    .btn--primary:hover {
-      background: var(--color-primary-hover);
-      border-color: var(--color-primary-hover);
-      box-shadow: 0 6px 24px rgba(200,104,42,0.35);
-    }
-
-    .btn--ghost {
-      background: transparent;
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-    }
-    .btn--ghost:hover {
-      border-color: var(--color-text-muted);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn--outline-amber {
-      background: transparent;
-      color: var(--color-primary);
-      border: 1px solid var(--color-primary);
-    }
-    .btn--outline-amber:hover {
-      background: rgba(200,104,42,0.1);
-      box-shadow: 0 4px 20px rgba(200,104,42,0.2);
-    }
-
-    /* Hero scroll cue */
-    .hero__scroll-cue {
-      position: absolute;
-      bottom: var(--space-8);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-2);
-      color: var(--color-text-faint);
-      font-size: var(--text-xs);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .hero__scroll-arrow {
-      width: 20px;
-      height: 20px;
-      animation: bounce 2s ease-in-out infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-
-    /* ─── Section Base ─── */
-    .section {
-      padding-block: clamp(var(--space-16), 10vw, var(--space-32));
-    }
-    .section__header {
-      margin-bottom: var(--space-12);
-    }
-    .section__label {
-      display: inline-block;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: var(--space-3);
-    }
-    .section__title {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-    }
-    .section__divider {
-      width: 100%;
-      height: 1px;
-      background: var(--color-border);
-    }
-
-    /* ─── Music Section ─── */
-    #music {
-      background: var(--color-surface);
-    }
-    .music-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-6);
-    }
-    @media (max-width: 680px) {
-      .music-grid { grid-template-columns: 1fr; }
-    }
-
-    .release-card {
-      position: relative;
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition:
-        border-color var(--transition-interactive),
-        box-shadow var(--transition-interactive),
-        transform var(--transition-interactive);
-    }
-    .release-card:hover {
-      border-color: rgba(200,104,42,0.4);
-      box-shadow: 0 8px 32px rgba(200,104,42,0.12);
-      transform: translateY(-3px);
-    }
-
-    .release-card__artwork {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      background: var(--color-bg);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    /* Album artwork — 808s & Tailgates */
-    .release-card__artwork--debut {
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(200,104,42,0.35) 0%, transparent 70%),
-        linear-gradient(160deg, #0a0a08 0%, #1a1310 40%, #0d0c0a 100%);
-    }
-    .release-card__artwork--debut::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          -45deg,
-          transparent,
-          transparent 40px,
-          rgba(200,104,42,0.04) 40px,
-          rgba(200,104,42,0.04) 41px
-        );
-    }
-
-    /* Artwork — Two-Step in the Trap */
-    .release-card__artwork--single {
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,104,42,0.2) 0%, transparent 60%),
-        linear-gradient(200deg, #101410 0%, #0a0a08 50%, #120e08 100%);
-    }
-    .release-card__artwork--single::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 8px,
-        rgba(200,104,42,0.025) 8px,
-        rgba(200,104,42,0.025) 9px
-      );
-    }
-
-    .artwork-inner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    .artwork-album-title {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 700;
-      color: var(--color-text);
-      letter-spacing: -0.02em;
-      text-align: center;
-      line-height: 1.1;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
-      z-index: 1;
-      padding: 0 var(--space-4);
-    }
-    .artwork-badge {
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      z-index: 1;
-    }
-
-    /* Waveform graphic in debut artwork */
-    .waveform {
-      position: absolute;
-      bottom: var(--space-6);
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      z-index: 1;
-    }
-    .waveform-bar {
-      width: 3px;
-      background: var(--color-primary);
-      border-radius: 2px;
-      opacity: 0.7;
-    }
-
-    .release-card__body {
-      padding: var(--space-6);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-      flex: 1;
-    }
-    .release-card__type {
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-    }
-    .release-card__title {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--color-text);
-    }
-    .release-card__desc {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.6;
-    }
-    .release-card__tag {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-1);
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      font-weight: 500;
-    }
-    .release-card__tag svg {
-      width: 12px;
-      height: 12px;
-      flex-shrink: 0;
-    }
-    .release-card__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-top: auto;
-      padding-top: var(--space-2);
-    }
-    .release-card__actions .btn {
-      flex: 1;
-      justify-content: center;
-      min-width: 120px;
-    }
-
-    /* Upcoming badge */
-    .badge-upcoming {
-      position: absolute;
-      top: var(--space-4);
-      right: var(--space-4);
-      background: rgba(200,104,42,0.15);
-      border: 1px solid rgba(200,104,42,0.4);
-      color: var(--color-primary);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      z-index: 2;
-    }
-
-    /* ─── About Section ─── */
-    #about {
-      position: relative;
-      overflow: hidden;
-    }
-    #about::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -10%;
-      width: 50%;
-      height: 100%;
-      background: radial-gradient(ellipse 80% 80% at 80% 50%, rgba(200,104,42,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(var(--space-12), 6vw, var(--space-24));
-      align-items: center;
-    }
-    @media (max-width: 760px) {
-      .about-layout { grid-template-columns: 1fr; }
-    }
-    .about-text {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-    }
-    .about-text p {
-      font-size: var(--text-base);
-      color: var(--color-text-muted);
-      line-height: 1.75;
-    }
-    .about-text p strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-    .about-quote {
-      border-left: 3px solid var(--color-primary);
-      padding-left: var(--space-6);
-      margin-top: var(--space-2);
-    }
-    .about-quote p {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 600;
-      color: var(--color-text);
-      font-style: italic;
-      letter-spacing: -0.01em;
-      line-height: 1.4;
-      max-width: none;
-    }
-
-    /* About visual — abstract art */
-    .about-visual {
-      position: relative;
-      aspect-ratio: 3 / 4;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(200,104,42,0.22) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 70% at 70% 70%, rgba(200,104,42,0.1) 0%, transparent 60%),
-        linear-gradient(170deg, #111110 0%, #0d0c0a 100%);
-      border: 1px solid var(--color-border);
-    }
-    .about-visual__inner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: var(--space-8);
-    }
-    .about-visual__label {
-      font-family: var(--font-display);
-      font-size: var(--text-3xl);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 0.9;
-      color: rgba(200,104,42,0.12);
-      user-select: none;
-      pointer-events: none;
-    }
-    .about-stats {
-      position: absolute;
-      top: var(--space-6);
-      right: var(--space-6);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-      text-align: right;
-    }
-    .about-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .about-stat__val {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: -0.02em;
-    }
-    .about-stat__label {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    /* Decorative lines in about visual */
-    .about-visual__lines {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-    .about-visual__lines::before {
-      content: '';
-      position: absolute;
-      top: -20%;
-      left: -20%;
-      width: 120%;
-      height: 120%;
-      background: repeating-linear-gradient(
-        -30deg,
-        transparent,
-        transparent 60px,
-        rgba(200,104,42,0.03) 60px,
-        rgba(200,104,42,0.03) 61px
-      );
-    }
-
-    /* ─── Shows Section ─── */
-    #shows {
-      background: var(--color-surface);
-    }
-    .shows-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-12);
-      align-items: start;
-    }
-    @media (max-width: 760px) {
-      .shows-layout { grid-template-columns: 1fr; }
-    }
-    .shows-empty {
-      border: 1px dashed var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-16) var(--space-10);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-6);
-    }
-    .shows-empty__icon {
-      width: 56px;
-      height: 56px;
-      color: var(--color-text-faint);
-    }
-    .shows-empty__title {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 600;
-      color: var(--color-text);
-      letter-spacing: -0.02em;
-    }
-    .shows-empty__sub {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      max-width: 36ch;
-      line-height: 1.6;
-    }
-    .shows-social {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-      padding: var(--space-8) 0;
-    }
-    .shows-social__title {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--color-text);
-    }
-    .shows-social__sub {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.65;
-    }
-    .tiktok-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-3);
-      padding: var(--space-4) var(--space-6);
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      color: var(--color-text);
-      font-weight: 600;
-      font-size: var(--text-sm);
-      transition:
-        border-color var(--transition-interactive),
-        background var(--transition-interactive),
-        transform var(--transition-interactive);
-      cursor: pointer;
-      width: fit-content;
-      text-decoration: none;
-    }
-    .tiktok-btn:hover {
-      border-color: var(--color-text-muted);
-      background: rgba(255,255,255,0.04);
-      transform: translateY(-1px);
-    }
-    .tiktok-btn svg {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    /* ─── Merch Section ─── */
-    #merch {
-      position: relative;
-      overflow: hidden;
-    }
-    #merch::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: -5%;
-      width: 50%;
-      height: 100%;
-      background: radial-gradient(ellipse 80% 80% at 20% 80%, rgba(200,104,42,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .merch-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-12);
-      align-items: center;
-    }
-    @media (max-width: 760px) {
-      .merch-inner { grid-template-columns: 1fr; }
-    }
-    .merch-text {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-    }
-    .merch-text p {
-      font-size: var(--text-base);
-      color: var(--color-text-muted);
-      line-height: 1.7;
-    }
-    .email-form {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: var(--color-surface);
-      transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
-      max-width: 440px;
-    }
-    .email-form:focus-within {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(200,104,42,0.15);
-    }
-    .email-form input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: var(--space-4) var(--space-5);
-      font-size: var(--text-sm);
-      color: var(--color-text);
-    }
-    .email-form input::placeholder { color: var(--color-text-faint); }
-    .email-form button {
-      padding: var(--space-3) var(--space-6);
-      background: var(--color-primary);
-      color: #fff;
-      font-size: var(--text-sm);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      transition: background var(--transition-interactive);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .email-form button:hover { background: var(--color-primary-hover); }
-    .email-form-note {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-    }
-    .merch-preview {
-      aspect-ratio: 1 / 1;
-      border-radius: var(--radius-lg);
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(200,104,42,0.1) 0%, transparent 70%),
-        var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: var(--space-4);
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .merch-preview__text {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: rgba(200,104,42,0.2);
-      text-align: center;
-    }
-    .merch-preview__sub {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    /* ─── Presave Section ─── */
-    #presave {
-      background: var(--color-surface);
-      text-align: center;
-    }
-    .presave-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-8);
-      max-width: 640px;
-      margin-inline: auto;
-    }
-    .presave-title {
-      font-family: var(--font-display);
-      font-size: var(--text-3xl);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--color-text);
-    }
-    .presave-title span { color: var(--color-primary); }
-    .presave-sub {
-      font-size: var(--text-base);
-      color: var(--color-text-muted);
-      line-height: 1.7;
-    }
-    .presave-platforms {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      justify-content: center;
-    }
-    .platform-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-3) var(--space-6);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-full);
-      font-size: var(--text-sm);
-      font-weight: 600;
-      color: var(--color-text);
-      background: var(--color-surface-2);
-      transition:
-        border-color var(--transition-interactive),
-        background var(--transition-interactive),
-        transform var(--transition-interactive),
-        box-shadow var(--transition-interactive);
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .platform-btn:hover {
-      border-color: var(--color-primary);
-      background: rgba(200,104,42,0.08);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(200,104,42,0.15);
-    }
-    .platform-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-    /* ─── Footer ─── */
-    footer {
-      background: var(--color-bg);
-      border-top: 1px solid var(--color-border);
-      padding-block: var(--space-16) var(--space-10);
-    }
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: var(--space-10);
-      margin-bottom: var(--space-12);
-    }
-    @media (max-width: 680px) {
-      .footer-inner { grid-template-columns: 1fr; text-align: center; }
-    }
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-    }
-    .footer-brand__name {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-    }
-    .footer-brand__tagline {
-      font-size: var(--text-sm);
-      color: var(--color-text-faint);
-      line-height: 1.6;
-      max-width: 26ch;
-    }
-    .footer-col-title {
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-5);
-    }
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    @media (max-width: 680px) {
-      .footer-links { align-items: center; }
-    }
-    .footer-links a {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      transition: color var(--transition-interactive);
-    }
-    .footer-links a:hover { color: var(--color-text); }
-    .footer-social {
-      display: flex;
-      gap: var(--space-4);
-    }
-    @media (max-width: 680px) { .footer-social { justify-content: center; } }
-    .footer-social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      color: var(--color-text-muted);
-      transition:
-        border-color var(--transition-interactive),
-        color var(--transition-interactive),
-        background var(--transition-interactive);
-    }
-    .footer-social a:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background: rgba(200,104,42,0.08);
-    }
-    .footer-social a svg { width: 18px; height: 18px; }
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      padding-top: var(--space-8);
-      border-top: 1px solid var(--color-border);
-    }
-    .footer-copyright {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-    }
-    .footer-powered {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-    }
-    .footer-powered a {
-      color: var(--color-text-muted);
-      text-decoration: underline;
-      text-decoration-color: transparent;
-      transition: color var(--transition-interactive), text-decoration-color var(--transition-interactive);
-    }
-    .footer-powered a:hover {
-      color: var(--color-text);
-      text-decoration-color: var(--color-text-muted);
-    }
-
-    /* ─── Scroll Reveals ─── */
-    .fade-in {
-      opacity: 1;
-    }
-    @supports (animation-timeline: scroll()) {
-      .fade-in {
-        opacity: 0;
-        animation: revealFade linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 60%;
-      }
-    }
-    @keyframes revealFade {
-      to { opacity: 1; }
-    }
-
-    .reveal-up {
-      opacity: 1;
-    }
-    @supports (animation-timeline: scroll()) {
-      .reveal-up {
-        clip-path: inset(8% 0 0 0);
-        opacity: 0;
-        animation: revealUp linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 55%;
-      }
-    }
-    @keyframes revealUp {
-      to { opacity: 1; clip-path: inset(0 0 0 0); }
-    }
-
-    /* Stagger delays */
-    .delay-1 { animation-delay: 0.05s; }
-    .delay-2 { animation-delay: 0.12s; }
-    .delay-3 { animation-delay: 0.19s; }
-
-    /* ─── Hero entrance animations ─── */
-    .hero__eyebrow { animation: enterFade 0.8s var(--ease-out) both; animation-delay: 0.1s; }
-    .hero__name    { animation: enterFade 0.9s var(--ease-out) both; animation-delay: 0.25s; }
-    .hero__subtitle { animation: enterFade 0.8s var(--ease-out) both; animation-delay: 0.4s; }
-    .hero__ctas    { animation: enterFade 0.8s var(--ease-out) both; animation-delay: 0.55s; }
-    .hero__scroll-cue { animation: enterFade 0.8s var(--ease-out) both; animation-delay: 0.9s; }
-
-    @keyframes enterFade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* ─── Mobile tweaks ─── */
-    @media (max-width: 480px) {
-      .btn { padding: var(--space-3) var(--space-5); font-size: var(--text-xs); }
-      .email-form { flex-direction: column; }
-      .email-form button { border-radius: 0; }
-      .footer-inner { gap: var(--space-8); }
-    }
-
-    /* ─── Horizontal rule style ─── */
-    hr { border: none; border-top: 1px solid var(--color-border); }
-
-    /* ─── Active nav link ─── */
-    .nav__links .active { color: var(--color-text); }
-  </style>
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6K48HR05XF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6K48HR05XF');
+  </script>
 </head>
-
 <body>
-  <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- NAV -->
-  <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo" aria-label="PATE — Home">
-        <!-- SVG Logo: Geometric P mark -->
-        <svg class="nav__logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="36" height="36" rx="4" fill="#c8682a" fill-opacity="0.12"/>
-          <rect x="1" y="1" width="34" height="34" rx="3.5" stroke="#c8682a" stroke-opacity="0.3"/>
-          <!-- Letterform P -->
-          <path d="M10 9h9.5c2 0 3.5.6 4.5 1.7 1 1.1 1.5 2.5 1.5 4.3 0 1.8-.5 3.3-1.5 4.4-1 1.1-2.5 1.6-4.5 1.6H13.5V27H10V9z" fill="#c8682a"/>
-          <!-- Counter of P -->
-          <path d="M13.5 12v6H19c.9 0 1.6-.25 2.1-.75.5-.5.75-1.2.75-2.25s-.25-1.75-.75-2.25c-.5-.5-1.2-.75-2.1-.75H13.5z" fill="#0a0a08"/>
-        </svg>
-        <span class="nav__logo-text">PATE</span>
-      </a>
+  <!-- ───── NEON SPIKE CLOUD BACKDROP ───── -->
+  <div class="neon-spikes-bg" aria-hidden="true"></div>
+  <div class="neon-spikes-mid" aria-hidden="true"></div>
 
-      <ul class="nav__links" role="list">
-        <li><a href="#music">Music</a></li>
-        <li><a href="#shows">Shows</a></li>
-        <li><a href="#merch">Merch</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- ───── STREAMING TICKER ───── -->
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track" id="ticker">
+      <span class="ticker-items">
+        <a href="https://open.spotify.com/user/3136dwxv7y5mxdcffjxxp2nw2twa" target="_blank" rel="noopener">&#9654; Spotify</a>
+        <span class="t-sep">—</span>
+        <a href="https://music.apple.com/us/artist/pate/6771612574" target="_blank" rel="noopener">&#9654; Apple Music</a>
+        <span class="t-sep">—</span>
+        <a href="https://music.amazon.com/artists/B000TDU0XU/pate" target="_blank" rel="noopener">&#9654; Amazon Music</a>
+        <span class="t-sep">—</span>
+        <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener">&#9654; YouTube</a>
+        <span class="t-sep">—</span>
+        <span>Country × Hip-Hop · Houston 072 · SWAT Nation</span>
+        <span class="t-sep">—</span>
+        <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener">Growing Up in the 072 — Out Now</a>
+        <span class="t-sep">—</span>
+        <a href="https://www.instagram.com/pate.music" target="_blank" rel="noopener">@pate.music</a>
+        <span class="t-sep">—</span>
+      </span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-items" aria-hidden="true">
+        <a href="https://open.spotify.com/user/3136dwxv7y5mxdcffjxxp2nw2twa" target="_blank" rel="noopener">&#9654; Spotify</a>
+        <span class="t-sep">—</span>
+        <a href="https://music.apple.com/us/artist/pate/6771612574" target="_blank" rel="noopener">&#9654; Apple Music</a>
+        <span class="t-sep">—</span>
+        <a href="https://music.amazon.com/artists/B000TDU0XU/pate" target="_blank" rel="noopener">&#9654; Amazon Music</a>
+        <span class="t-sep">—</span>
+        <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener">&#9654; YouTube</a>
+        <span class="t-sep">—</span>
+        <span>Country × Hip-Hop · Houston 072 · SWAT Nation</span>
+        <span class="t-sep">—</span>
+        <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener">Growing Up in the 072 — Out Now</a>
+        <span class="t-sep">—</span>
+        <a href="https://www.instagram.com/pate.music" target="_blank" rel="noopener">@pate.music</a>
+        <span class="t-sep">—</span>
+      </span>
     </div>
-  </nav>
+  </div>
 
-  <!-- Mobile Menu -->
-  <div class="nav__mobile" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-    <a href="#music"  class="mobile-link">Music</a>
-    <a href="#shows"  class="mobile-link">Shows</a>
-    <a href="#merch"  class="mobile-link">Merch</a>
-    <a href="#contact" class="mobile-link">Contact</a>
+  <!-- ───── FLOATING NAV ───── -->
+  <header class="site-nav" id="site-nav">
+    <!-- Logo — top left -->
+    <a href="#hero" class="nav-logo" aria-label="PATE — back to top">P A T E</a>
+
+    <!-- Right nav: Music / Videos -->
+    <nav class="nav-left" aria-label="Main navigation">
+      <a href="#music">Music</a>
+      <a href="#video">Video</a>
+      <a href="#gallery">Gallery</a>
+    </nav>
+
+    <!-- Right nav: Shop / Press -->
+    <nav class="nav-right-links" aria-label="Secondary navigation">
+      <a href="#about">About</a>
+      <a href="epk.html">Press Kit</a>
+      <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener" class="nav-stream-btn">Stream</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <nav>
+        <a href="#music">Music</a>
+        <a href="#video">Video</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#connect">Follow</a>
+        <a href="epk.html">Press Kit</a>
+        <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener" class="mob-stream-btn">Stream Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ───── GLOBAL CLOUDY DRIFT VIDEO BACKGROUND ───── -->
+  <div class="global-cloudy-bg" aria-hidden="true">
+    <video autoplay muted loop playsinline class="global-cloudy-video">
+      <source src="assets/cloudy_drift.mp4" type="video/mp4" />
+    </video>
   </div>
 
   <main>
-    <!-- ─── HERO ─── -->
-    <section class="hero" aria-label="PATE — Artist hero">
-      <div class="hero__content container">
-        <div class="hero__eyebrow" aria-hidden="true">Houston, Texas · Hick-Hop</div>
-        <h1 class="hero__name">PATE</h1>
-        <p class="hero__subtitle">Country-Rap &middot; Houston, TX</p>
-        <div class="hero__ctas">
-          <a href="#music" class="btn btn--primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Stream Now
-          </a>
-          <a href="#presave" class="btn btn--ghost">
-            Pre-Save Two-Step in the Trap
-          </a>
-        </div>
+
+    <!-- ───── HERO — full viewport, photo only, no headline copy ───── -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <img src="assets/images/hero.jpg" alt="PATE — Houston artist looking up from behind DJ decks" class="hero-img" fetchpriority="high" />
+        <img src="assets/images/pate_cowboy_hat.jpg" alt="PATE — cowboy hat dramatic portrait" class="hero-img hero-img-alt" aria-hidden="true" />
+        <div class="hero-vignette"></div>
       </div>
-      <div class="hero__scroll-cue" aria-hidden="true">
+      <!-- Minimal scroll cue, bottom right -->
+      <div class="scroll-cue" aria-hidden="true">
         <span>Scroll</span>
-        <svg class="hero__scroll-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M10 4v12M4 12l6 6 6-6"/>
-        </svg>
+        <span class="scroll-arrow">↓</span>
       </div>
     </section>
 
-    <!-- ─── MUSIC ─── -->
-    <section class="section" id="music" aria-labelledby="music-title">
-      <div class="container">
-        <div class="section__header fade-in">
-          <span class="section__label">Discography</span>
-          <h2 class="section__title" id="music-title">The Music</h2>
+    <!-- ───── PHOTO STRIP — horizontal scroll ───── -->
+    <section class="photo-strip" aria-label="Artist photos">
+      <div class="strip-label" aria-hidden="true">Scroll →</div>
+      <div class="strip-track">
+        <div class="strip-item">
+          <img src="assets/images/artist_guitar.jpg" alt="PATE playing guitar at the mic" loading="lazy" />
         </div>
-        <div class="music-grid">
-          <!-- 808s & Tailgates -->
-          <article class="release-card reveal-up" aria-label="808's & Tailgates — Debut Album">
-            <div class="release-card__artwork release-card__artwork--debut">
-              <div class="artwork-inner">
-                <div class="artwork-album-title">808's &amp;<br/>Tailgates</div>
-                <div class="artwork-badge">PATE</div>
-                <div class="waveform" aria-hidden="true">
-                  <div class="waveform-bar" style="height:8px"></div>
-                  <div class="waveform-bar" style="height:18px"></div>
-                  <div class="waveform-bar" style="height:28px"></div>
-                  <div class="waveform-bar" style="height:16px"></div>
-                  <div class="waveform-bar" style="height:32px"></div>
-                  <div class="waveform-bar" style="height:24px"></div>
-                  <div class="waveform-bar" style="height:36px"></div>
-                  <div class="waveform-bar" style="height:20px"></div>
-                  <div class="waveform-bar" style="height:28px"></div>
-                  <div class="waveform-bar" style="height:14px"></div>
-                  <div class="waveform-bar" style="height:22px"></div>
-                  <div class="waveform-bar" style="height:30px"></div>
-                  <div class="waveform-bar" style="height:12px"></div>
-                </div>
-              </div>
-            </div>
-            <div class="release-card__body">
-              <span class="release-card__type">Debut Album</span>
-              <h3 class="release-card__title">808's &amp; Tailgates</h3>
-              <p class="release-card__desc">
-                Where country bleeds into bass. Twelve tracks built on dusty back roads and rattling subs — the full story of what it means to be from Houston and love both worlds at once.
-              </p>
-              <div class="release-card__tag">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                Streaming everywhere now
-              </div>
-              <div class="release-card__actions">
-                <a href="https://open.spotify.com" target="_blank" rel="noopener" class="btn btn--primary" aria-label="Stream 808's & Tailgates on Spotify">
-                  Stream
-                </a>
-                <a href="https://music.apple.com" target="_blank" rel="noopener" class="btn btn--ghost" aria-label="Listen on Apple Music">
-                  Apple Music
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Two-Step in the Trap -->
-          <article class="release-card reveal-up delay-1" aria-label="Two-Step in the Trap — Upcoming Single">
-            <div class="release-card__artwork release-card__artwork--single" style="position:relative;">
-              <span class="badge-upcoming">Coming Soon</span>
-              <div class="artwork-inner">
-                <div class="artwork-album-title" style="font-size:clamp(1.1rem,3vw,1.6rem);">Two-Step<br/>in the Trap</div>
-                <div class="artwork-badge">PATE</div>
-              </div>
-            </div>
-            <div class="release-card__body">
-              <span class="release-card__type">Upcoming Single</span>
-              <h3 class="release-card__title">Two-Step in the Trap</h3>
-              <p class="release-card__desc">
-                Country line dancing meets trap music — because out here we do both. Pre-save now and be first in line when it drops. Follow on TikTok for the announcement.
-              </p>
-              <div class="release-card__tag">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                Dropping soon — pre-save now
-              </div>
-              <div class="release-card__actions">
-                <a href="#presave" class="btn btn--primary">Pre-Save</a>
-                <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" class="btn btn--outline-amber" aria-label="Follow PATE on TikTok">
-                  Follow on TikTok
-                </a>
-              </div>
-            </div>
-          </article>
+        <div class="strip-item">
+          <img src="assets/images/country_road.png" alt="Texas country road at dusk — stormy sky" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/artist_candid.jpg" alt="PATE at the mic" loading="lazy" />
+        </div>
+        <div class="strip-item strip-item-dark">
+          <div class="strip-text-card">
+            <p class="strip-quote">"Country roads,<br>concrete,<br>and 808s."</p>
+            <p class="strip-origin">Houston 072 — SWAT Nation</p>
+          </div>
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/slab_culture.png" alt="Houston slab culture — candy paint on a wet night" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/artist_studio.jpg" alt="PATE in the studio" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/guitar_closeup.png" alt="Acoustic guitar strings close-up" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/overstimulated_art.jpg" alt="Overstimulated — single art" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/boot_horizon.jpg" alt="Cowboy boot at sunset horizon" loading="lazy" />
+        </div>
+        <div class="strip-item">
+          <img src="assets/images/pate_mic_blue.jpg" alt="PATE at the mic with blue studio light" loading="lazy" />
         </div>
       </div>
     </section>
 
-    <div class="section__divider"></div>
 
-    <!-- ─── ABOUT ─── -->
-    <section class="section" id="about" aria-labelledby="about-title">
-      <div class="container container--narrow">
-        <div class="about-layout">
-          <div class="about-text">
-            <div class="fade-in">
-              <span class="section__label">The Artist</span>
-              <h2 class="section__title" id="about-title">Built Different</h2>
-            </div>
-            <div class="fade-in">
-              <p>
-                <strong>PATE</strong> doesn't fit a box — never tried to. By day he's grinding like everyone else. By night, he's in the studio stacking 808s and laying vocals that sound like they rolled straight off a dirt road at midnight.
-              </p>
-            </div>
-            <div class="about-quote fade-in">
-              <p>"Country grit, city bass. Truck culture with a trap soul. That's Houston in two lines."</p>
-            </div>
-            <div class="fade-in">
-              <p>
-                Born and built in <strong>Houston, Texas</strong> — a city that never apologized for doing things its own way. PATE's music lives in that same unapologetic space. Hick-hop isn't a genre to him, it's a lifestyle he was already living before he had a name for it.
-              </p>
-            </div>
-            <div class="fade-in">
-              <p>
-                No label. No co-sign needed. Just real music for people who know the feeling of a cold beer, a hot beat, and a truck with the bass cranked all the way up.
-              </p>
-            </div>
-          </div>
+    <!-- ───── CLOUDY DRIFT INTERLUDE (text label only — video is global bg) ───── -->
+    <div class="cloudy-interlude" aria-hidden="true">
+      <div class="cloudy-text">
+        <span>Country × Hip-Hop</span>
+        <span class="cloudy-sep">—</span>
+        <span>Houston 072</span>
+        <span class="cloudy-sep">—</span>
+        <span>SWAT Nation</span>
+      </div>
+    </div>
 
-          <div class="about-visual reveal-up" aria-hidden="true">
-            <div class="about-visual__lines"></div>
-            <div class="about-stats">
-              <div class="about-stat">
-                <span class="about-stat__val">HTX</span>
-                <span class="about-stat__label">Based</span>
-              </div>
-              <div class="about-stat">
-                <span class="about-stat__val">808s</span>
-                <span class="about-stat__label">Always</span>
-              </div>
-              <div class="about-stat">
-                <span class="about-stat__val">100%</span>
-                <span class="about-stat__label">Independent</span>
-              </div>
-            </div>
-            <div class="about-visual__inner">
-              <div class="about-visual__label">PATE</div>
-            </div>
-          </div>
+    <!-- ───── MUSIC — full-bleed album panel ───── -->
+    <section class="album-panel" id="music">
+      <div class="album-panel-bg">
+        <img src="assets/images/highway_072.png" alt="Houston 072 highway at night" loading="lazy" />
+        <div class="album-panel-overlay"></div>
+      </div>
+      <div class="album-panel-content">
+        <p class="panel-eyebrow">Album — 2024</p>
+        <h2 class="panel-title">Growing Up in the 072</h2>
+        <p class="panel-sub">S.W.A.T. Nation</p>
+        <div class="panel-actions">
+          <a href="https://music.apple.com/us/album/growing-up-in-the-072-s-w-a-t-nation/6773266215" target="_blank" rel="noopener" class="btn-outline-white">Apple Music</a>
+          <a href="https://open.spotify.com/playlist/0Xb4WTtvcyiLJ3UJYkY8EU" target="_blank" rel="noopener" class="btn-outline-white">Spotify</a>
+          <a href="https://music.amazon.com/albums/B0H2YVPQCP" target="_blank" rel="noopener" class="btn-outline-white">Amazon</a>
+          <a href="https://youtube.com/playlist?list=OLAK5uy_l5e50O5cHEqzVhxbG8sqvOIA9kxHnq5xU" target="_blank" rel="noopener" class="btn-outline-white">YouTube</a>
         </div>
       </div>
     </section>
 
-    <div class="section__divider"></div>
-
-    <!-- ─── SHOWS ─── -->
-    <section class="section" id="shows" aria-labelledby="shows-title">
-      <div class="container">
-        <div class="section__header fade-in">
-          <span class="section__label">Live</span>
-          <h2 class="section__title" id="shows-title">Upcoming Shows</h2>
+    <!-- ───── VIDEO — full-bleed cinematic panel ───── -->
+    <section class="video-panel" id="video">
+      <div class="video-panel-bg">
+        <img src="assets/images/studio_console.png" alt="Recording studio mixing console" loading="lazy" />
+        <div class="video-panel-overlay"></div>
+      </div>
+      <div class="video-panel-content">
+        <p class="panel-eyebrow">Featured Video</p>
+        <h2 class="panel-title">They Doubled I Doubled</h2>
+        <p class="panel-sub">Studio Session — Houston 072</p>
+        <div class="video-embed-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/PmNR6i_MANs"
+            title="PATE — They Doubled I Doubled"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
         </div>
-        <div class="shows-layout">
-          <div class="shows-empty reveal-up" role="status" aria-live="polite">
-            <svg class="shows-empty__icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="8" y="14" width="40" height="34" rx="3" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 22h40" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M20 8v8M36 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M20 32h16M24 38h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            <h3 class="shows-empty__title">Dates Coming Soon</h3>
-            <p class="shows-empty__sub">
-              The shows are being booked. Stay locked in — when it's ready, TikTok is where you'll hear it first.
-            </p>
-            <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" class="btn btn--ghost" aria-label="Follow @patemusic.live on TikTok for show announcements">
-              Follow for Announcements
-            </a>
-          </div>
-
-          <div class="shows-social fade-in">
-            <p class="shows-social__title">Be in the Room When It Happens</p>
-            <p class="shows-social__sub">
-              PATE announces every show, every drop, and every behind-the-scenes moment on TikTok first. Turn on notifications and you'll never miss a thing.
-            </p>
-            <p class="shows-social__sub">
-              This is grassroots, one fan at a time. The closer you follow now, the closer you'll be when things blow up — and they will.
-            </p>
-            <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" class="tiktok-btn" aria-label="Follow PATE on TikTok">
-              <!-- TikTok icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.18 8.18 0 004.78 1.52V7a4.85 4.85 0 01-1.01-.31z"/>
-              </svg>
-              @patemusic.live
-            </a>
-          </div>
-        </div>
+        <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener" class="btn-outline-white" style="margin-top:2.5rem;">Subscribe on YouTube</a>
       </div>
     </section>
 
-    <div class="section__divider"></div>
+    <!-- ───── GALLERY — full-screen editorial panels ───── -->
+    <section class="gallery-section" id="gallery">
 
-    <!-- ─── MERCH ─── -->
-    <section class="section" id="merch" aria-labelledby="merch-title">
-      <div class="container container--narrow">
-        <div class="merch-inner">
-          <div class="merch-text">
-            <div class="fade-in">
-              <span class="section__label">Merch</span>
-              <h2 class="section__title" id="merch-title">Wear the Culture</h2>
+      <!-- Panel A: Guitar shot — full bleed left, text right -->
+      <div class="gallery-panel gallery-panel-a">
+        <div class="gp-image">
+          <img src="assets/images/guitar_closeup.png" alt="Acoustic guitar strings close-up" loading="lazy" />
+        </div>
+        <div class="gp-text">
+          <p class="gp-label">Country × Hip-Hop</p>
+          <p class="gp-caption">In the studio, where the sound lives — twang-soaked storytelling cut with trap rhythm.</p>
+        </div>
+      </div>
+
+      <!-- Panel B: Wide studio — full bleed right, text left -->
+      <div class="gallery-panel gallery-panel-b">
+        <div class="gp-text gp-text-left">
+          <p class="gp-label">Houston 072</p>
+          <p class="gp-caption">Repping SWAT Nation with a crew-first mentality. Built for people who know life doesn't fit a single genre.</p>
+        </div>
+        <div class="gp-image">
+          <img src="assets/images/artist_studio.jpg" alt="PATE in the studio with mixing board" loading="lazy" />
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ───── CLUBS, SALOONS & DANCE HALLS ───── -->
+    <section class="venues-section" id="venues">
+      <div class="venues-intro">
+        <p class="panel-eyebrow">The Culture That Made Him</p>
+        <h2 class="venues-title">Clubs, Saloons<br>&amp; Dance Halls</h2>
+        <p class="venues-sub">PATE didn't pick his sound off a playlist. He lived it — two-stepping at Wild West on a Friday, then crossing town to Club 6400 before the night was over. Houston was the only city where you could do that. Country floors and hip-hop floors in the same zip code, the same night, the same people.</p>
+      </div>
+
+      <!-- Cinematic venue carousel -->
+      <div class="venue-carousel" id="venueCarousel">
+
+        <div class="vc-slide vc-active" data-label="The Texas Way" data-location="" data-name="" data-desc="">
+          <img src="assets/images/houston_truck.png" alt="Lifted Texas truck at sunset on a country road" />
+        </div>
+        <div class="vc-slide" data-label="Country Dance Hall" data-location="" data-name="" data-desc="">
+          <img src="assets/images/country_dance_floor.png" alt="Packed country western dance hall" />
+        </div>
+        <div class="vc-slide" data-label="Urban Nights" data-location="" data-name="" data-desc="">
+          <img src="assets/images/urban_club_floor.png" alt="90s Houston urban nightclub dance floor" />
+        </div>
+        <div class="vc-slide" data-location="Richmond Ave" data-name="Club 6400" data-desc="An iconic mega-club on Richmond Ave — massive dance floors, high-energy DJ sets, and a permanent address in Houston 90s nightlife history. If you were out, you ended up here." data-label="">
+          <img src="assets/images/club_6400.jpg" alt="Club 6400 Houston" />
+        </div>
+        <div class="vc-slide" data-location="Long Point → Westheimer" data-name="Wild West" data-desc="Houston's premier country-western dance spot. Started on Long Point, moved to Westheimer, but the two-step never stopped. Where boots hit hardwood and the city forgot it had a skyline." data-label="">
+          <img src="assets/images/wild_west_1.jpg" alt="Wild West Houston" />
+        </div>
+        <div class="vc-slide" data-location="Montrose · Since 1978" data-name="Numbers Night Club" data-desc="The ultimate Montrose institution. Classic Numbers Fridays launched in 1991 and never stopped — industrial, goth, new wave. Proof that Houston never fit one category." data-label="">
+          <img src="assets/images/numbers_club.jpg" alt="Numbers Nightclub Houston" />
+        </div>
+        <div class="vc-slide" data-location="Galleria Area" data-name="The Roxy" data-desc="Before streaming, before downloads, people recorded live DJ sets from 104.1 KRBE onto cassette tapes right here. Houston's club culture and radio culture in one room." data-label="" style="background:#111;">
+          <img src="assets/images/urban_club_floor.png" alt="The Roxy Houston" style="opacity:0.4;filter:hue-rotate(180deg);" />
+        </div>
+        <div class="vc-slide" data-location="Richmond Ave" data-name="City Streets" data-desc="A massive complex with multiple rooms, each playing a different style. Country to hip-hop to freestyle in one building. That was Houston — no walls between the sounds." data-label="" style="background:#0a0a0a;">
+          <img src="assets/images/country_dance_floor.png" alt="City Streets Houston" style="opacity:0.35;" />
+        </div>
+
+        <!-- Overlay text -->
+        <div class="vc-overlay">
+          <div class="vc-text">
+            <span class="vc-location" id="vcLocation"></span>
+            <h3 class="vc-name" id="vcName"></h3>
+            <p class="vc-desc" id="vcDesc"></p>
+          </div>
+          <div class="vc-label" id="vcLabel"></div>
+        </div>
+
+        <!-- Nav dots -->
+        <div class="vc-dots" id="vcDots"></div>
+
+        <!-- Arrows -->
+        <button class="vc-arrow vc-prev" id="vcPrev" aria-label="Previous">&#8592;</button>
+        <button class="vc-arrow vc-next" id="vcNext" aria-label="Next">&#8594;</button>
+
+      </div>
+
+      <!-- Rockets Championship moment -->
+      <div class="rockets-moment">
+        <div class="rockets-moment-text">
+          <p class="panel-eyebrow">Houston · 1994 &amp; 1995</p>
+          <h3 class="rockets-title">Back. To. Back.</h3>
+          <p class="rockets-copy">Two NBA Championships. Two summers where all of Houston poured into the streets — Rockets jerseys, car horns, strangers hugging like family. Hakeem Olajuwon made this city believe anything was possible. For a kid growing up in the 072, those nights weren’t just sports. They were proof that Houston was something special — and so were the people in it.</p>
+          <p class="rockets-copy">That same energy — crew-first, city-proud, built from the ground up — lives in every track PATE makes.</p>
+        </div>
+        <div class="rockets-moment-imgs">
+          <div class="rockets-img-main">
+            <img src="assets/images/rockets_street_celebration.png" alt="Houston fans flooding the streets after the Rockets won the NBA Championship" loading="lazy" />
+            <span class="venues-img-caption">Houston Streets · Championship Night</span>
+          </div>
+          <div class="rockets-img-stack">
+            <div class="rockets-img-sm">
+              <img src="assets/images/rockets_hakeem_parade.jpg" alt="Hakeem Olajuwon celebrating at the 1995 NBA Championship parade" loading="lazy" />
+              <span class="venues-img-caption">Hakeem · 1995 Parade</span>
             </div>
-            <p class="fade-in">
-              The merch line is being built with the same care as the music — no fast fashion, no generic drops. Truck culture means quality. We're not putting the PATE name on anything we wouldn't rock ourselves.
-            </p>
-            <p class="fade-in">Drop your email and you'll get first access when it goes live. That's it. No spam — just the announcement and a link.</p>
-            <div class="fade-in">
-              <form class="email-form" action="#" onsubmit="handleEmailSubmit(event)" novalidate role="form" aria-label="Merch drop notification signup">
-                <label for="merch-email" class="sr-only">Your email address</label>
-                <input
-                  type="email"
-                  id="merch-email"
-                  name="email"
-                  placeholder="your@email.com"
-                  autocomplete="email"
-                  aria-label="Email address for merch notifications"
-                  required
-                />
-                <button type="submit">Notify Me</button>
-              </form>
-              <p class="email-form-note" style="margin-top:var(--space-3);">One email when the drop is live. That's it.</p>
+            <div class="rockets-img-sm">
+              <img src="assets/images/rockets_1994_fans.jpg" alt="Houston Rockets 1994 championship fans celebrating" loading="lazy" />
+              <span class="venues-img-caption">1994 · First Title</span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="merch-preview reveal-up" aria-hidden="true">
-            <div class="merch-preview__text">PATE<br/>MUSIC</div>
-            <div class="merch-preview__sub">Drop Coming Soon</div>
-          </div>
+    </section>
+
+
+    <!-- ───── SWAT NATION NEON PANEL ───── -->
+    <section class="neon-panel">
+      <div class="neon-panel-bg">
+        <img src="assets/images/swat_nation_neon_new.png" alt="SWAT Nation neon mural on Houston brick wall" loading="lazy" />
+      </div>
+      <div class="neon-panel-content">
+        <p class="neon-panel-location">Southwest Alief &nbsp;·&nbsp; 072 &nbsp;·&nbsp; Independent</p>
+        <p class="neon-panel-tagline">Houston Born. No Walls Between the Sounds.</p>
+      </div>
+    </section>
+
+
+    <!-- ───── RADIO — clickable stations ───── -->
+    <section class="radio-section" id="radio" aria-label="Radio stations">
+      <div class="radio-inner">
+        <p class="panel-eyebrow">On the Airwaves</p>
+        <h2 class="radio-title">Houston Radio</h2>
+        <p class="radio-sub">The stations that built Houston's sound. Click to tune in — and if you hear something that moves you, request PATE.</p>
+        <div class="radio-grid">
+          <a href="https://www.979thebox.com" target="_blank" rel="noopener" class="radio-card">
+            <span class="radio-freq">97.9</span>
+            <span class="radio-name">The Box</span>
+            <span class="radio-market">Houston · Hip-Hop &amp; R&amp;B</span>
+            <span class="radio-arrow">&#8599;</span>
+          </a>
+          <a href="https://www.937thebeat.com" target="_blank" rel="noopener" class="radio-card">
+            <span class="radio-freq">93.7</span>
+            <span class="radio-name">The Beat</span>
+            <span class="radio-market">Houston · Hip-Hop &amp; R&amp;B</span>
+            <span class="radio-arrow">&#8599;</span>
+          </a>
+          <a href="https://kilt.iheart.com" target="_blank" rel="noopener" class="radio-card">
+            <span class="radio-freq">100.3</span>
+            <span class="radio-name">KILT · The Bull</span>
+            <span class="radio-market">Houston · Country</span>
+            <span class="radio-arrow">&#8599;</span>
+          </a>
+          <a href="https://www.939thearrow.com" target="_blank" rel="noopener" class="radio-card">
+            <span class="radio-freq">93.9</span>
+            <span class="radio-name">The Arrow</span>
+            <span class="radio-market">Houston · Country Crossover</span>
+            <span class="radio-arrow">&#8599;</span>
+          </a>
+        </div>
+        <p class="radio-note">Houston is one of the few cities where Country and Hip-Hop share the same culture. PATE lives at that intersection.</p>
+      </div>
+    </section>
+
+    <!-- ───── ABOUT — dark cinematic with candid hero ───── -->
+    <section class="about-section" id="about">
+      <div class="about-bg">
+        <img src="assets/images/artist_candid.jpg" alt="PATE" loading="lazy" />
+        <div class="about-overlay"></div>
+      </div>
+      <div class="about-content fade-up">
+        <p class="panel-eyebrow">The Artist</p>
+        <h2 class="about-title">Houston Born.<br>Two Worlds Fused.</h2>
+        <p class="about-copy">
+          PATE comes out of Houston's 072, carrying the South's full weight — country roads, concrete, the late nights in the booth. His sound refuses to pick a lane. It's twang-soaked storytelling cut with trap rhythm and Houston swagger, built for people who know that life doesn't fit a single genre.
+        </p>
+        <p class="about-copy">
+          Repping SWAT Nation, PATE moves independently with a crew-first mentality. <em>Growing Up in the 072</em> is the statement.
+        </p>
+        <div class="about-tags">
+          <span>Houston 072</span>
+          <span>SWAT Nation</span>
+          <span>Country × Hip-Hop</span>
+          <span>Independent</span>
+        </div>
+        <div class="about-ctas">
+          <a href="/bio" class="btn-outline-white">Artist Bio</a>
+          <a href="epk.html" class="btn-outline-white">Press Kit</a>
         </div>
       </div>
     </section>
 
-    <div class="section__divider"></div>
+    <!-- ───── BRAND PARTNERS ───── -->
+    <section class="inspire-section">
 
-    <!-- ─── PRE-SAVE ─── -->
-    <section class="section" id="presave" aria-labelledby="presave-title">
-      <div class="container">
-        <div class="presave-inner">
-          <span class="section__label fade-in">New Music</span>
-          <h2 class="presave-title fade-in" id="presave-title">
-            <span>"Two-Step</span><br/>in the Trap"
-          </h2>
-          <p class="presave-sub fade-in">
-            The next chapter. Pre-save on your platform of choice and it'll hit your library the moment it drops. Country line dancing never sounded like this.
-          </p>
-          <div class="presave-platforms fade-in">
-            <a href="https://open.spotify.com" target="_blank" rel="noopener" class="platform-btn" aria-label="Pre-save on Spotify">
-              <!-- Spotify icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.208c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 11-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 01.207.856zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.786-2.13-9.965-1.166a.78.78 0 01-.965-.519.78.78 0 01.52-.965c3.637-1.101 8.155-.568 11.225 1.322a.78.78 0 01.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.793c3.563-1.08 9.484-.872 13.22 1.37a.937.937 0 01-.06 1.58z"/>
-              </svg>
-              Spotify
-            </a>
-            <a href="https://music.apple.com" target="_blank" rel="noopener" class="platform-btn" aria-label="Pre-save on Apple Music">
-              <!-- Apple Music icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208c-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.148.018.298.029.445.06.893.232 1.762.658 2.565.37.696.9 1.27 1.554 1.716.77.523 1.622.788 2.513.89a19.507 19.507 0 002.02.106c.36.003.72 0 1.08 0H19.65c.36 0 .72.003 1.082 0a18.967 18.967 0 001.698-.087c.9-.12 1.76-.392 2.53-.93.68-.478 1.198-1.096 1.567-1.823.296-.578.458-1.196.566-1.827.076-.444.105-.893.106-1.344V6.124zm-10.006 9.82a3.015 3.015 0 01-1.69.512c-.71 0-1.355-.26-1.834-.73-.48-.47-.74-1.11-.74-1.796 0-1.43 1.164-2.62 2.574-2.62.418 0 .81.103 1.153.294V8.06l5.55-1.232v3.47l-3.41.755v3.867c0 .01.002.02.002.03a3.098 3.098 0 01-.605 1.994z"/>
-              </svg>
-              Apple Music
-            </a>
-            <a href="https://music.amazon.com" target="_blank" rel="noopener" class="platform-btn" aria-label="Pre-save on Amazon Music">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.047-.869-1.238-1.274-1.814-2.106-1.733 1.768-2.96 2.296-5.206 2.296-2.658 0-4.73-1.641-4.73-4.925 0-2.563 1.391-4.309 3.37-5.164 1.715-.755 4.11-.891 5.942-1.099v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.818-1.776-.818-1.207 0-2.282.62-2.545 1.904-.054.285-.261.567-.547.582l-3.056-.33c-.257-.058-.543-.266-.471-.66C5.57 2.718 8.296 2 10.724 2c1.24 0 2.861.33 3.839 1.268C15.786 4.485 15.7 6.117 15.7 7.89v4.765c0 1.434.595 2.065 1.154 2.839.197.276.24.606-.01.811l-1.7 1.49zm3.307 3.979C18.935 23.345 15.105 24 11.749 24 6.94 24 2.65 22.322.469 19.441c-.199-.262.022-.619.32-.416 2.439 1.422 5.448 2.276 8.561 2.276 2.098 0 4.405-.434 6.527-1.334.32-.136.589.21.374.507zM21.97 19.22c-.272-.349-1.796-.166-2.483-.083-.208.025-.24-.156-.052-.286 1.217-.856 3.213-.609 3.445-.322.233.288-.06 2.285-1.203 3.238-.175.146-.342.068-.264-.125.257-.647.831-2.073.557-2.422z"/>
-              </svg>
-              Amazon Music
-            </a>
-            <a href="https://tidal.com" target="_blank" rel="noopener" class="platform-btn" aria-label="Pre-save on Tidal">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004-4.004-4zm4.004 4.004l-4.004 4.004 4.004 4.004L20.016 12l-4-4.004zM8.008 16.004L4.004 12 0 16.004l4.004 4.004 4.004-4.004z"/>
-              </svg>
-              Tidal
-            </a>
-          </div>
+      <!-- I-10 video background -->
+      <div class="inspire-video-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline class="inspire-video">
+          <source src="assets/inspire_i10.mp4" type="video/mp4" />
+        </video>
+        <div class="inspire-video-overlay"></div>
+      </div>
+
+      <div class="inspire-section-header">
+        <p class="panel-eyebrow">Moving With</p>
+        <h2 class="venues-title" style="font-size:clamp(1.8rem,4vw,3rem);margin-bottom:0;">Brand Partners</h2>
+      </div>
+
+      <!-- Inspire / LTI -->
+      <div class="inspire-inner brand-lti">
+        <div class="inspire-brand">
+          <img src="assets/images/inspire_wings_logo.jpg" alt="Inspire by J Michaels — Est. 2024" class="inspire-logo inspire-wings-logo" loading="lazy" />
+          <span class="brand-badge brand-badge-lti">Apparel &amp; Lifestyle</span>
+          <p class="inspire-tagline lti-tagline">Learn. Live. Love to Inspire.</p>
+          <p class="inspire-copy">A creative force empowering individuals and uplifting communities through purposeful design and transformative experiences. LTIbyJMichael fuels creativity, cultivates confidence, and inspires lasting impact — Est. 2024.</p>
+          <blockquote class="brand-ar-quote">
+            <p>"When we saw what PATE was building, it was a perfect alignment. His music carries the same mission we do — learn, live, and love to inspire. We're proud to move with him."</p>
+            <cite>— J. Michaels, Founder &amp; Creative Director, LTIbyJMichael</cite>
+          </blockquote>
+          <a href="https://www.ltibyjmichael.com" target="_blank" rel="noopener" class="btn-outline-white inspire-cta">Shop Inspire</a>
+        </div>
+        <div class="inspire-lookbook">
+          <img src="assets/images/inspire_lookbook.jpg" alt="Inspire by J Michaels streetwear lookbook" loading="lazy" />
         </div>
       </div>
+
+      <!-- Inspire photo gallery strip -->
+      <div class="inspire-gallery-strip">
+        <div class="inspire-gallery-item">
+          <img src="assets/images/inspire_live_to_inspire.jpg" alt="Live to Inspire — Find inspiration. Share inspiration." loading="lazy" />
+        </div>
+        <div class="inspire-gallery-item inspire-gallery-feature">
+          <img src="assets/images/inspire_dreamstate.jpg" alt="Inspire creative energy — limitless vision" loading="lazy" />
+        </div>
+        <div class="inspire-gallery-item">
+          <img src="assets/images/inspire_jm_logo.jpg" alt="JM Designs — Out to Inspire the World" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="brand-divider"></div>
+
+      <!-- Designs by MYK -->
+      <div class="inspire-inner inspire-inner-flip brand-myk">
+        <div class="inspire-lookbook">
+          <img src="assets/images/designs_myk.jpg" alt="Designs by MYK LLC — digital creative solutions for musicians" loading="lazy" />
+        </div>
+        <div class="inspire-brand">
+          <img src="assets/images/myk_logo.jpg" alt="MYK — Est. 1974" class="inspire-logo myk-logo" loading="lazy" />
+          <span class="brand-badge brand-badge-myk">Digital Design &amp; Tech</span>
+          <p class="inspire-brand-name myk-name">Designs by MYK LLC</p>
+          <p class="inspire-tagline myk-tagline">Creative Solutions for Creators.</p>
+          <p class="inspire-copy">A creative solutions partner specializing in innovative digital design, software, and tools tailored for musicians, artists, and entrepreneurs. Empowering creatives with streamlined, high-quality resources that elevate branding, productivity, and growth.</p>
+          <blockquote class="brand-ar-quote">
+            <p>"PATE brings an authenticity that's rare. When our team first encountered his sound, we knew immediately — this artist needed visuals and tools that could match that energy. Building alongside SWAT Nation has been one of our best collaborations."</p>
+            <cite>— MYK, Founder, Designs by MYK LLC</cite>
+          </blockquote>
+          <a href="mailto:Publicist@Patemusic.live" class="btn-outline-white inspire-cta">Connect with MYK</a>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="brand-divider"></div>
+
+      <!-- Bruso Digital Media -->
+      <div class="inspire-inner brand-bruso">
+        <div class="inspire-brand">
+          <span class="brand-badge brand-badge-bruso">Digital Media &amp; Marketing</span>
+          <p class="inspire-tagline bruso-tagline">Content. Brand. Reach.</p>
+          <h3 class="inspire-brand-name bruso-name">Bruso Digital Media LLC</h3>
+          <p class="inspire-copy">Built for the era where attention is currency. Bruso Digital Media specializes in digital content creation, brand development, and online marketing strategy — helping artists, entrepreneurs, and businesses build a real presence in a crowded digital landscape. From social media architecture to full-scale digital advertising campaigns, Bruso moves with the culture and builds brands that last.</p>
+          <blockquote class="brand-ar-quote">
+            <p>"We don't just manage content — we engineer visibility. When PATE came to us, the sound was already there. Our job was making sure the world couldn't miss it. That's what Bruso does."</p>
+            <cite>— Bruso Digital Media LLC, Digital Strategy &amp; Brand Development</cite>
+          </blockquote>
+          <a href="mailto:Publicist@Patemusic.live" class="btn-outline-white inspire-cta">Work With Bruso</a>
+        </div>
+        <div class="inspire-lookbook">
+          <img src="assets/images/bruso_digital_media.png" alt="Bruso Digital Media — digital content creation and brand strategy studio" loading="lazy" />
+        </div>
+      </div>
+
     </section>
+
+
+    <!-- ───── CONNECT — minimal dark, social links ───── -->
+    <section class="connect-section" id="connect">
+      <div class="connect-inner">
+        <p class="panel-eyebrow">Stay Connected</p>
+        <h2 class="connect-title">Follow PATE</h2>
+
+        <div class="connect-grid">
+          <a href="https://www.instagram.com/pate.music" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">Instagram</span>
+            <span class="cl-handle">@pate.music</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">TikTok</span>
+            <span class="cl-handle">@patemusic.live</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">YouTube</span>
+            <span class="cl-handle">Pate Music</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://x.com/patecountry" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">X / Twitter</span>
+            <span class="cl-handle">@patecountry</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://m.facebook.com/PateCountry/" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">Facebook</span>
+            <span class="cl-handle">PateCountry</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://www.facebook.com/share/g/1JSQWfFoLe/" target="_blank" rel="noopener" class="connect-link">
+            <span class="cl-platform">Fan Group</span>
+            <span class="cl-handle">SWAT Nation Community</span>
+            <span class="cl-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="stream-cta">
+          <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener" class="btn-outline-white">Stream "Growing Up in the 072"</a>
+          <a href="/bio" class="btn-outline-white">All Links</a>
+        </div>
+
+        <!-- Email signup -->
+        <div class="email-signup">
+          <p class="email-signup-label">Join the SWAT Nation — get first access to new music, shows, and drops.</p>
+          <form class="email-signup-form" id="email-signup-form" onsubmit="handleEmailSignup(event)">
+            <input type="email" class="email-signup-input" id="email-input" placeholder="your@email.com" required aria-label="Email address" />
+            <button type="submit" class="email-signup-btn">Join the List</button>
+          </form>
+          <p class="email-signup-confirm" id="email-confirm" style="display:none;">You're in. SWAT Nation welcomes you.</p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- ─── FOOTER / CONTACT ─── -->
-  <footer id="contact" aria-label="Footer and contact">
-    <div class="container">
-      <div class="footer-inner">
-        <!-- Brand col -->
-        <div class="footer-brand">
-          <a href="#" class="nav__logo" aria-label="PATE — Home" style="display:inline-flex; width:fit-content;">
-            <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="36" height="36" rx="4" fill="#c8682a" fill-opacity="0.12"/>
-              <rect x="1" y="1" width="34" height="34" rx="3.5" stroke="#c8682a" stroke-opacity="0.3"/>
-              <path d="M10 9h9.5c2 0 3.5.6 4.5 1.7 1 1.1 1.5 2.5 1.5 4.3 0 1.8-.5 3.3-1.5 4.4-1 1.1-2.5 1.6-4.5 1.6H13.5V27H10V9z" fill="#c8682a"/>
-              <path d="M13.5 12v6H19c.9 0 1.6-.25 2.1-.75.5-.5.75-1.2.75-2.25s-.25-1.75-.75-2.25c-.5-.5-1.2-.75-2.1-.75H13.5z" fill="#0a0a08"/>
-            </svg>
-          </a>
-          <span class="footer-brand__name">PATE</span>
-          <p class="footer-brand__tagline">Country-Rap · Houston, Texas<br/>808's &amp; Tailgates — Streaming Now</p>
-          <div class="footer-social" aria-label="PATE social media links">
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" aria-label="PATE on TikTok">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.18 8.18 0 004.78 1.52V7a4.85 4.85 0 01-1.01-.31z"/></svg>
-            </a>
-            <!-- Spotify -->
-            <a href="https://open.spotify.com" target="_blank" rel="noopener" aria-label="PATE on Spotify">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.208c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 11-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 01.207.856zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.786-2.13-9.965-1.166a.78.78 0 01-.965-.519.78.78 0 01.52-.965c3.637-1.101 8.155-.568 11.225 1.322a.78.78 0 01.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.793c3.563-1.08 9.484-.872 13.22 1.37a.937.937 0 01-.06 1.58z"/></svg>
-            </a>
-            <!-- Apple Music -->
-            <a href="https://music.apple.com" target="_blank" rel="noopener" aria-label="PATE on Apple Music">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208c-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.148.018.298.029.445.06.893.232 1.762.658 2.565.37.696.9 1.27 1.554 1.716.77.523 1.622.788 2.513.89a19.507 19.507 0 002.02.106c.36.003.72 0 1.08 0H19.65c.36 0 .72.003 1.082 0a18.967 18.967 0 001.698-.087c.9-.12 1.76-.392 2.53-.93.68-.478 1.198-1.096 1.567-1.823.296-.578.458-1.196.566-1.827.076-.444.105-.893.106-1.344V6.124zm-10.006 9.82a3.015 3.015 0 01-1.69.512c-.71 0-1.355-.26-1.834-.73-.48-.47-.74-1.11-.74-1.796 0-1.43 1.164-2.62 2.574-2.62.418 0 .81.103 1.153.294V8.06l5.55-1.232v3.47l-3.41.755v3.867c0 .01.002.02.002.03a3.098 3.098 0 01-.605 1.994z"/></svg>
-            </a>
-            <!-- Instagram placeholder -->
-            <a href="#" aria-label="PATE on Instagram">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Nav col -->
-        <div>
-          <p class="footer-col-title">Navigate</p>
-          <ul class="footer-links" role="list">
-            <li><a href="#music">Music</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#shows">Shows</a></li>
-            <li><a href="#merch">Merch</a></li>
-            <li><a href="#presave">Pre-Save</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact col -->
-        <div>
-          <p class="footer-col-title">Contact</p>
-          <ul class="footer-links" role="list">
-            <li>
-              <a href="mailto:contact@patemusic.live" aria-label="Email PATE">
-                contact@patemusic.live
-              </a>
-            </li>
-            <li>
-              <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener">
-                @patemusic.live
-              </a>
-            </li>
-            <li>
-              <a href="#merch">Booking Inquiries</a>
-            </li>
-          </ul>
-        </div>
+  <!-- ───── FOOTER ───── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-logo">P A T E</p>
+      <p class="footer-tag">Country × Hip-Hop · Houston 072 · SWAT Nation</p>
+      <div class="footer-links">
+        <a href="epk.html">Press Kit</a>
+        <a href="/bio">Bio Page</a>
+        <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener">Stream</a>
       </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copyright">© 2026 PATE Music. All rights reserved.</p>
-        <p class="footer-powered">
-          Powered by <a href="https://myk.ac" target="_blank" rel="noopener">MYK</a>
-        </p>
+      <div class="footer-stream-links">
+        <a href="https://open.spotify.com/playlist/0Xb4WTtvcyiLJ3UJYkY8EU" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://music.apple.com/us/album/growing-up-in-the-072-s-w-a-t-nation/6773266215" target="_blank" rel="noopener">Apple Music</a>
+        <a href="https://music.amazon.com/albums/B0H2YVPQCP" target="_blank" rel="noopener">Amazon Music</a>
+        <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/pate.music" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener">TikTok</a>
       </div>
+      <p class="footer-legal">© 2026 PATE · SWAT Nation · Houston 072 · All rights reserved</p>
+      <p class="footer-myk">Site crafted by <a href="mailto:Publicist@Patemusic.live" class="footer-myk-link">Designs by MYK LLC</a> &nbsp;·&nbsp; Digital Design &amp; Creative Solutions</p>
     </div>
   </footer>
 
-  <script>
-    // ─── Nav scroll behavior ───
-    const nav = document.getElementById('main-nav');
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y > 20) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
-      lastY = y;
-    }, { passive: true });
 
-    // ─── Hamburger menu ───
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    let menuOpen = false;
+  <!-- ───── AMBIENT MUSIC PLAYER ───── -->
+  <div class="music-player" id="music-player" aria-label="Background music player">
+    <button class="mp-btn" id="mp-toggle" aria-label="Play background music" title="Play ambient music">
+      <svg class="mp-icon mp-play" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="mp-icon mp-pause" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <div class="mp-info">
+      <span class="mp-title" id="mp-title-text">Growing Up in the 072</span>
+      <span class="mp-artist">PATE</span>
+      <a class="mp-spotify-link" id="mp-spotify-link" href="https://open.spotify.com/playlist/0Xb4WTtvcyiLJ3UJYkY8EU" target="_blank" rel="noopener" title="Get it on Spotify">Get it on Spotify &#8599;</a>
+    </div>
+    <div class="mp-vol">
+      <input type="range" id="mp-volume" min="0" max="100" value="40" aria-label="Volume" />
+    </div>
+    <button class="mp-close" id="mp-close" aria-label="Dismiss player">&#215;</button>
+  </div>
 
-    function toggleMenu(open) {
-      menuOpen = open;
-      hamburger.classList.toggle('open', open);
-      mobileMenu.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
-
-    // Close on link click
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => toggleMenu(false));
-    });
-
-    // Close on outside click / Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menuOpen) toggleMenu(false);
-    });
-
-    // ─── Smooth scroll with offset ───
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 68;
-          const top = target.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
-    });
-
-    // ─── Active nav highlighting ───
-    const sections = document.querySelectorAll('section[id], footer[id]');
-    const navLinks = document.querySelectorAll('.nav__links a');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-          });
-        }
-      });
-    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-
-    sections.forEach(s => observer.observe(s));
-
-    // ─── Email form (non-functional, styled) ───
-    function handleEmailSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('button');
-      const input = form.querySelector('input');
-      btn.textContent = 'You\'re In ✓';
-      btn.style.background = '#437a22';
-      input.value = '';
-      input.disabled = true;
-      btn.disabled = true;
-    }
-
-    // ─── Intersection Observer fallback for scroll reveals ───
-    // (for browsers that don't support animation-timeline: view())
-    if (!CSS.supports('animation-timeline', 'view()')) {
-      const revealEls = document.querySelectorAll('.fade-in, .reveal-up');
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.clipPath = 'inset(0 0 0 0)';
-            entry.target.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), clip-path 0.6s cubic-bezier(0.16,1,0.3,1)';
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      revealEls.forEach(el => {
-        el.style.opacity = '0';
-        if (el.classList.contains('reveal-up')) {
-          el.style.clipPath = 'inset(8% 0 0 0)';
-        }
-        revealObserver.observe(el);
-      });
-    }
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>

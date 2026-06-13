@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PATE — Who Is JP? | Bio, Music & More</title>
+  <meta name="description" content="PATE (JP) blends hip-hop, country, and soul from Houston's 072. Stream 'Growing Up in the 072' now. Connect, listen, and get to know the artist." />
+  <meta name="keywords" content="PATE, JP, Houston country hip hop, 072, SWAT Nation, Growing Up in the 072, patemusic.live, independent artist bio" />
+  <meta property="og:title" content="PATE — Who Is JP?" />
+  <meta property="og:description" content="From Southwest Alief to every platform. Stream, connect, and hear the story." />
+  <meta property="og:image" content="assets/images/pate_cowboy_hat.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #000000;
+      --gold:       #D4AF37;
+      --neon-gold:  #FFD700;
+      --white:      #ffffff;
+      --dim:        rgba(255,255,255,0.6);
+      --font-display: 'Raleway', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --max:          520px;
+      --t:            0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── HERO ── */
+    .bio-hero {
+      position: relative;
+      width: 100%;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 3.5rem;
+      overflow: hidden;
+    }
+    .bio-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/images/pate_cowboy_hat.jpg');
+      background-size: cover;
+      background-position: center 20%;
+      filter: brightness(0.55);
+      z-index: 0;
+    }
+    .bio-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.85) 100%);
+      z-index: 1;
+    }
+    .bio-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: var(--max);
+      width: 100%;
+    }
+    .bio-back {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 10;
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color var(--t);
+    }
+    .bio-back:hover { color: var(--neon-gold); }
+    .bio-back svg { width: 14px; height: 14px; }
+    .bio-eyebrow {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--neon-gold);
+      text-shadow: 0 0 12px rgba(255,215,0,0.6);
+      margin-bottom: 0.6rem;
+    }
+    .bio-name {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: clamp(3.5rem, 18vw, 6rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--white);
+      text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+      margin-bottom: 1rem;
+    }
+    .bio-tagline {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 2rem;
+    }
+    .bio-hero-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .bio-tag {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.35rem 0.85rem;
+    }
+
+    /* ── SECTIONS ── */
+    .bio-section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .bio-section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.4rem, 6vw, 1.9rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+    }
+    .section-body {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* ── WHO IS JP banner ── */
+    .who-banner {
+      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(255,100,30,0.07) 100%);
+      border: 1px solid rgba(212,175,55,0.2);
+      padding: 2rem 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .who-banner-heading {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .who-banner p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+    }
+
+    /* ── FAQ ACCORDION ── */
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 0;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      gap: 1rem;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .faq-question:hover { color: var(--neon-gold); }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      color: var(--gold);
+      transition: transform var(--t);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      padding: 0;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding-bottom: 1rem;
+    }
+
+    /* ── IMAGE GALLERY SLIDER ── */
+    .gallery-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+    .gallery-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .gallery-slide {
+      min-width: 100%;
+    }
+    .gallery-slide img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+    .gallery-caption {
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-top: 2px solid rgba(212,175,55,0.3);
+    }
+    .gallery-caption-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+    .gallery-caption-body {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+    }
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background var(--t);
+      border: none;
+      padding: 0;
+    }
+    .gallery-dot.active { background: var(--gold); }
+
+    /* ── QUOTE CARD ── */
+    .quote-slide-inner {
+      padding: 2.5rem 1.5rem;
+      background: rgba(212,175,55,0.05);
+      border: 1px solid rgba(212,175,55,0.15);
+      aspect-ratio: unset;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .quote-slide-mark {
+      font-size: 3rem;
+      color: rgba(212,175,55,0.3);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      font-family: Georgia, serif;
+    }
+    .quote-slide-text {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .quote-slide-sub {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+    }
+
+    /* ── STREAMING BUTTONS ── */
+    .stream-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .stream-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      transition: background var(--t), border-color var(--t);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .stream-btn:hover {
+      background: rgba(212,175,55,0.07);
+      border-color: rgba(212,175,55,0.3);
+    }
+    .stream-btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .stream-btn-icon svg { width: 20px; height: 20px; }
+    .stream-btn-label {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .stream-btn-sublabel {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      margin-top: 0.1rem;
+    }
+    .stream-btn-arrow {
+      margin-left: auto;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.25);
+      transition: color var(--t);
+    }
+    .stream-btn:hover .stream-btn-arrow { color: var(--gold); }
+
+    /* ── SOCIAL ICONS ── */
+    .social-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--t), border-color var(--t);
+      cursor: pointer;
+    }
+    .social-btn:hover {
+      background: rgba(212,175,55,0.1);
+      border-color: rgba(212,175,55,0.4);
+    }
+    .social-btn svg { width: 22px; height: 22px; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonial-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .testimonial-card {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .testimonial-card:last-child { border-bottom: none; }
+    .testimonial-name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .testimonial-stars {
+      color: var(--neon-gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .testimonial-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.68);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      transition: border-color var(--t), background var(--t);
+    }
+    .contact-item:hover {
+      border-color: rgba(212,175,55,0.3);
+      background: rgba(212,175,55,0.04);
+    }
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .contact-icon svg { width: 20px; height: 20px; }
+    .contact-label {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.2rem;
+    }
+    .contact-value {
+      font-size: 0.88rem;
+      color: var(--white);
+      font-weight: 300;
+    }
+
+    /* ── ARTIST CARD ── */
+    .artist-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      border: 1px solid rgba(212,175,55,0.15);
+      background: rgba(212,175,55,0.04);
+    }
+    .artist-card-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid rgba(212,175,55,0.3);
+    }
+    .artist-card-name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .artist-card-role {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .artist-card-bio {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    .bio-footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem 3.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .bio-footer-brand {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.5rem;
+    }
+    .bio-footer-site {
+      font-family: var(--font-display);
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: color var(--t);
+    }
+    .bio-footer-site:hover { color: var(--neon-gold); }
+  </style>
+</head>
+<body>
+
+  <!-- Back to site -->
+  <a href="/" class="bio-back" aria-label="Back to patemusic.live">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+    patemusic.live
+  </a>
+
+  <!-- ── HERO ── -->
+  <section class="bio-hero">
+    <div class="bio-hero-bg"></div>
+    <div class="bio-hero-overlay"></div>
+    <div class="bio-hero-content">
+      <p class="bio-eyebrow">Southwest Alief &nbsp;·&nbsp; 072 &nbsp;·&nbsp; SWAT Nation</p>
+      <h1 class="bio-name">PATE</h1>
+      <p class="bio-tagline">Pate (JP) blends hip-hop, country, and soul from Houston's 072 — a versatile storyteller switching tones and textures to match every track's spirit.</p>
+      <div class="bio-hero-tags">
+        <span class="bio-tag">Country &times; Hip-Hop</span>
+        <span class="bio-tag">Houston TX</span>
+        <span class="bio-tag">Independent</span>
+        <span class="bio-tag">Growing Up in the 072</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHO IS JP ── -->
+  <section class="bio-section">
+    <p class="section-label">The Artist</p>
+    <div class="who-banner">
+      <h2 class="who-banner-heading">The Eclectic Sound You Haven't Heard Yet</h2>
+      <p>From the 072 to every beat and every bar — his story shaped his style. Country roads, concrete, and 808s. Raised in Southwest Alief, PATE carries the South's full weight across every genre line he crosses. Out now on all platforms.</p>
+    </div>
+    <h2 class="section-title">Who Is JP?</h2>
+    <p class="section-body">PATE — known as JP — grew up in Southwest Houston's 072, where the slab culture, country stations, and hip-hop radio all bled into the same block. He doesn't choose between genres because where he comes from, nobody did. His debut album <em>"Growing Up in the 072 – S.W.A.T. Nation"</em> is 18 tracks of lived-in storytelling — country soul, Houston bars, and the kind of truth that doesn't need a lane.</p>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="bio-section">
+    <p class="section-label">Common Questions</p>
+    <h2 class="section-title">About the Music</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is your genre?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">I blend hip-hop, country, and soul with deep Houston roots — creating a sound that's genuinely eclectic. No genre walls. Just what the track needs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can you change voices?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">Yes — I switch tone, style, and delivery to match the specific vision of each track. Some songs call for a drawl, some call for bars. I speak both.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Who are you?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">I'm PATE — also known as JP. A versatile vocalist and songwriter from Southwest Alief, Houston TX. Part of the SWAT Nation movement. Independently building, independently releasing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do you write your own songs?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">Every word. My style is rooted in rhythm and storytelling — I write to process, to remember, and to connect. Every lyric on "Growing Up in the 072" is lived-in truth.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Where can I book PATE?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">Reach out directly: <a href="mailto:Publicist@Patemusic.live" style="color:var(--gold)">Publicist@Patemusic.live</a> — for shows, features, collaborations, and press inquiries.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VISUALS & VIBES GALLERY ── -->
+  <section class="bio-section">
+    <p class="section-label">Visuals &amp; Vibes</p>
+    <h2 class="section-title">The World of PATE</h2>
+    <p class="section-body" style="margin-bottom:1.5rem;">Explore PATE's eclectic blend of hip-hop, country, and soul through dynamic imagery and authentic Houston storytelling.</p>
+    <div class="gallery-wrap">
+      <div class="gallery-track" id="gallery-track">
+        <div class="gallery-slide">
+          <img src="assets/images/pate_mic_bw.jpg" alt="PATE in the studio — black and white" loading="lazy" />
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">Urban Roots</p>
+            <p class="gallery-caption-body">Capturing the raw rhythm and streetwise storytelling that shaped PATE's foundation in Houston hip-hop culture.</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <img src="assets/images/country_road.png" alt="Country road at sunset — Houston outskirts" loading="lazy" />
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">Country Soul</p>
+            <p class="gallery-caption-body">Showcasing the soulful transition into country — heartfelt narratives with rich, organic Texas textures.</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <img src="assets/images/swat_nation_neon_new.png" alt="SWAT Nation neon mural — Houston" loading="lazy" />
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">SWAT Nation</p>
+            <p class="gallery-caption-body">Southwest Alief. The 072. A movement built from the ground up — independent, authentic, and not going anywhere.</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <img src="assets/images/album_cover.jpg" alt="Growing Up in the 072 — album cover" loading="lazy" />
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">Growing Up in the 072</p>
+            <p class="gallery-caption-body">18 tracks. One story. The debut album that started the movement — out now on all platforms.</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <div class="quote-slide-inner">
+            <div class="quote-slide-mark">&ldquo;</div>
+            <p class="quote-slide-text">Beats or lyrics — it all gotta hit.</p>
+            <p class="quote-slide-sub">713 raised. No genres — just pressure. Country, hip-hop, soul — whatever got that knock. From the first note to the final word, if it don't move you, it don't leave the studio. This ain't just music... it's <em>run it back.</em></p>
+          </div>
+          <div class="gallery-caption" style="border-top-color: rgba(212,175,55,0.5);">
+            <p class="gallery-caption-title">— PATE</p>
+            <p class="gallery-caption-body">Press play and see why.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-dots" id="gallery-dots"></div>
+  </section>
+
+  <!-- ── THE MAN BEHIND THE SOUND ── -->
+  <section class="bio-section">
+    <p class="section-label">The Man Behind the Sound</p>
+    <h2 class="section-title">Meet JP</h2>
+    <div class="artist-card">
+      <img src="assets/images/pate_cowboy_hat.jpg" alt="PATE — JP" class="artist-card-img" loading="lazy" />
+      <div>
+        <p class="artist-card-name">JP (Pate)</p>
+        <p class="artist-card-role">Lead Vocalist &amp; Songwriter</p>
+        <p class="artist-card-bio">An eclectic artist blending hip-hop rhythms, country storytelling, and authentic Houston soul. Known for versatile vocal delivery and a genre-defying style that resonates across every musical landscape — from dance halls to recording studios to the open road.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CLICK & PRESS PLAY ── -->
+  <section class="bio-section">
+    <p class="section-label">Click &amp; Press Play</p>
+    <h2 class="section-title">Stream Now</h2>
+    <div class="stream-grid">
+      <a href="https://open.spotify.com/playlist/0Xb4WTtvcyiLJ3UJYkY8EU" target="_blank" rel="noopener" class="stream-btn">
+        <div class="stream-btn-icon" style="background:#1DB954;">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 14.36c-.24.36-.72.48-1.08.24-2.96-1.8-6.68-2.2-11.08-1.2-.4.08-.8-.16-.88-.56-.08-.4.16-.8.56-.88 4.8-1.08 8.92-.64 12.2 1.32.36.24.48.72.28 1.08zm1.24-2.76c-.28.44-.88.6-1.32.32-3.4-2.08-8.56-2.68-12.56-1.48-.48.12-.96-.12-1.12-.6-.12-.48.12-.96.6-1.12 4.56-1.36 10.28-.72 14.12 1.64.44.28.6.88.28 1.24zm.12-2.88c-4.04-2.4-10.72-2.64-14.6-1.44-.6.16-1.2-.2-1.36-.8-.16-.6.2-1.2.8-1.36 4.44-1.32 11.84-1.08 16.52 1.64.56.32.76 1.04.44 1.6-.32.56-1.04.76-1.8.36z"/></svg>
+        </div>
+        <div>
+          <p class="stream-btn-label">Spotify</p>
+          <p class="stream-btn-sublabel">Growing Up in the 072 Playlist</p>
+        </div>
+        <span class="stream-btn-arrow">&#8599;</span>
+      </a>
+      <a href="https://music.apple.com/us/album/growing-up-in-the-072-s-w-a-t-nation/6773266215" target="_blank" rel="noopener" class="stream-btn">
+        <div class="stream-btn-icon" style="background:linear-gradient(135deg,#fc5c7d,#6a3093);">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208A9.24 9.24 0 00.08 5.38C.024 5.85 0 6.33 0 6.805v10.39c.002.5.025.998.079 1.494a9.243 9.243 0 00.239 2.19c.317 1.31 1.062 2.31 2.18 3.043a5.03 5.03 0 001.877.726c.516.1 1.035.15 1.558.16.067.002.137.004.204.005h10.042c.5-.002.998-.025 1.494-.079a9.238 9.238 0 002.19-.239c1.31-.317 2.31-1.062 3.043-2.18a5.022 5.022 0 00.726-1.877c.1-.516.15-1.035.16-1.558.002-.067.004-.137.005-.204V6.805c-.002-.228-.012-.455-.03-.68zm-7.973 4.857c-.012.267-.014 1.803-.014 2.48 0 .427-.004.855-.006 1.282-.004 1.08-.832 1.968-1.913 1.968-1.07 0-1.924-.853-1.924-1.924 0-1.07.854-1.924 1.924-1.924.314 0 .61.08.87.218V8.8c0-.032.001-.065.003-.098l.025-.303.31.028c.41.037.808.143 1.183.32l.2.093-.43.132-.228.07z"/></svg>
+        </div>
+        <div>
+          <p class="stream-btn-label">Apple Music</p>
+          <p class="stream-btn-sublabel">Growing Up in the 072</p>
+        </div>
+        <span class="stream-btn-arrow">&#8599;</span>
+      </a>
+      <a href="https://music.amazon.com/albums/B0H2YVPQCP" target="_blank" rel="noopener" class="stream-btn">
+        <div class="stream-btn-icon" style="background:#FF9900;">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.047-.872-1.234-1.276-1.813-2.106-1.73 1.765-2.956 2.294-5.197 2.294-2.652 0-4.716-1.641-4.716-4.921 0-2.563 1.391-4.309 3.37-5.164 1.715-.75 4.11-.883 5.942-1.088v-.406c0-.747.058-1.63-.383-2.274-.385-.578-1.124-.816-1.776-.816-1.206 0-2.284.619-2.547 1.903-.054.285-.261.567-.549.582l-3.076-.333c-.259-.058-.548-.266-.472-.66C5.757 2.206 8.588 1.5 11.116 1.5c1.298 0 2.994.346 4.018 1.328 1.298 1.209 1.174 2.824 1.174 4.576v4.146c0 1.247.516 1.794 1.003 2.467.171.24.208.528-.008.707-.543.454-1.509 1.293-2.039 1.763l-.12-.682zm2.198 1.57c-2.456 1.815-6.02 2.783-9.085 2.783-4.297 0-8.167-1.588-11.092-4.231-.23-.208-.025-.492.252-.331 3.159 1.838 7.066 2.943 11.099 2.943 2.721 0 5.713-.563 8.469-1.731.415-.176.762.273.357.567zm1.018-1.158c-.313-.402-2.072-.19-2.863-.096-.241.031-.278-.18-.061-.332 1.402-.985 3.701-.7 3.971-.371.271.332-.07 2.636-1.386 3.735-.201.169-.394.079-.305-.144.297-.733.955-2.39.644-2.792z"/></svg>
+        </div>
+        <div>
+          <p class="stream-btn-label">Amazon Music</p>
+          <p class="stream-btn-sublabel">Growing Up in the 072</p>
+        </div>
+        <span class="stream-btn-arrow">&#8599;</span>
+      </a>
+      <a href="https://youtube.com/channel/UCKrrdkKMDa_H-jcdCAEmTZw" target="_blank" rel="noopener" class="stream-btn">
+        <div class="stream-btn-icon" style="background:#FF0000;">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </div>
+        <div>
+          <p class="stream-btn-label">YouTube</p>
+          <p class="stream-btn-sublabel">Official Channel</p>
+        </div>
+        <span class="stream-btn-arrow">&#8599;</span>
+      </a>
+      <a href="https://distrokid.com/hyperfollow/pate10/growing-up-in-the-072-swat-nation/" target="_blank" rel="noopener" class="stream-btn">
+        <div class="stream-btn-icon" style="background:rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/></svg>
+        </div>
+        <div>
+          <p class="stream-btn-label">All Platforms</p>
+          <p class="stream-btn-sublabel">HyperFollow — Pre-save &amp; Stream</p>
+        </div>
+        <span class="stream-btn-arrow">&#8599;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CONNECT (SOCIALS) ── -->
+  <section class="bio-section">
+    <p class="section-label">Connect with JP</p>
+    <h2 class="section-title">Follow Along</h2>
+    <p class="section-body" style="margin-bottom:1.75rem;">The conversation is happening daily. Follow PATE for behind-the-scenes, new drops, and everything Houston.</p>
+    <div class="social-grid">
+      <a href="https://www.instagram.com/pate.music" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.53V6.77a4.85 4.85 0 01-1-.08z"/></svg>
+      </a>
+      <a href="https://x.com/patecountry" target="_blank" rel="noopener" class="social-btn" aria-label="X / Twitter">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://m.facebook.com/PateCountry/" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/share/g/1JSQWfFoLe/" target="_blank" rel="noopener" class="social-btn" aria-label="Fan Group">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FAN TESTIMONIALS ── -->
+  <section class="bio-section">
+    <p class="section-label">What Fans Are Saying</p>
+    <h2 class="section-title">The Word Is Out</h2>
+    <div class="testimonial-list">
+      <div class="testimonial-card">
+        <p class="testimonial-name">Marcus T.</p>
+        <p class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="testimonial-text">"PATE's ability to switch from rap flows to country ballads is insane. His Houston roots add a soulful depth you don't find anywhere else. Truly one of a kind."</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-name">Sarah L.</p>
+        <p class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="testimonial-text">"I never thought I'd love a country artist with such strong hip-hop roots, but JP does it perfectly. Authentic, real, and incredibly engaging."</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-name">Elena R.</p>
+        <p class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="testimonial-text">"The versatility in his voice is mind-blowing. He changes tones seamlessly — it feels like he becomes the character in each song. Pure talent."</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-name">David K. — Producer</p>
+        <p class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="testimonial-text">"As a producer, I appreciate the rhythmic complexity in his tracks. He blends genres without forcing it — the style keeps listeners hooked from start to finish."</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-name">Jessi M.</p>
+        <p class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="testimonial-text">"Finally, an artist who refuses to be boxed in. The mix of soul, rhythm, and storytelling is refreshing — a breath of fresh air in the modern music scene."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GET IN TOUCH ── -->
+  <section class="bio-section">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-list">
+      <a href="mailto:pate@patemusic.live" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        </div>
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-value">pate@patemusic.live</p>
+        </div>
+      </a>
+      <a href="mailto:Publicist@Patemusic.live" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+        </div>
+        <div>
+          <p class="contact-label">Press &amp; Bookings</p>
+          <p class="contact-value">Publicist@Patemusic.live</p>
+        </div>
+      </a>
+      <a href="https://patemusic.live" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253M3 12a8.959 8.959 0 01.284-2.253"/></svg>
+        </div>
+        <div>
+          <p class="contact-label">Website</p>
+          <p class="contact-value">patemusic.live</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="bio-footer">
+    <p class="bio-footer-brand">Southwest Alief &nbsp;·&nbsp; 072 &nbsp;·&nbsp; SWAT Nation &nbsp;·&nbsp; Independent</p>
+    <a href="https://patemusic.live" class="bio-footer-site">patemusic.live</a>
+  <p style="font-family:'Raleway',sans-serif;font-weight:200;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:0.75rem;">Site crafted by <a href="mailto:Publicist@Patemusic.live" style="color:rgba(212,175,55,0.5);text-decoration:none;">Designs by MYK LLC</a></p>
+  </footer>
+
+  <script>
+    // ── Gallery Slider ──
+    (function() {
+      const track = document.getElementById('gallery-track');
+      const dotsEl = document.getElementById('gallery-dots');
+      if (!track) return;
+      const slides = track.querySelectorAll('.gallery-slide');
+      let current = 0;
+      let timer;
+
+      slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+      });
+      const dots = dotsEl.querySelectorAll('.gallery-dot');
+
+      function goTo(idx) {
+        dots[current].classList.remove('active');
+        current = (idx + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots[current].classList.add('active');
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      // Touch swipe
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+      });
+
+      resetTimer();
+    })();
+
+    // ── FAQ Accordion ──
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
