@@ -8,21 +8,22 @@
   <meta property="og:title" content="LTI by JMichael — Design Studio · Houston, TX" />
   <meta property="og:description" content="Custom logos, album covers, apparel, brand kits and creative services from an independent Texas artist. The Inspire® line. The 072 Collection." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0a0a08" />
+  <meta name="theme-color" content="#12101a" />
   <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── DESIGN TOKENS ─── */
+    /* ─── DESIGN TOKENS — artisan gallery: teal + muted purple ─── */
     :root {
-      --color-bg:           #0a0a08;
-      --color-surface:      #111110;
-      --color-surface-2:    #1a1917;
-      --color-border:       #2a2926;
-      --color-text:         #e8e6e1;
-      --color-text-muted:   #8a8884;
-      --color-text-faint:   #504e4b;
-      --color-primary:      #c8682a;
-      --color-primary-hover:#a8501e;
+      --color-bg:           #12101a;
+      --color-surface:      #1a1726;
+      --color-surface-2:    #231f32;
+      --color-border:       #342f48;
+      --color-text:         #f2ebe3;
+      --color-text-muted:   #9d94ab;
+      --color-text-faint:   #6b6378;
+      --color-primary:      #4db8a8;
+      --color-primary-hover:#3a9a8c;
+      --color-accent:       #8b6fc7;
 
       --font-display: 'Zodiak', Georgia, serif;
       --font-body:    'Cabinet Grotesk', system-ui, sans-serif;
@@ -45,7 +46,9 @@
     }
 
     body {
-      background: var(--color-bg);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 111, 199, 0.08) 0%, transparent 55%),
+        linear-gradient(180deg, #16132a 0%, var(--color-bg) 35%);
       color: var(--color-text);
       font-family: var(--font-body);
       font-size: 16px;
@@ -93,7 +96,7 @@
       justify-content: space-between;
       padding: 0 clamp(20px, 5vw, 60px);
       height: 64px;
-      background: rgba(10,10,8,0.92);
+      background: rgba(18,16,26,0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border);
@@ -233,8 +236,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,104,42,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,104,42,0.04) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(77,184,168,0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(139,111,199,0.08) 0%, transparent 60%);
       pointer-events: none;
     }
     /* Decorative large "LTI" watermark */
@@ -248,7 +251,7 @@
       font-size: clamp(180px, 24vw, 380px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(200,104,42,0.07);
+      -webkit-text-stroke: 1px rgba(77,184,168,0.07);
       pointer-events: none;
       line-height: 1;
       user-select: none;
@@ -339,7 +342,7 @@
     .btn-primary:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(200,104,42,0.35);
+      box-shadow: 0 8px 24px rgba(77,184,168,0.35);
     }
     .btn-ghost {
       background: transparent;
@@ -377,8 +380,8 @@
     }
     .badge.accent {
       color: var(--color-primary);
-      border-color: rgba(200,104,42,0.3);
-      background: rgba(200,104,42,0.08);
+      border-color: rgba(77,184,168,0.3);
+      background: rgba(77,184,168,0.08);
     }
 
     .hero-stat-grid {
@@ -609,7 +612,7 @@
         box-shadow var(--transition-interactive);
     }
     .bento-card:hover {
-      border-color: rgba(200,104,42,0.4);
+      border-color: rgba(77,184,168,0.4);
       transform: translateY(-3px);
       box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     }
@@ -619,7 +622,7 @@
     .bento-icon {
       width: 48px;
       height: 48px;
-      background: rgba(200,104,42,0.12);
+      background: rgba(77,184,168,0.12);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
@@ -696,17 +699,17 @@
       pointer-events: none;
     }
     .collection-block.inspire::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,104,42,0.12) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77,184,168,0.12) 0%, transparent 70%);
     }
     .collection-block.zero72::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,104,42,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77,184,168,0.06) 0%, transparent 70%);
     }
     .collection-number {
       font-family: var(--font-display);
       font-size: clamp(80px, 14vw, 180px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(200,104,42,0.15);
+      -webkit-text-stroke: 1px rgba(77,184,168,0.15);
       line-height: 1;
       position: absolute;
       top: 20px;
@@ -795,8 +798,8 @@
       width: 52px;
       height: 52px;
       border-radius: var(--radius-md);
-      background: rgba(200,104,42,0.1);
-      border: 1px solid rgba(200,104,42,0.2);
+      background: rgba(77,184,168,0.1);
+      border: 1px solid rgba(77,184,168,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -860,13 +863,13 @@
         box-shadow var(--transition-interactive);
     }
     .pricing-card:hover {
-      border-color: rgba(200,104,42,0.4);
+      border-color: rgba(77,184,168,0.4);
       transform: translateY(-4px);
       box-shadow: 0 16px 48px rgba(0,0,0,0.5);
     }
     .pricing-card.featured-card {
-      background: rgba(200,104,42,0.06);
-      border-color: rgba(200,104,42,0.35);
+      background: rgba(77,184,168,0.06);
+      border-color: rgba(77,184,168,0.35);
     }
     .pricing-card.featured-card:hover {
       border-color: var(--color-primary);
@@ -933,7 +936,7 @@
       text-transform: uppercase;
       color: var(--color-primary);
       padding: 12px;
-      border: 1px solid rgba(200,104,42,0.3);
+      border: 1px solid rgba(77,184,168,0.3);
       border-radius: var(--radius-sm);
       transition:
         background var(--transition-interactive),
@@ -1046,7 +1049,7 @@
     input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
     input:focus, select:focus, textarea:focus {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(200,104,42,0.15);
+      box-shadow: 0 0 0 3px rgba(77,184,168,0.15);
     }
     select {
       cursor: pointer;
@@ -1078,7 +1081,7 @@
     .form-submit:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(200,104,42,0.35);
+      box-shadow: 0 8px 24px rgba(77,184,168,0.35);
     }
     .form-submit:active { transform: translateY(0); }
     .form-note {
@@ -1235,7 +1238,7 @@
     .form-success-icon {
       width: 56px;
       height: 56px;
-      background: rgba(200,104,42,0.12);
+      background: rgba(77,184,168,0.12);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1257,11 +1260,11 @@
           <!-- "LTI" letterforms -->
           <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
           <!-- accent underline bar -->
-          <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8682a"/>
+          <rect x="0" y="32" width="52" height="2" rx="1" fill="#4db8a8"/>
           <!-- "by JMichael" small text -->
           <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
           <!-- small star/dot accent -->
-          <circle cx="143" cy="8" r="3" fill="#c8682a" opacity="0.7"/>
+          <circle cx="143" cy="8" r="3" fill="#8b6fc7" opacity="0.7"/>
         </svg>
       </a>
 
@@ -1842,9 +1845,9 @@
           <div class="footer-logo">
             <svg viewBox="0 0 148 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="auto" aria-label="LTI by JMichael">
               <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
-              <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8682a"/>
+              <rect x="0" y="32" width="52" height="2" rx="1" fill="#4db8a8"/>
               <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
-              <circle cx="143" cy="8" r="3" fill="#c8682a" opacity="0.7"/>
+              <circle cx="143" cy="8" r="3" fill="#8b6fc7" opacity="0.7"/>
             </svg>
           </div>
           <p class="footer-brand-desc">Independent Texas creative studio doing custom digital art, limited apparel, music merch, and brand design. Houston-rooted, culture-driven, always original.</p>

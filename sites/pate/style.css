@@ -15,12 +15,15 @@ img, picture, video { display: block; max-width: 100%; height: auto; }
 button { cursor: pointer; background: none; border: none; }
 a { text-decoration: none; }
 
-/* ─── DESIGN TOKENS ─── */
+/* ─── DESIGN TOKENS — Houston SWAT: warm gold on deep brown/black ─── */
 :root {
-  --black:       #000000;
+  --black:       #0a0804;
+  --brown:       #140f08;
+  --brown-mid:   #1c150c;
   --white:       #ffffff;
-  --gold:        #D4AF37;
-  --gold-dim:    rgba(212, 175, 55, 0.25);
+  --gold:        #E5A830;
+  --amber:       #FF9F1C;
+  --gold-dim:    rgba(229, 168, 48, 0.28);
 
   /* Typography */
   --font-display: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -40,7 +43,9 @@ a { text-decoration: none; }
 /* ─── BASE ─── */
 body {
   font-family: var(--font-body);
-  background: var(--black);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(229, 168, 48, 0.06) 0%, transparent 55%),
+    linear-gradient(180deg, var(--brown) 0%, var(--black) 40%, #060504 100%);
   color: var(--white);
   font-size: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
   line-height: 1.6;
@@ -101,7 +106,7 @@ body {
   transition: background var(--t-mid) var(--ease-out), padding var(--t-mid) var(--ease-out);
 }
 .site-nav.scrolled {
-  background: rgba(0,0,0,0.92);
+  background: rgba(10, 8, 4, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding-top: 1rem;
@@ -320,8 +325,8 @@ body {
 .strip-item:hover img { transform: scale(1.04); }
 
 .strip-item-dark {
-  background: #0a0a0a;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--brown-mid);
+  border: 1px solid rgba(229, 168, 48, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -435,7 +440,7 @@ body {
 /* ─── VIDEO PANEL ─── */
 .video-panel {
   position: relative;
-  background: #050505;
+  background: var(--brown);
   padding: clamp(5rem, 10vw, 10rem) clamp(2rem, 6vw, 8rem);
 }
 .video-panel-bg {
@@ -506,7 +511,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: clamp(3rem, 6vw, 8rem);
-  background: #070707;
+  background: var(--brown-mid);
 }
 .gp-text-left { text-align: right; align-items: flex-end; }
 
@@ -1126,7 +1131,7 @@ body {
 
 /* ─── CLUBS, SALOONS & DANCE HALLS ─── */
 .venues-section {
-  background: #050505;
+  background: var(--brown);
   padding: clamp(5rem, 10vw, 10rem) clamp(2rem, 6vw, 8rem);
   border-top: 1px solid rgba(255,255,255,0.05);
 }
@@ -1520,7 +1525,7 @@ body {
 
 /* ─── RADIO SECTION ─── */
 .radio-section {
-  background: #040404;
+  background: var(--black);
   padding: clamp(4rem, 8vw, 8rem) clamp(2rem, 6vw, 8rem);
   border-top: 1px solid rgba(255,255,255,0.05);
   border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -1754,11 +1759,11 @@ body {
   animation-duration: 22s;
   animation-delay: 0s;
 }
-/* Blue-cool spike — bottom right drift */
+/* Warm amber spike — bottom right drift */
 .neon-spikes-bg::after {
   width: 500px;
   height: 350px;
-  background: radial-gradient(ellipse, rgba(30,80,180,0.12) 0%, rgba(0,150,200,0.06) 50%, transparent 75%);
+  background: radial-gradient(ellipse, rgba(255, 159, 28, 0.14) 0%, rgba(229, 168, 48, 0.06) 50%, transparent 75%);
   bottom: -80px;
   right: -80px;
   animation-duration: 28s;
