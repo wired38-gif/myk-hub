@@ -1,4 +1,14 @@
 {
   "start": "node server.js",
-  "build": "npm install"
+  "build": "npm install",
+  "allowedHosts": [
+    "myk.ac",
+    "www.myk.ac",
+    "patemusic.live",
+    "www.patemusic.live",
+    "ltibyjmichael.com",
+    "www.ltibyjmichael.com",
+    "designbyjmichael.com",
+    "www.designbyjmichael.com"
+  ]
 }
