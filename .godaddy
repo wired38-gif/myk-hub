@@ -1,6 +1,6 @@
 {
   "start": "node server.js",
-  "build": "npm install",
+  "build": "npm run build",
   "allowedHosts": [
     "myk.ac",
     "www.myk.ac",
