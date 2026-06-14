@@ -23,8 +23,11 @@ const SITE_MAP = {
 
 const SITES_ROOT = path.join(__dirname, 'sites');
 
-function resolveSite(host) {
-  const normalized = (host || '').toLowerCase().split(':')[0];
+function resolveSite(req) {
+  const forwarded = req.headers['x-forwarded-host'];
+  const hostHeader = Array.isArray(forwarded) ? forwarded[0] : forwarded;
+  const host = (hostHeader || req.headers.host || '').toLowerCase().split(',')[0].trim();
+  const normalized = host.split(':')[0];
   return SITE_MAP[normalized] || 'myk';
 }
 
@@ -69,7 +72,7 @@ app.use((_req, res, next) => {
 
 // Per-domain static file serving
 app.use((req, res, next) => {
-  const site = resolveSite(req.headers.host);
+  const site = resolveSite(req);
   const siteDir = path.join(SITES_ROOT, site);
 
   express.static(siteDir, {
@@ -81,7 +84,7 @@ app.use((req, res, next) => {
 
 // SPA / clean URL fallback — serve index.html for unmatched routes
 app.get('*', (req, res) => {
-  const site = resolveSite(req.headers.host);
+  const site = resolveSite(req);
   res.sendFile(path.join(SITES_ROOT, site, 'index.html'));
 });
 
