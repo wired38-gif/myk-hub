@@ -8,6 +8,8 @@ module.exports = {
     allowedHosts: [
       'myk.ac',
       'www.myk.ac',
+      'pate.myk.ac',
+      'lti.myk.ac',
       'patemusic.live',
       'www.patemusic.live',
       'ltibyjmichael.com',

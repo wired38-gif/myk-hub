@@ -25,12 +25,29 @@ const SITE_MAP = {
 
 const SITES_ROOT = path.join(__dirname, 'sites');
 
+function hostCandidates(req) {
+  const parts = [];
+  const add = (value) => {
+    if (!value) return;
+    const raw = Array.isArray(value) ? value.join(',') : String(value);
+    for (const piece of raw.toLowerCase().split(',')) {
+      const host = piece.trim().split(':')[0];
+      if (host) parts.push(host);
+    }
+  };
+  // X-Hub-Host is set by the Cloudflare worker and is not rewritten by GoDaddy edge.
+  add(req.headers['x-hub-host']);
+  add(req.headers['x-forwarded-host']);
+  add(req.headers.host);
+  return parts;
+}
+
 function resolveSite(req) {
-  const forwarded = req.headers['x-forwarded-host'];
-  const hostHeader = Array.isArray(forwarded) ? forwarded[0] : forwarded;
-  const host = (hostHeader || req.headers.host || '').toLowerCase().split(',')[0].trim();
-  const normalized = host.split(':')[0];
-  return SITE_MAP[normalized] || 'myk';
+  for (const host of hostCandidates(req)) {
+    const site = SITE_MAP[host];
+    if (site) return site;
+  }
+  return 'myk';
 }
 
 if (BRAIN_ENABLED) {
