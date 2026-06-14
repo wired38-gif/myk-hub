@@ -1,11 +1,28 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 const BRAIN_PREFIX = (process.env.BRAIN_PROXY_PREFIX || '/brain').replace(/\/$/, '');
-const BRAIN_TARGET = (process.env.BRAIN_PROXY_TARGET || '').replace(/\/$/, '');
-const BRAIN_ENABLED = process.env.BRAIN_PROXY_ENABLED === '1' && BRAIN_TARGET;
+const BRAIN_PROXY_FILE = path.join(__dirname, 'config', 'brain-proxy-target.json');
+
+function loadBrainTargetFromFile() {
+  try {
+    const raw = fs.readFileSync(BRAIN_PROXY_FILE, 'utf8');
+    const parsed = JSON.parse(raw);
+    return String(parsed.url || parsed.target || '').replace(/\/$/, '');
+  } catch {
+    return '';
+  }
+}
+
+const fileBrainTarget = loadBrainTargetFromFile();
+const BRAIN_TARGET = (process.env.BRAIN_PROXY_TARGET || fileBrainTarget || '').replace(/\/$/, '');
+const BRAIN_ENABLED =
+  (process.env.BRAIN_PROXY_ENABLED === '1'
+    || (process.env.BRAIN_PROXY_ENABLED !== '0' && Boolean(fileBrainTarget)))
+  && BRAIN_TARGET;
 
 console.log(`[myk-hub] BRAIN_PROXY enabled=${!!BRAIN_ENABLED} prefix=${BRAIN_PREFIX} target=${BRAIN_TARGET ? BRAIN_TARGET.slice(0, 40) + '...' : '(empty)'}`);
 
