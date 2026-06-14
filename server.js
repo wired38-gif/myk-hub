@@ -15,6 +15,8 @@ const SITE_MAP = {
   'www.patemusic.live': 'pate',
   'myk.ac': 'myk',
   'www.myk.ac': 'myk',
+  'pate.myk.ac': 'pate',
+  'lti.myk.ac': 'lti',
   'ltibyjmichael.com': 'lti',
   'www.ltibyjmichael.com': 'lti',
   'designbyjmichael.com': 'lti',
