@@ -35,6 +35,10 @@ npm start
 # http://localhost:20010 (set PORT to override)
 ```
 
+### Troubleshooting Vite auto-detect
+
+If deploy logs mention **vite** or **vite build** but this app is plain Express, remove  from the repo. Hostname allowlist lives in  ().
+
 ### Troubleshooting ENOENT `/app/package.json`
 
 1. Confirm GoDaddy is linked to **`wired38-gif/myk-hub`**, not `Myks-Brain`.

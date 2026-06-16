@@ -10,22 +10,24 @@
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#12101a" />
   <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── DESIGN TOKENS — artisan gallery: teal + muted purple ─── */
+    /* ─── DESIGN TOKENS — artisan gallery: warm coral + plum + teal ─── */
     :root {
-      --color-bg:           #12101a;
-      --color-surface:      #1a1726;
-      --color-surface-2:    #231f32;
-      --color-border:       #342f48;
-      --color-text:         #f2ebe3;
-      --color-text-muted:   #9d94ab;
-      --color-text-faint:   #6b6378;
-      --color-primary:      #4db8a8;
-      --color-primary-hover:#3a9a8c;
-      --color-accent:       #8b6fc7;
+      --color-bg:           #141018;
+      --color-surface:      #1d1724;
+      --color-surface-2:    #2a2233;
+      --color-border:       #3d3350;
+      --color-text:         #f8efe6;
+      --color-text-muted:   #b9a8c4;
+      --color-text-faint:   #7d6f8f;
+      --color-primary:      #e07a5f;
+      --color-primary-hover:#c96850;
+      --color-accent:       #9b6fd4;
+      --color-accent-2:     #4db8a8;
 
-      --font-display: 'Zodiak', Georgia, serif;
+      --font-display: 'Syne', 'Zodiak', Georgia, serif;
       --font-body:    'Cabinet Grotesk', system-ui, sans-serif;
 
       --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -47,8 +49,9 @@
 
     body {
       background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 111, 199, 0.08) 0%, transparent 55%),
-        linear-gradient(180deg, #16132a 0%, var(--color-bg) 35%);
+        radial-gradient(ellipse 70% 45% at 15% 0%, rgba(224, 122, 95, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 90% 10%, rgba(155, 111, 212, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #1a1422 0%, var(--color-bg) 40%);
       color: var(--color-text);
       font-family: var(--font-body);
       font-size: 16px;
@@ -296,8 +299,27 @@
       margin-bottom: 28px;
     }
     .hero-heading em {
-      font-style: italic;
+      font-style: normal;
       color: var(--color-primary);
+    }
+
+    .hero-disciplines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-discipline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      border: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+      padding: 8px 14px;
+      background: color-mix(in srgb, var(--color-accent) 8%, transparent);
     }
     .hero-sub {
       font-size: 16px;
@@ -606,15 +628,26 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      position: relative;
       transition:
         border-color var(--transition-interactive),
         transform var(--transition-interactive),
         box-shadow var(--transition-interactive);
     }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+      border-radius: calc(var(--radius-lg) - 6px);
+      pointer-events: none;
+    }
+
     .bento-card:hover {
-      border-color: rgba(77,184,168,0.4);
+      border-color: color-mix(in srgb, var(--color-primary) 50%, var(--color-border));
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 48px rgba(224, 122, 95, 0.12);
     }
     .bento-card.featured {
       background: var(--color-surface-2);
@@ -1292,8 +1325,9 @@
   <!-- ═══════════════════════════════ MARQUEE ═══════════════════════════ -->
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track">
-      <span>Custom Art</span><span class="dot">·</span>
-      <span>Limited Drops</span><span class="dot">·</span>
+      <span>Digital Art</span><span class="dot">·</span>
+      <span>Music Merch</span><span class="dot">·</span>
+      <span>Apparel Drops</span><span class="dot">·</span>
       <span>072 Collection</span><span class="dot">·</span>
       <span>Texas Heritage</span><span class="dot">·</span>
       <span>Inspire®</span><span class="dot">·</span>
@@ -1302,8 +1336,9 @@
       <span>Album Art</span><span class="dot">·</span>
       <span>Houston, TX</span><span class="dot">·</span>
       <!-- duplicate for seamless loop -->
-      <span>Custom Art</span><span class="dot">·</span>
-      <span>Limited Drops</span><span class="dot">·</span>
+      <span>Digital Art</span><span class="dot">·</span>
+      <span>Music Merch</span><span class="dot">·</span>
+      <span>Apparel Drops</span><span class="dot">·</span>
       <span>072 Collection</span><span class="dot">·</span>
       <span>Texas Heritage</span><span class="dot">·</span>
       <span>Inspire®</span><span class="dot">·</span>
@@ -1320,13 +1355,19 @@
     <section class="hero" id="top" aria-labelledby="hero-heading">
       <div class="hero-inner">
         <div class="hero-content">
-          <div class="hero-eyebrow">Houston, Texas</div>
+          <div class="hero-eyebrow">Houston, Texas · Art in all forms</div>
+          <div class="hero-disciplines" aria-label="Creative disciplines">
+            <span class="hero-discipline">Digital Art</span>
+            <span class="hero-discipline">Music Merch</span>
+            <span class="hero-discipline">Apparel</span>
+            <span class="hero-discipline">Brand Design</span>
+          </div>
           <h1 class="hero-heading display" id="hero-heading">
             Design<br />
             by <em>J</em>Michael
           </h1>
           <p class="hero-sub">
-            <strong>Custom Art · Apparel · Creative Services.</strong><br />
+            <strong>Digital · Musical · Wearable · Visual.</strong><br />
             Independent Texas artist blending music culture, street art, and design into work that actually means something. Every piece is original — no templates, no shortcuts.
           </p>
           <div class="hero-ctas">
@@ -1876,10 +1917,11 @@
           </div>
 
           <div class="footer-nav-group">
-            <div class="footer-nav-title">Family Sites</div>
+            <div class="footer-nav-title">Related</div>
             <ul class="footer-nav-links">
-              <li><a href="https://queenscustoms.shop" target="_blank" rel="noopener noreferrer">queenscustoms.shop</a></li>
+              <li><a href="https://myk.ac" target="_blank" rel="noopener noreferrer">myk.ac</a></li>
               <li><a href="https://patemusic.live" target="_blank" rel="noopener noreferrer">patemusic.live</a></li>
+              <li><a href="https://queenscustoms.shop" target="_blank" rel="noopener noreferrer">queenscustoms.shop</a></li>
             </ul>
           </div>
         </div>
