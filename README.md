@@ -37,13 +37,17 @@ npm start
 # http://localhost:20010 (set PORT to override)
 ```
 
-### Troubleshooting Vite auto-detect
+### `vite.config.js` (required for GoDaddy Git sync)
 
-If deploy logs mention **vite** or **vite build** but this app is plain Express, keep **`vite.config.js` out of the repo**. GoDaddy may auto-run Vite when that file exists even though `vite` is not in `package.json`. Hostname allowlist lives in **`.godaddy`** (`allowedHosts`).
+This hub is **plain Express** — not a Vite SPA — but **keep `vite.config.js` committed on `main`**. GoDaddy Node.js PaaS may modify that file locally for hostname routing; if `main` deletes it, the next platform pull hits a **modify/delete merge conflict** and deploy fails.
+
+- **`vite.config.js`** — `server.allowedHosts` must match **`.godaddy`** `allowedHosts` (platform reads both).
+- **`vite`** is a **devDependency** so `npm install` succeeds if the platform invokes the Vite CLI.
+- **`npm run build`** stays **`node scripts/ensure-sites.js` only** — no `vite build` in the build script unless GoDaddy requires it.
 
 ### Merge conflicts on GoDaddy pull
 
-If the platform modified `vite.config.js` while `main` removed it, resolve by **deleting `vite.config.js`** and keeping `allowedHosts` in `.godaddy`. Build must stay `node scripts/ensure-sites.js` only (`npm run build`). Do not leave `<<<<<<<` markers in any file.
+If pull still fails, open the repo on GoDaddy and reset local changes, then redeploy from latest `main`. Never commit `<<<<<<<` conflict markers.
 
 ### Troubleshooting ENOENT `/app/package.json`
 
