@@ -224,44 +224,6 @@
       color: var(--color-accent);
     }
 
-    /* ─── Stack ticker ─── */
-    .logo-marquee {
-      position: relative;
-      z-index: 50;
-      overflow: hidden;
-      border-bottom: 1px solid var(--color-border);
-      background: var(--color-surface);
-      padding-top: var(--nav-h);
-    }
-    .logo-marquee__track {
-      display: flex;
-      width: max-content;
-      animation: marquee-drift 40s linear infinite;
-    }
-    .logo-marquee__track span {
-      font-family: var(--font-mono);
-      font-size: clamp(0.65rem, 0.5rem + 0.4vw, 0.75rem);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: none;
-      color: var(--color-text-muted);
-      padding: 0.65rem 1.25rem;
-      white-space: nowrap;
-      border-right: 1px solid var(--color-border);
-    }
-    .logo-marquee__track span::before {
-      content: '>';
-      color: var(--color-terminal);
-      margin-right: 0.5em;
-    }
-    @keyframes marquee-drift {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .logo-marquee__track { animation: none; }
-    }
-
     /* ─── Layout Utility ─── */
     .container {
       width: 100%;
@@ -995,13 +957,6 @@
       </button>
     </div>
   </nav>
-
-  <!-- ─── Logo marquee ─── -->
-  <div class="logo-marquee" aria-hidden="true">
-    <div class="logo-marquee__track">
-<span>Node.js</span><span>Express</span><span>Tauri</span><span>Ollama</span><span>Cloudflare</span><span>Workers</span><span>Postgres</span><span>React</span><span>TypeScript</span><span>Rust</span><span>WebSockets</span><span>CI/CD</span><span>Node.js</span><span>Express</span><span>Tauri</span><span>Ollama</span><span>Cloudflare</span><span>Workers</span><span>Postgres</span><span>React</span><span>TypeScript</span><span>Rust</span><span>WebSockets</span><span>CI/CD</span>
-    </div>
-  </div>
 
   <!-- ─── Hero ─── -->
   <section class="hero" aria-label="MYK introduction">

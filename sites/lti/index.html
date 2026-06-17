@@ -88,44 +88,10 @@
       to { opacity: 1; }
     }
 
-    /* ─── MARQUEE ─── */
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ─── ANNOUNCE BAR — Brain Dead promo strip ─── */
-    .announce-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 110;
-      height: 32px;
-      background: var(--color-accent);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
-    .announce-bar__track {
-      display: inline-flex;
-      animation: marquee-scroll 24s linear infinite;
-      white-space: nowrap;
-    }
-    .announce-bar__track span {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #fff;
-      padding: 0 32px;
-    }
-
     /* ─── NAV ─── */
     .nav {
       position: fixed;
-      top: 32px;
+      top: 0;
       left: 0;
       right: 0;
       z-index: 100;
@@ -206,7 +172,7 @@
     .nav-mobile {
       display: none;
       position: fixed;
-      inset: 88px 0 0 0;
+      inset: 56px 0 0 0;
       z-index: 99;
       background: var(--color-bg);
       padding: 32px clamp(20px, 5vw, 60px);
@@ -229,41 +195,13 @@
       .nav-hamburger { display: flex; }
     }
 
-    /* ─── MARQUEE STRIP ─── */
-    .marquee-strip {
-      margin-top: 88px;
-      overflow: hidden;
-      background: var(--color-primary);
-      border-bottom: none;
-      padding: 8px 0;
-      white-space: nowrap;
-    }
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee-scroll 28s linear infinite;
-      will-change: transform;
-    }
-    .marquee-track span {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #0a0a0a;
-      padding: 0 28px;
-    }
-    .marquee-track span.dot {
-      color: rgba(0,0,0,0.35);
-      padding: 0;
-      font-size: 6px;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee-track { animation: none; }
+    main {
+      padding-top: 56px;
     }
 
     /* ─── HERO ─── */
     .hero {
-      min-height: calc(100vh - 56px - 32px);
+      min-height: calc(100vh - 56px);
       display: flex;
       align-items: center;
       padding: clamp(60px, 10vw, 120px) clamp(20px, 7vw, 80px);
@@ -1379,16 +1317,6 @@
 
 <body>
 
-  <!-- ═════════════════════════ ANNOUNCE BAR ═════════════════════════ -->
-  <div class="announce-bar" aria-hidden="true">
-    <div class="announce-bar__track">
-      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
-      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
-      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
-      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
-    </div>
-  </div>
-
   <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
   <header>
     <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
@@ -1426,33 +1354,6 @@
       <a href="#contact" class="mobile-link">Contact</a>
     </div>
   </header>
-
-  <!-- ═══════════════════════════════ MARQUEE ═══════════════════════════ -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Digital Art</span><span class="dot">·</span>
-      <span>Music Merch</span><span class="dot">·</span>
-      <span>Apparel Drops</span><span class="dot">·</span>
-      <span>072 Collection</span><span class="dot">·</span>
-      <span>Texas Heritage</span><span class="dot">·</span>
-      <span>Inspire®</span><span class="dot">·</span>
-      <span>Artist Collabs</span><span class="dot">·</span>
-      <span>Brand Kits</span><span class="dot">·</span>
-      <span>Album Art</span><span class="dot">·</span>
-      <span>Houston, TX</span><span class="dot">·</span>
-      <!-- duplicate for seamless loop -->
-      <span>Digital Art</span><span class="dot">·</span>
-      <span>Music Merch</span><span class="dot">·</span>
-      <span>Apparel Drops</span><span class="dot">·</span>
-      <span>072 Collection</span><span class="dot">·</span>
-      <span>Texas Heritage</span><span class="dot">·</span>
-      <span>Inspire®</span><span class="dot">·</span>
-      <span>Artist Collabs</span><span class="dot">·</span>
-      <span>Brand Kits</span><span class="dot">·</span>
-      <span>Album Art</span><span class="dot">·</span>
-      <span>Houston, TX</span><span class="dot">·</span>
-    </div>
-  </div>
 
   <main>
 
