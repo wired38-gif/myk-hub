@@ -27,6 +27,8 @@ If you connected the parent monorepo (`Myks-Brain`), GoDaddy will not find `pack
 | `BRAIN_PROXY_TARGET` | `https://your-tunnel.example` | Gateway URL |
 | `BRAIN_PROXY_PREFIX` | `/brain` | URL prefix |
 
+Default target is also read from `config/brain-proxy-target.json` when env vars are unset.
+
 ### Local run
 
 ```bash
@@ -37,7 +39,11 @@ npm start
 
 ### Troubleshooting Vite auto-detect
 
-If deploy logs mention **vite** or **vite build** but this app is plain Express, remove  from the repo. Hostname allowlist lives in  ().
+If deploy logs mention **vite** or **vite build** but this app is plain Express, keep **`vite.config.js` out of the repo**. GoDaddy may auto-run Vite when that file exists even though `vite` is not in `package.json`. Hostname allowlist lives in **`.godaddy`** (`allowedHosts`).
+
+### Merge conflicts on GoDaddy pull
+
+If the platform modified `vite.config.js` while `main` removed it, resolve by **deleting `vite.config.js`** and keeping `allowedHosts` in `.godaddy`. Build must stay `node scripts/ensure-sites.js` only (`npm run build`). Do not leave `<<<<<<<` markers in any file.
 
 ### Troubleshooting ENOENT `/app/package.json`
 
