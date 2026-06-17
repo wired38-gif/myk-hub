@@ -11,20 +11,54 @@
   const enterBtn = document.getElementById('entry-enter');
   const GATE_KEY = 'pate-entered';
 
-  function dismissGate() {
-    if (!gate) return;
+  let gateDismissed = false;
+
+  function finishGateDismiss() {
+    document.body.classList.remove('entry-locked');
+    if (gate && gate.parentNode) gate.remove();
+  }
+
+  function dismissGate(evt) {
+    if (!gate || gateDismissed) return;
+    gateDismissed = true;
+    if (evt && typeof evt.preventDefault === 'function') evt.preventDefault();
+
     const gateVideo = gate.querySelector('.entry-gate__video');
     if (gateVideo) {
       gateVideo.pause();
+      gateVideo.querySelectorAll('source').forEach((s) => s.remove());
       gateVideo.removeAttribute('src');
       gateVideo.load();
     }
+
     gate.classList.add('is-dismissed');
     gate.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('entry-locked');
+    gate.removeAttribute('aria-modal');
     try { sessionStorage.setItem(GATE_KEY, '1'); } catch (_) {}
-    setTimeout(() => gate.remove(), 950);
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      finishGateDismiss();
+      return;
+    }
+
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      finishGateDismiss();
+    };
+
+    gate.addEventListener(
+      'transitionend',
+      (e) => {
+        if (e.target === gate && e.propertyName === 'opacity') done();
+      },
+      { once: true }
+    );
+    setTimeout(done, 980);
   }
+
 
   if (gate && !sessionStorage.getItem(GATE_KEY)) {
     document.body.classList.add('entry-locked');
