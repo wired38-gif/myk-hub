@@ -10,23 +10,48 @@
   const gate = document.getElementById('entry-gate');
   const enterBtn = document.getElementById('entry-enter');
   const GATE_KEY = 'pate-entered';
+  const GATE_FADE_MS = 980;
 
   let gateDismissed = false;
+  let gateScrollY = 0;
+
+  function lockPageForGate() {
+    gateScrollY = window.scrollY || 0;
+    document.body.classList.add('entry-locked');
+    document.body.style.top = '-' + gateScrollY + 'px';
+    Array.from(document.body.children).forEach(function (el) {
+      if (el !== gate) el.setAttribute('inert', '');
+    });
+  }
 
   function finishGateDismiss() {
     document.body.classList.remove('entry-locked');
+    document.body.style.top = '';
+    window.scrollTo(0, gateScrollY);
+    Array.from(document.body.children).forEach(function (el) {
+      if (el !== gate) el.removeAttribute('inert');
+    });
     if (gate && gate.parentNode) gate.remove();
+    const main = document.querySelector('main');
+    if (main && typeof main.focus === 'function') {
+      if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+      main.focus({ preventScroll: true });
+    }
   }
 
   function dismissGate(evt) {
     if (!gate || gateDismissed) return;
     gateDismissed = true;
-    if (evt && typeof evt.preventDefault === 'function') evt.preventDefault();
+    if (evt) {
+      if (typeof evt.preventDefault === 'function') evt.preventDefault();
+      if (typeof evt.stopPropagation === 'function') evt.stopPropagation();
+      if (typeof evt.stopImmediatePropagation === 'function') evt.stopImmediatePropagation();
+    }
 
     const gateVideo = gate.querySelector('.entry-gate__video');
     if (gateVideo) {
       gateVideo.pause();
-      gateVideo.querySelectorAll('source').forEach((s) => s.remove());
+      gateVideo.querySelectorAll('source').forEach(function (s) { s.remove(); });
       gateVideo.removeAttribute('src');
       gateVideo.load();
     }
@@ -43,7 +68,7 @@
     }
 
     let finished = false;
-    const done = () => {
+    const done = function () {
       if (finished) return;
       finished = true;
       finishGateDismiss();
@@ -51,26 +76,45 @@
 
     gate.addEventListener(
       'transitionend',
-      (e) => {
+      function (e) {
         if (e.target === gate && e.propertyName === 'opacity') done();
       },
       { once: true }
     );
-    setTimeout(done, 980);
+    setTimeout(done, GATE_FADE_MS);
   }
 
-
   if (gate && !sessionStorage.getItem(GATE_KEY)) {
-    document.body.classList.add('entry-locked');
-    enterBtn && enterBtn.addEventListener('click', dismissGate);
+    lockPageForGate();
+    if (enterBtn) {
+      enterBtn.addEventListener('click', dismissGate);
+      enterBtn.addEventListener('touchend', function (e) {
+        e.preventDefault();
+        dismissGate(e);
+      }, { passive: false });
+      if (typeof enterBtn.focus === 'function') {
+        enterBtn.focus({ preventScroll: true });
+      }
+    }
+    gate.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        dismissGate(e);
+      } else if (e.key === 'Escape') {
+        dismissGate(e);
+      }
+    });
 
     const gateVideo = gate.querySelector('.entry-gate__video');
     const gateBg = gate.querySelector('.entry-gate__bg');
     if (gateVideo && gateBg) {
-      gateVideo.addEventListener('error', () => gateBg.classList.add('is-video-fallback'));
+      gateVideo.addEventListener('error', function () {
+        gateBg.classList.add('is-video-fallback');
+      });
       const playAttempt = gateVideo.play();
       if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(() => gateBg.classList.add('is-video-fallback'));
+        playAttempt.catch(function () {
+          gateBg.classList.add('is-video-fallback');
+        });
       }
     }
   } else if (gate) {
