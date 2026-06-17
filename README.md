@@ -12,7 +12,7 @@ Multi-domain Node.js hub for **myk.ac**, **patemusic.live**, and **ltibyjmichael
 | **Branch** | `main` |
 | **Application root / Source directory** | `.` or **leave empty** (repo root) |
 | **Start command** | `npm start` (from `package.json`) |
-| **Node version** | 18+ (see `.node-version`) |
+| **Node version** | 18 or 22 — see [Node.js runtime](#nodejs-runtime-no-dashboard-picker) below |
 
 Do **not** set the source directory to `sites/`, `sites/myk-hub`, or any subfolder — `package.json` and `server.js` live at the **repository root**.
 
