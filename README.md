@@ -42,7 +42,7 @@ npm start
 This hub is **plain Express** — not a Vite SPA — but **keep `vite.config.js` committed on `main`**. GoDaddy Node.js PaaS may modify that file locally for hostname routing; if `main` deletes it, the next platform pull hits a **modify/delete merge conflict** and deploy fails.
 
 - **`vite.config.js`** — `server.allowedHosts` must match **`.godaddy`** `allowedHosts` (platform reads both).
-- **`vite`** is a **devDependency** so `npm install` succeeds if the platform invokes the Vite CLI.
+- **`vite`** is a **production dependency** so `npm install --omit=dev` still installs `node_modules/.bin/vite` if the platform invokes the Vite CLI.
 - **`npm run build`** stays **`node scripts/ensure-sites.js` only** — no `vite build` in the build script unless GoDaddy requires it.
 - **`index.html`** at the **repo root** — stub entry so GoDaddy’s automatic **`vite build`** step does not fail with `Could not resolve entry module "index.html"`. Express still serves `sites/<name>/`; ignore `dist/` output.
 

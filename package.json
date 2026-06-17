@@ -1,7 +1,7 @@
 {
   "name": "myk-hub",
   "version": "1.0.0",
-  "description": "MYK multi-domain hub — serves patemusic.live, myk.ac, and ltibyjmichael.com from one Node.js app",
+  "description": "MYK multi-domain hub \u2014 serves patemusic.live, myk.ac, and ltibyjmichael.com from one Node.js app",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
@@ -14,9 +14,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "http-proxy-middleware": "^3.0.5"
-  },
-  "devDependencies": {
+    "http-proxy-middleware": "^3.0.5",
     "vite": "^6.0.0"
   }
 }
