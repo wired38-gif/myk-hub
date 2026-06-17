@@ -8,34 +8,36 @@
   <meta property="og:title" content="LTI by JMichael — Design Studio · Houston, TX" />
   <meta property="og:description" content="Custom logos, album covers, apparel, brand kits and creative services from an independent Texas artist. The Inspire® line. The 072 Collection." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#12101a" />
-  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── DESIGN TOKENS — artisan gallery: warm coral + plum + teal ─── */
+    /* ─── DESIGN TOKENS — Futura Lab × Brain Dead ─── */
     :root {
-      --color-bg:           #141018;
-      --color-surface:      #1d1724;
-      --color-surface-2:    #2a2233;
-      --color-border:       #3d3350;
-      --color-text:         #f8efe6;
-      --color-text-muted:   #b9a8c4;
-      --color-text-faint:   #7d6f8f;
-      --color-primary:      #e07a5f;
-      --color-primary-hover:#c96850;
-      --color-accent:       #9b6fd4;
-      --color-accent-2:     #4db8a8;
+      --color-bg:           #0a0a0a;
+      --color-surface:      #111111;
+      --color-surface-2:    #1a1a1a;
+      --color-border:       #2e2e2e;
+      --color-text:         #f2f0ea;
+      --color-text-muted:   #8a8880;
+      --color-text-faint:   #555550;
+      --color-primary:      #c8ff00;
+      --color-primary-hover:#b0e600;
+      --color-primary-soft: rgba(200, 255, 0, 0.12);
+      --color-primary-mid:  rgba(200, 255, 0, 0.35);
+      --color-primary-faint:rgba(200, 255, 0, 0.06);
+      --color-accent:       #574cd5;
+      --color-accent-2:     #ff4d4d;
 
-      --font-display: 'Syne', 'Zodiak', Georgia, serif;
-      --font-body:    'Cabinet Grotesk', system-ui, sans-serif;
+      --font-display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+      --font-body:    'IBM Plex Mono', 'Courier New', monospace;
 
-      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-interactive: 160ms cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 16px;
+      --radius-sm: 0;
+      --radius-md: 0;
+      --radius-lg: 0;
     }
 
     /* ─── RESET & BASE ─── */
@@ -49,13 +51,18 @@
 
     body {
       background:
-        radial-gradient(ellipse 70% 45% at 15% 0%, rgba(224, 122, 95, 0.12) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 40% at 90% 10%, rgba(155, 111, 212, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, #1a1422 0%, var(--color-bg) 40%);
+        linear-gradient(180deg, #111 0%, var(--color-bg) 30%),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 79px,
+          rgba(255,255,255,0.02) 79px,
+          rgba(255,255,255,0.02) 80px
+        );
       color: var(--color-text);
       font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
+      font-size: 14px;
+      line-height: 1.65;
       overflow-x: hidden;
     }
 
@@ -87,10 +94,38 @@
       to   { transform: translateX(-50%); }
     }
 
+    /* ─── ANNOUNCE BAR — Brain Dead promo strip ─── */
+    .announce-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 110;
+      height: 32px;
+      background: var(--color-accent);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .announce-bar__track {
+      display: inline-flex;
+      animation: marquee-scroll 24s linear infinite;
+      white-space: nowrap;
+    }
+    .announce-bar__track span {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 32px;
+    }
+
     /* ─── NAV ─── */
     .nav {
       position: fixed;
-      top: 0;
+      top: 32px;
       left: 0;
       right: 0;
       z-index: 100;
@@ -98,10 +133,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 clamp(20px, 5vw, 60px);
-      height: 64px;
-      background: rgba(18,16,26,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      height: 56px;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
       transition: box-shadow var(--transition-interactive);
     }
@@ -124,24 +159,25 @@
     }
     .nav-links a {
       font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--color-text-muted);
       transition: color var(--transition-interactive);
     }
-    .nav-links a:hover { color: var(--color-text); }
+    .nav-links a:hover { color: var(--color-primary); }
 
     .nav-cta {
-      background: var(--color-primary);
+      background: var(--color-accent) !important;
       color: #fff !important;
-      padding: 8px 18px;
-      border-radius: var(--radius-sm);
+      padding: 8px 16px !important;
+      border-radius: 0 !important;
+      font-weight: 600 !important;
       transition: background var(--transition-interactive), transform var(--transition-interactive) !important;
     }
     .nav-cta:hover {
-      background: var(--color-primary-hover) !important;
+      background: color-mix(in srgb, var(--color-accent) 85%, #fff) !important;
       transform: translateY(-1px);
     }
 
@@ -170,7 +206,7 @@
     .nav-mobile {
       display: none;
       position: fixed;
-      inset: 64px 0 0 0;
+      inset: 88px 0 0 0;
       z-index: 99;
       background: var(--color-bg);
       padding: 32px clamp(20px, 5vw, 60px);
@@ -195,11 +231,11 @@
 
     /* ─── MARQUEE STRIP ─── */
     .marquee-strip {
-      margin-top: 64px;
+      margin-top: 88px;
       overflow: hidden;
-      background: var(--color-surface);
-      border-bottom: 1px solid var(--color-border);
-      padding: 10px 0;
+      background: var(--color-primary);
+      border-bottom: none;
+      padding: 8px 0;
       white-space: nowrap;
     }
     .marquee-track {
@@ -209,17 +245,17 @@
     }
     .marquee-track span {
       font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--color-primary);
-      padding: 0 32px;
+      color: #0a0a0a;
+      padding: 0 28px;
     }
     .marquee-track span.dot {
-      color: var(--color-text-faint);
+      color: rgba(0,0,0,0.35);
       padding: 0;
-      font-size: 8px;
+      font-size: 6px;
     }
     @media (prefers-reduced-motion: reduce) {
       .marquee-track { animation: none; }
@@ -227,37 +263,38 @@
 
     /* ─── HERO ─── */
     .hero {
-      min-height: calc(100vh - 64px - 38px);
+      min-height: calc(100vh - 56px - 32px);
       display: flex;
       align-items: center;
       padding: clamp(60px, 10vw, 120px) clamp(20px, 7vw, 80px);
       position: relative;
       overflow: hidden;
+      border-bottom: 1px solid var(--color-border);
     }
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(77,184,168,0.1) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(139,111,199,0.08) 0%, transparent 60%);
+        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(87,76,213,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 5% 90%, rgba(200,255,0,0.06) 0%, transparent 55%);
       pointer-events: none;
     }
-    /* Decorative large "LTI" watermark */
     .hero::after {
-      content: 'LTI';
+      content: 'LAB';
       position: absolute;
-      right: -2vw;
+      right: -1vw;
       top: 50%;
       transform: translateY(-50%);
       font-family: var(--font-display);
-      font-size: clamp(180px, 24vw, 380px);
+      font-size: clamp(160px, 22vw, 340px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(77,184,168,0.07);
+      -webkit-text-stroke: 1px rgba(200,255,0,0.06);
       pointer-events: none;
       line-height: 1;
       user-select: none;
+      letter-spacing: -0.04em;
     }
 
     .hero-inner {
@@ -275,26 +312,27 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: 24px;
     }
     .hero-eyebrow::before {
       content: '';
       display: block;
-      width: 24px;
-      height: 1px;
+      width: 20px;
+      height: 2px;
       background: var(--color-primary);
     }
     .hero-heading {
       font-family: var(--font-display);
-      font-size: clamp(52px, 8vw, 108px);
+      font-size: clamp(48px, 7.5vw, 96px);
       font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
       color: var(--color-text);
       margin-bottom: 28px;
     }
@@ -312,14 +350,14 @@
 
     .hero-discipline {
       font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--color-text);
-      border: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
-      padding: 8px 14px;
-      background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+      border: 1px solid var(--color-border);
+      padding: 8px 12px;
+      background: transparent;
     }
     .hero-sub {
       font-size: 16px;
@@ -359,20 +397,23 @@
     .btn:active { transform: translateY(0) !important; }
     .btn-primary {
       background: var(--color-primary);
-      color: #fff;
+      color: #0a0a0a;
+      border-radius: 0;
     }
     .btn-primary:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(77,184,168,0.35);
+      box-shadow: 4px 4px 0 var(--color-accent);
     }
     .btn-ghost {
       background: transparent;
       color: var(--color-text);
       border: 1px solid var(--color-border);
+      border-radius: 0;
     }
     .btn-ghost:hover {
-      border-color: var(--color-text-muted);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
       transform: translateY(-2px);
     }
 
@@ -390,20 +431,20 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--color-text-muted);
-      background: var(--color-surface-2);
+      background: transparent;
       border: 1px solid var(--color-border);
-      padding: 6px 14px;
-      border-radius: 100px;
+      padding: 6px 12px;
+      border-radius: 0;
     }
     .badge.accent {
       color: var(--color-primary);
-      border-color: rgba(77,184,168,0.3);
-      background: rgba(77,184,168,0.08);
+      border-color: var(--color-primary);
+      background: rgba(200,255,0,0.06);
     }
 
     .hero-stat-grid {
@@ -412,7 +453,7 @@
       gap: 1px;
       background: var(--color-border);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+      border-radius: 0;
       overflow: hidden;
     }
     .hero-stat {
@@ -485,6 +526,58 @@
       .hero-heading { font-size: clamp(44px, 13vw, 72px); }
     }
 
+    /* ─── SHOP ROW — Futura Laboratories category tiles ─── */
+    .shop-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--color-border);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .shop-tile {
+      background: var(--color-surface);
+      padding: clamp(28px, 4vw, 52px);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      transition:
+        background var(--transition-interactive),
+        transform var(--transition-interactive);
+    }
+    .shop-tile:hover {
+      background: var(--color-surface-2);
+      transform: translateY(-2px);
+    }
+    .shop-tile__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+    }
+    .shop-tile__title {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--color-text);
+    }
+    .shop-tile__cta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+    @media (max-width: 768px) {
+      .shop-row { grid-template-columns: 1fr; }
+    }
+
     /* ─── SECTION SHARED ─── */
     section { padding: clamp(80px, 10vw, 140px) clamp(20px, 7vw, 80px); }
 
@@ -497,26 +590,28 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: 20px;
     }
     .section-label::before {
       content: '';
       display: block;
       width: 20px;
-      height: 1px;
+      height: 2px;
       background: var(--color-primary);
     }
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(32px, 4.5vw, 56px);
       font-weight: 700;
-      line-height: 1.05;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
       letter-spacing: -0.02em;
       color: var(--color-text);
       margin-bottom: 20px;
@@ -655,7 +750,7 @@
     .bento-icon {
       width: 48px;
       height: 48px;
-      background: rgba(77,184,168,0.12);
+      background: var(--color-primary-soft);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
@@ -732,17 +827,17 @@
       pointer-events: none;
     }
     .collection-block.inspire::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77,184,168,0.12) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--color-primary-soft) 0%, transparent 70%);
     }
     .collection-block.zero72::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77,184,168,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--color-primary-faint) 0%, transparent 70%);
     }
     .collection-number {
       font-family: var(--font-display);
       font-size: clamp(80px, 14vw, 180px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(77,184,168,0.15);
+      -webkit-text-stroke: 1px rgba(200, 255, 0, 0.15);
       line-height: 1;
       position: absolute;
       top: 20px;
@@ -831,8 +926,8 @@
       width: 52px;
       height: 52px;
       border-radius: var(--radius-md);
-      background: rgba(77,184,168,0.1);
-      border: 1px solid rgba(77,184,168,0.2);
+      background: rgba(200, 255, 0, 0.1);
+      border: 1px solid rgba(200, 255, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -896,13 +991,13 @@
         box-shadow var(--transition-interactive);
     }
     .pricing-card:hover {
-      border-color: rgba(77,184,168,0.4);
+      border-color: rgba(200, 255, 0, 0.4);
       transform: translateY(-4px);
       box-shadow: 0 16px 48px rgba(0,0,0,0.5);
     }
     .pricing-card.featured-card {
-      background: rgba(77,184,168,0.06);
-      border-color: rgba(77,184,168,0.35);
+      background: var(--color-primary-faint);
+      border-color: var(--color-primary-mid);
     }
     .pricing-card.featured-card:hover {
       border-color: var(--color-primary);
@@ -969,7 +1064,7 @@
       text-transform: uppercase;
       color: var(--color-primary);
       padding: 12px;
-      border: 1px solid rgba(77,184,168,0.3);
+      border: 1px solid rgba(200, 255, 0, 0.3);
       border-radius: var(--radius-sm);
       transition:
         background var(--transition-interactive),
@@ -1082,7 +1177,7 @@
     input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
     input:focus, select:focus, textarea:focus {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(77,184,168,0.15);
+      box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.15);
     }
     select {
       cursor: pointer;
@@ -1114,7 +1209,7 @@
     .form-submit:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(77,184,168,0.35);
+      box-shadow: 0 8px 24px var(--color-primary-mid);
     }
     .form-submit:active { transform: translateY(0); }
     .form-note {
@@ -1271,7 +1366,7 @@
     .form-success-icon {
       width: 56px;
       height: 56px;
-      background: rgba(77,184,168,0.12);
+      background: var(--color-primary-soft);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1284,6 +1379,16 @@
 
 <body>
 
+  <!-- ═════════════════════════ ANNOUNCE BAR ═════════════════════════ -->
+  <div class="announce-bar" aria-hidden="true">
+    <div class="announce-bar__track">
+      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
+      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
+      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
+      <span>Inspire® Streetwear · 072 Collection · Commissions Open · Houston, TX</span>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
   <header>
     <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
@@ -1293,11 +1398,11 @@
           <!-- "LTI" letterforms -->
           <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
           <!-- accent underline bar -->
-          <rect x="0" y="32" width="52" height="2" rx="1" fill="#4db8a8"/>
+          <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8ff00"/>
           <!-- "by JMichael" small text -->
           <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
           <!-- small star/dot accent -->
-          <circle cx="143" cy="8" r="3" fill="#8b6fc7" opacity="0.7"/>
+          <circle cx="143" cy="8" r="3" fill="#574cd5" opacity="0.7"/>
         </svg>
       </a>
 
@@ -1331,7 +1436,7 @@
       <span>072 Collection</span><span class="dot">·</span>
       <span>Texas Heritage</span><span class="dot">·</span>
       <span>Inspire®</span><span class="dot">·</span>
-      <span>Pate Music Collab</span><span class="dot">·</span>
+      <span>Artist Collabs</span><span class="dot">·</span>
       <span>Brand Kits</span><span class="dot">·</span>
       <span>Album Art</span><span class="dot">·</span>
       <span>Houston, TX</span><span class="dot">·</span>
@@ -1342,7 +1447,7 @@
       <span>072 Collection</span><span class="dot">·</span>
       <span>Texas Heritage</span><span class="dot">·</span>
       <span>Inspire®</span><span class="dot">·</span>
-      <span>Pate Music Collab</span><span class="dot">·</span>
+      <span>Artist Collabs</span><span class="dot">·</span>
       <span>Brand Kits</span><span class="dot">·</span>
       <span>Album Art</span><span class="dot">·</span>
       <span>Houston, TX</span><span class="dot">·</span>
@@ -1381,7 +1486,7 @@
             <span class="badge accent">Est. 2024</span>
             <span class="badge">Inspire® Line</span>
             <span class="badge">072 Collection</span>
-            <span class="badge">Pate Music</span>
+            <span class="badge">Music Merch</span>
           </div>
 
           <div class="hero-stat-grid">
@@ -1404,10 +1509,28 @@
             <div class="collection-pill">Inspire® by JMichael — Streetwear</div>
             <div class="collection-pill">072 Collection — Original Characters</div>
             <div class="collection-pill">Texas Heritage Collection</div>
-            <div class="collection-pill">Pate Music Collab Series</div>
+            <div class="collection-pill">Artist Series — Music Merch</div>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="shop-row" aria-label="Studio categories">
+      <a href="#services" class="shop-tile">
+        <span class="shop-tile__label">Custom Work</span>
+        <span class="shop-tile__title">Digital Art</span>
+        <span class="shop-tile__cta">Explore →</span>
+      </a>
+      <a href="#apparel" class="shop-tile">
+        <span class="shop-tile__label">Limited Runs</span>
+        <span class="shop-tile__title">Apparel Drops</span>
+        <span class="shop-tile__cta">Shop →</span>
+      </a>
+      <a href="#contact" class="shop-tile">
+        <span class="shop-tile__label">Open Now</span>
+        <span class="shop-tile__title">Commissions</span>
+        <span class="shop-tile__cta">Start →</span>
+      </a>
     </section>
 
     <hr class="divider" />
@@ -1428,7 +1551,7 @@
               JMichael is an independent creative out of <strong>Houston, TX</strong> — the kind of artist that doesn't fit neatly into one box. Design, apparel, music merch, brand work. If it needs to look like something real, that's the work.
             </p>
             <p class="about-body">
-              LTI started as a way to put everything under one roof: the <strong>Inspire® streetwear line</strong>, digital art commissions, collabs with <strong>Pate Music</strong>, and custom brand kits for artists and small businesses who deserve better than generic.
+              LTI started as a way to put everything under one roof: the <strong>Inspire® streetwear line</strong>, digital art commissions, music merch for independent artists, and custom brand kits for artists and small businesses who deserve better than generic.
             </p>
             <p class="about-body">
               <strong>ADHD-driven creativity</strong> is a feature, not a flaw. It means every project gets obsessive attention to the details that matter — composition, color theory, cultural context. The work feels alive because it is.
@@ -1531,7 +1654,7 @@
               </svg>
             </div>
             <div class="bento-title display">Music Merch & Collabs</div>
-            <div class="bento-desc">Working with Pate Music and independent artists on merchandise, album visuals, and artist series prints. Original designs that respect the music and the audience.</div>
+            <div class="bento-desc">Working with independent artists and labels on merchandise, album visuals, and artist series prints. Original designs that respect the music and the audience.</div>
             <div class="bento-footer">
               <div class="bento-price">Contact for rates</div>
               <span class="bento-tag">Collab-based</span>
@@ -1886,9 +2009,9 @@
           <div class="footer-logo">
             <svg viewBox="0 0 148 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="auto" aria-label="LTI by JMichael">
               <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
-              <rect x="0" y="32" width="52" height="2" rx="1" fill="#4db8a8"/>
+              <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8ff00"/>
               <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
-              <circle cx="143" cy="8" r="3" fill="#8b6fc7" opacity="0.7"/>
+              <circle cx="143" cy="8" r="3" fill="#574cd5" opacity="0.7"/>
             </svg>
           </div>
           <p class="footer-brand-desc">Independent Texas creative studio doing custom digital art, limited apparel, music merch, and brand design. Houston-rooted, culture-driven, always original.</p>
@@ -1917,23 +2040,21 @@
           </div>
 
           <div class="footer-nav-group">
-            <div class="footer-nav-title">Related</div>
+            <div class="footer-nav-title">Web &amp; Support</div>
             <ul class="footer-nav-links">
-              <li><a href="https://myk.ac" target="_blank" rel="noopener noreferrer">myk.ac</a></li>
-              <li><a href="https://patemusic.live" target="_blank" rel="noopener noreferrer">patemusic.live</a></li>
-              <li><a href="https://queenscustoms.shop" target="_blank" rel="noopener noreferrer">queenscustoms.shop</a></li>
+              <li><a href="https://myk.ac" target="_blank" rel="noopener noreferrer">Designs by MYK</a></li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copy">© 2026 Design by JMichael. A MYK Brand.</div>
+        <div class="footer-copy">© 2026 LTI by JMichael. All rights reserved.</div>
         <ul class="footer-links">
           <li><a href="#contact">Commission</a></li>
           <li><a href="#services">Services</a></li>
         </ul>
-        <div class="myk-tag">A MYK Brand</div>
+        <div class="myk-tag">Site by <a href="https://myk.ac" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Designs by MYK</a></div>
       </div>
     </div>
   </footer>
@@ -2004,7 +2125,7 @@
         const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          const navHeight = 64;
+          const navHeight = 88;
           const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
           window.scrollTo({ top, behavior: 'smooth' });
         }

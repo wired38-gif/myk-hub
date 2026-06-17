@@ -9,36 +9,36 @@
   <meta property="og:description" content="MYK is a private creative technology studio building custom software, studio systems, and team infrastructure for serious creative operations." />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts -->
+  <!-- Fonts — Metalab-inspired clean agency stack -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── Design Tokens ─── */
+    /* ─── Design Tokens — Metalab agency aesthetic ─── */
     :root {
-      --color-bg: #0a0a08;
-      --color-surface: #111110;
-      --color-surface-2: #1a1917;
-      --color-border: #2a2926;
-      --color-text: #e8e6e1;
-      --color-text-muted: #8a8884;
-      --color-text-faint: #504e4b;
-      --color-primary: #c8682a;
-      --color-primary-hover: #a8501e;
+      --color-bg: #f5f5f2;
+      --color-surface: #ffffff;
+      --color-surface-2: #efefeb;
+      --color-border: #dcdcd6;
+      --color-text: #111110;
+      --color-text-muted: #5c5c58;
+      --color-text-faint: #9a9a94;
+      --color-primary: #111110;
+      --color-primary-hover: #333330;
+      --color-accent: #0066ff;
 
-      --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'Satoshi', 'Helvetica Neue', sans-serif;
+      --font-display: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
-      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
-      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
-      --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
-      --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
-      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
-      --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
-      --text-hero: clamp(4rem,     1rem    + 9vw,    10rem);
+      --text-xs:   clamp(0.6875rem, 0.65rem + 0.2vw, 0.8125rem);
+      --text-sm:   clamp(0.875rem, 0.82rem + 0.25vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+      --text-lg:   clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+      --text-xl:   clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+      --text-2xl:  clamp(2rem, 1rem + 3vw, 4rem);
+      --text-3xl:  clamp(2.75rem, 0.5rem + 6vw, 6.5rem);
+      --text-hero: clamp(3.5rem, 0.5rem + 10vw, 11rem);
 
       --space-1:  0.25rem;
       --space-2:  0.5rem;
@@ -64,7 +64,7 @@
       --content-default: 960px;
       --content-wide:    1200px;
 
-      --nav-h: 4rem;
+      --nav-h: 3.5rem;
     }
 
     /* ─── Base Reset ─── */
@@ -101,14 +101,14 @@
     button { cursor: pointer; background: none; border: none; }
 
     ::selection {
-      background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+      background: color-mix(in srgb, var(--color-accent) 18%, transparent);
       color: var(--color-text);
     }
 
     :focus-visible {
-      outline: 1px solid var(--color-primary);
+      outline: 2px solid var(--color-accent);
       outline-offset: 3px;
-      border-radius: var(--radius-sm);
+      border-radius: 2px;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -119,16 +119,47 @@
       }
     }
 
-    /* ─── Grain Overlay ─── */
+    /* ─── Subtle texture ─── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.035;
+      opacity: 0.018;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       background-size: 200px 200px;
+    }
+
+    /* ─── Logo marquee — Metalab-style repeating strip ─── */
+    .logo-marquee {
+      position: relative;
+      z-index: 50;
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface);
+      padding-top: var(--nav-h);
+    }
+    .logo-marquee__track {
+      display: flex;
+      width: max-content;
+      animation: marquee-drift 40s linear infinite;
+    }
+    .logo-marquee__track span {
+      font-size: clamp(0.65rem, 0.5rem + 0.4vw, 0.75rem);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      padding: 0.65rem 1.5rem;
+      white-space: nowrap;
+    }
+    @keyframes marquee-drift {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .logo-marquee__track { animation: none; }
     }
 
     /* ─── Layout Utility ─── */
@@ -153,15 +184,16 @@
       height: var(--nav-h);
       display: flex;
       align-items: center;
-      background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.4s ease;
+      transition: border-color 0.35s ease, background 0.35s ease;
     }
 
     .nav.scrolled {
       border-bottom-color: var(--color-border);
+      background: color-mix(in srgb, var(--color-bg) 96%, transparent);
     }
 
     .nav__inner {
@@ -179,8 +211,13 @@
     }
 
     .nav__logo svg {
-      height: 32px;
+      height: 28px;
       width: auto;
+    }
+
+    .nav__logo svg path,
+    .nav__logo svg line {
+      stroke: var(--color-text) !important;
     }
 
     .nav__links {
@@ -193,14 +230,42 @@
     .nav__links a {
       font-size: var(--text-xs);
       font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-transform: none;
       color: var(--color-text-muted);
       transition: color var(--transition-interactive);
+      position: relative;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-text);
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav__links a:hover {
       color: var(--color-text);
+    }
+
+    .nav__links a:hover::after {
+      width: 100%;
+    }
+
+    .nav__meta {
+      font-size: var(--text-xs);
+      font-variant-numeric: tabular-nums;
+      color: var(--color-text-faint);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav__meta { display: none; }
     }
 
     .nav__toggle {
@@ -241,126 +306,110 @@
     /* ─── Hero ─── */
     .hero {
       position: relative;
-      min-height: 100dvh;
+      min-height: calc(100dvh - 2.5rem);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: var(--nav-h);
-      padding-bottom: var(--space-24);
+      align-items: flex-start;
+      justify-content: flex-end;
+      text-align: left;
+      padding-top: calc(var(--nav-h) + 3rem);
+      padding-bottom: clamp(var(--space-16), 8vw, var(--space-24));
       z-index: 1;
       overflow: hidden;
     }
 
-    /* Subtle radial glow behind hero text */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(800px, 120vw);
-      height: min(600px, 80vw);
-      background: radial-gradient(
-        ellipse at center,
-        color-mix(in srgb, var(--color-primary) 6%, transparent) 0%,
-        transparent 70%
-      );
-      pointer-events: none;
-      z-index: -1;
+    .hero .container {
+      max-width: min(1400px, 96vw);
     }
 
     .hero__eyebrow {
       font-size: var(--text-xs);
       font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-8);
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-6);
     }
 
-    .hero__wordmark {
+    .hero__headline {
       font-family: var(--font-display);
       font-size: var(--text-hero);
-      font-weight: 600;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #f0e0a0 0%, #d4a832 35%, #c8962a 55%, #e8c97a 80%, #c8a94a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: var(--space-5);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: var(--color-text);
+      margin-bottom: var(--space-10);
+      max-width: 14ch;
     }
 
-    .hero__rule {
-      width: 100%;
-      max-width: 120px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-      margin-inline: auto;
-      margin-bottom: var(--space-5);
-      opacity: 0.6;
+    .hero__headline em {
+      font-style: normal;
+      display: block;
+      font-weight: 500;
     }
 
     .hero__est {
       font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-10);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--color-text-faint);
+      margin-bottom: var(--space-8);
     }
 
     .hero__tagline {
       font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-style: italic;
-      color: var(--color-text);
+      font-size: var(--text-lg);
+      font-style: normal;
       font-weight: 400;
-      margin-bottom: var(--space-10);
-      opacity: 0.85;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+      max-width: 42ch;
+      line-height: 1.5;
     }
 
     .hero__sub {
       font-size: var(--text-sm);
       color: var(--color-text-muted);
       max-width: 48ch;
-      margin-inline: auto;
-      margin-bottom: var(--space-12);
-      line-height: 1.7;
+      margin-bottom: var(--space-10);
+      line-height: 1.75;
+      font-weight: 400;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: var(--space-2);
+      gap: var(--space-3);
       font-size: var(--text-sm);
       font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-      padding: var(--space-3) var(--space-6);
-      transition: border-color var(--transition-interactive), color var(--transition-interactive), background var(--transition-interactive);
+      letter-spacing: 0;
+      color: var(--color-bg);
+      background: var(--color-text);
+      border: 1px solid var(--color-text);
+      padding: var(--space-4) var(--space-8);
+      border-radius: 999px;
+      transition: background var(--transition-interactive), color var(--transition-interactive), transform var(--transition-interactive);
       text-decoration: none;
     }
 
     .btn-primary:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+      background: transparent;
+      color: var(--color-text);
+      transform: translateY(-2px);
     }
 
     .scroll-indicator {
       position: absolute;
       bottom: var(--space-10);
-      left: 50%;
-      transform: translateX(-50%);
+      right: clamp(var(--space-6), 5vw, var(--space-16));
+      left: auto;
+      transform: none;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: var(--space-2);
-      opacity: 0.3;
+      opacity: 0.4;
     }
 
     .scroll-indicator span {
@@ -389,19 +438,20 @@
     .section__label {
       font-size: var(--text-xs);
       font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--color-primary);
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: var(--color-text-faint);
       margin-bottom: var(--space-6);
     }
 
     .section__title {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
-      font-weight: 600;
+      font-weight: 400;
       color: var(--color-text);
       margin-bottom: var(--space-4);
-      line-height: 1.1;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
     }
 
     .section__intro {
@@ -474,10 +524,11 @@
     .service-col__title {
       font-family: var(--font-display);
       font-size: var(--text-lg);
-      font-weight: 600;
+      font-weight: 500;
       color: var(--color-text);
       margin-bottom: var(--space-4);
       line-height: 1.2;
+      letter-spacing: -0.02em;
     }
 
     .service-col__body {
@@ -514,16 +565,16 @@
     }
 
     .work-item:hover {
-      border-left-color: var(--color-primary);
+      border-left-color: var(--color-text);
     }
 
     .work-item__domain {
       font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 600;
+      font-size: var(--text-xl);
+      font-weight: 400;
       color: var(--color-text);
       margin-bottom: var(--space-2);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.03em;
     }
 
     .work-item__desc {
@@ -586,14 +637,14 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--color-primary), transparent);
+      background: var(--color-text);
       opacity: 0;
       transition: opacity var(--transition-interactive);
     }
 
     .network-tile:hover {
-      border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
-      background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface-2));
+      border-color: var(--color-text);
+      background: var(--color-surface);
     }
 
     .network-tile:hover::before {
@@ -603,10 +654,10 @@
     .network-tile__name {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
-      font-weight: 600;
+      font-weight: 400;
       color: var(--color-text);
       line-height: 1;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .network-tile__domain {
@@ -618,8 +669,8 @@
 
     .network-tile__arrow {
       font-size: var(--text-xs);
-      color: var(--color-primary);
-      letter-spacing: 0.06em;
+      color: var(--color-text);
+      letter-spacing: 0;
       opacity: 0;
       transform: translateX(-6px);
       transition: opacity var(--transition-interactive), transform var(--transition-interactive);
@@ -645,11 +696,12 @@
     .contact__lede {
       font-family: var(--font-display);
       font-size: var(--text-xl);
-      font-style: italic;
-      color: var(--color-text-muted);
+      font-style: normal;
+      color: var(--color-text);
       margin-bottom: var(--space-8);
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
     }
 
     .contact__sub {
@@ -705,7 +757,7 @@
 
     .form__input:focus,
     .form__textarea:focus {
-      border-color: var(--color-primary);
+      border-color: var(--color-text);
     }
 
     .form__input::placeholder,
@@ -726,20 +778,20 @@
       gap: var(--space-2);
       font-size: var(--text-sm);
       font-weight: 500;
-      letter-spacing: 0.08em;
-      color: var(--color-text);
-      background: transparent;
-      border: 1px solid var(--color-border);
+      letter-spacing: 0;
+      color: var(--color-bg);
+      background: var(--color-text);
+      border: 1px solid var(--color-text);
       padding: var(--space-3) var(--space-6);
       cursor: pointer;
-      transition: border-color var(--transition-interactive), color var(--transition-interactive), background var(--transition-interactive);
+      border-radius: 999px;
+      transition: background var(--transition-interactive), color var(--transition-interactive);
       margin-top: var(--space-2);
     }
 
     .form__submit:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+      background: transparent;
+      color: var(--color-text);
     }
 
     .form__confirm {
@@ -775,7 +827,8 @@
       font-size: var(--text-xs);
       color: var(--color-text-faint);
       font-family: var(--font-display);
-      font-style: italic;
+      font-style: normal;
+      font-weight: 400;
     }
 
     @media (max-width: 480px) {
@@ -834,9 +887,11 @@
       <ul class="nav__links" id="navLinks" role="list">
         <li><a href="#services">Systems</a></li>
         <li><a href="#portfolio">Studio</a></li>
-        <li><a href="#network">Network</a></li>
+        <li><a href="#network">Clients</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+
+      <time class="nav__meta" id="navTime" datetime="" aria-label="Current UTC time"></time>
 
       <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
@@ -846,23 +901,26 @@
     </div>
   </nav>
 
+  <!-- ─── Logo marquee ─── -->
+  <div class="logo-marquee" aria-hidden="true">
+    <div class="logo-marquee__track">
+      <span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span>
+      <span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span><span>MYK</span>
+    </div>
+  </div>
+
   <!-- ─── Hero ─── -->
   <section class="hero" aria-label="MYK introduction">
     <div class="container" style="position: relative; z-index: 1;">
-      <p class="hero__eyebrow fade-up">Private Creative Technology Studio</p>
+      <p class="hero__eyebrow fade-up">Private Creative Technology Studio · Est. 1974</p>
 
-      <h1 class="hero__wordmark fade-up fade-up--delay-1">MYK</h1>
+      <h1 class="hero__headline fade-up fade-up--delay-1">Custom <em>systems</em> for those who build.</h1>
 
-      <div class="hero__rule fade-up fade-up--delay-2"></div>
-      <p class="hero__est fade-up fade-up--delay-2">Est. 1974</p>
-
-      <p class="hero__tagline fade-up fade-up--delay-3">Custom systems for those who build.</p>
-
-      <p class="hero__sub fade-up fade-up--delay-3">
+      <p class="hero__sub fade-up fade-up--delay-2">
         We design and engineer purpose-built software, studio environments, and operational infrastructure for serious creative operations.
       </p>
 
-      <a href="#contact" class="btn-primary fade-up fade-up--delay-4">
+      <a href="#contact" class="btn-primary fade-up fade-up--delay-3">
         Start a conversation
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -921,7 +979,7 @@
         <p class="section__label">Portfolio</p>
         <h2 class="section__title" id="portfolio-title">Selected Systems</h2>
         <p class="section__intro" style="margin-top: 1.25rem;">
-          A curated record of platforms, tools, and environments we've designed and deployed for our network.
+          A curated record of platforms, tools, and environments we've designed and deployed for clients.
         </p>
       </div>
 
@@ -965,10 +1023,10 @@
   <section class="section network" id="network" aria-labelledby="network-title">
     <div class="container">
       <div class="network__header fade-up">
-        <p class="section__label">Our Network</p>
-        <h2 class="section__title" id="network-title">MYK powers three<br/>creative brands.</h2>
+        <p class="section__label">Client Work</p>
+        <h2 class="section__title" id="network-title">Sites we build<br/>and support.</h2>
         <p class="section__intro" style="margin-top: 1.25rem;">
-          The infrastructure behind each of these operations was designed, built, and is maintained by MYK. Each brand is independent. The systems that run them are not.
+          Each company operates independently. Designs by MYK handles web design, development, and ongoing support — the only intentional connection between these brands.
         </p>
       </div>
 
@@ -1055,6 +1113,23 @@
   </footer>
 
   <script>
+    // ─── Nav UTC clock (Metalab-style) ───
+    (function () {
+      const el = document.getElementById('navTime');
+      if (!el) return;
+
+      function tick() {
+        const now = new Date();
+        const h = String(now.getUTCHours()).padStart(2, '0');
+        const m = String(now.getUTCMinutes()).padStart(2, '0');
+        el.textContent = h + ':' + m + ' UTC';
+        el.setAttribute('datetime', now.toISOString());
+      }
+
+      tick();
+      setInterval(tick, 30000);
+    })();
+
     // ─── Nav scroll behavior ───
     (function () {
       const nav = document.getElementById('nav');

@@ -117,6 +117,30 @@
 </head>
 <body>
 
+  <!-- ───── ENTRY GATE — lostkidsforever-style immersive entry ───── -->
+  <div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-label="Enter PATE Music">
+    <div class="entry-gate__bg" aria-hidden="true">
+      <video
+        class="entry-gate__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="assets/images/pate_cowboy_hat.jpg">
+        <source src="assets/cloudy_drift.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="entry-gate__inner">
+      <p class="entry-gate__mark">P A T E</p>
+      <p class="entry-gate__hint">Country × Hip-Hop · Houston 072</p>
+      <div class="entry-gate__actions">
+        <a href="bio.html" class="entry-gate__link">Pate</a>
+        <button type="button" class="entry-gate__btn" id="entry-enter">Enter</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ───── NEON SPIKE CLOUD BACKDROP ───── -->
   <div class="neon-spikes-bg" aria-hidden="true"></div>
   <div class="neon-spikes-mid" aria-hidden="true"></div>
@@ -519,40 +543,6 @@
         <h2 class="venues-title" style="font-size:clamp(1.8rem,4vw,3rem);margin-bottom:0;">Brand Partners</h2>
       </div>
 
-      <!-- Inspire / LTI -->
-      <div class="inspire-inner brand-lti">
-        <div class="inspire-brand">
-          <img src="assets/images/inspire_wings_logo.jpg" alt="Inspire by J Michaels — Est. 2024" class="inspire-logo inspire-wings-logo" loading="lazy" />
-          <span class="brand-badge brand-badge-lti">Apparel &amp; Lifestyle</span>
-          <p class="inspire-tagline lti-tagline">Learn. Live. Love to Inspire.</p>
-          <p class="inspire-copy">A creative force empowering individuals and uplifting communities through purposeful design and transformative experiences. LTIbyJMichael fuels creativity, cultivates confidence, and inspires lasting impact — Est. 2024.</p>
-          <blockquote class="brand-ar-quote">
-            <p>"When we saw what PATE was building, it was a perfect alignment. His music carries the same mission we do — learn, live, and love to inspire. We're proud to move with him."</p>
-            <cite>— J. Michaels, Founder &amp; Creative Director, LTIbyJMichael</cite>
-          </blockquote>
-          <a href="https://www.ltibyjmichael.com" target="_blank" rel="noopener" class="btn-outline-white inspire-cta">Shop Inspire</a>
-        </div>
-        <div class="inspire-lookbook">
-          <img src="assets/images/inspire_lookbook.jpg" alt="Inspire by J Michaels streetwear lookbook" loading="lazy" />
-        </div>
-      </div>
-
-      <!-- Inspire photo gallery strip -->
-      <div class="inspire-gallery-strip">
-        <div class="inspire-gallery-item">
-          <img src="assets/images/inspire_live_to_inspire.jpg" alt="Live to Inspire — Find inspiration. Share inspiration." loading="lazy" />
-        </div>
-        <div class="inspire-gallery-item inspire-gallery-feature">
-          <img src="assets/images/inspire_dreamstate.jpg" alt="Inspire creative energy — limitless vision" loading="lazy" />
-        </div>
-        <div class="inspire-gallery-item">
-          <img src="assets/images/inspire_jm_logo.jpg" alt="JM Designs — Out to Inspire the World" loading="lazy" />
-        </div>
-      </div>
-
-      <!-- Divider -->
-      <div class="brand-divider"></div>
-
       <!-- Designs by MYK -->
       <div class="inspire-inner inspire-inner-flip brand-myk">
         <div class="inspire-lookbook">
@@ -568,7 +558,7 @@
             <p>"PATE brings an authenticity that's rare. When our team first encountered his sound, we knew immediately — this artist needed visuals and tools that could match that energy. Building alongside SWAT Nation has been one of our best collaborations."</p>
             <cite>— MYK, Founder, Designs by MYK LLC</cite>
           </blockquote>
-          <a href="mailto:Publicist@Patemusic.live" class="btn-outline-white inspire-cta">Connect with MYK</a>
+          <a href="https://myk.ac" target="_blank" rel="noopener noreferrer" class="btn-outline-white inspire-cta">Visit Designs by MYK</a>
         </div>
       </div>
 
@@ -674,7 +664,7 @@
         <a href="https://www.tiktok.com/@patemusic.live" target="_blank" rel="noopener">TikTok</a>
       </div>
       <p class="footer-legal">© 2026 PATE · SWAT Nation · Houston 072 · All rights reserved</p>
-      <p class="footer-myk">Site crafted by <a href="mailto:Publicist@Patemusic.live" class="footer-myk-link">Designs by MYK LLC</a> &nbsp;·&nbsp; Digital Design &amp; Creative Solutions</p>
+      <p class="footer-myk">Site by <a href="https://myk.ac" target="_blank" rel="noopener noreferrer" class="footer-myk-link">Designs by MYK</a> &nbsp;·&nbsp; Web Design &amp; Support</p>
     </div>
   </footer>
 

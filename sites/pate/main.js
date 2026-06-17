@@ -6,6 +6,43 @@
 (function () {
   'use strict';
 
+  // ── Entry gate — immersive landing (lostkidsforever-style) ──
+  const gate = document.getElementById('entry-gate');
+  const enterBtn = document.getElementById('entry-enter');
+  const GATE_KEY = 'pate-entered';
+
+  function dismissGate() {
+    if (!gate) return;
+    const gateVideo = gate.querySelector('.entry-gate__video');
+    if (gateVideo) {
+      gateVideo.pause();
+      gateVideo.removeAttribute('src');
+      gateVideo.load();
+    }
+    gate.classList.add('is-dismissed');
+    gate.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('entry-locked');
+    try { sessionStorage.setItem(GATE_KEY, '1'); } catch (_) {}
+    setTimeout(() => gate.remove(), 950);
+  }
+
+  if (gate && !sessionStorage.getItem(GATE_KEY)) {
+    document.body.classList.add('entry-locked');
+    enterBtn && enterBtn.addEventListener('click', dismissGate);
+
+    const gateVideo = gate.querySelector('.entry-gate__video');
+    const gateBg = gate.querySelector('.entry-gate__bg');
+    if (gateVideo && gateBg) {
+      gateVideo.addEventListener('error', () => gateBg.classList.add('is-video-fallback'));
+      const playAttempt = gateVideo.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(() => gateBg.classList.add('is-video-fallback'));
+      }
+    }
+  } else if (gate) {
+    gate.remove();
+  }
+
   // ── Scrolled nav state ──────────────────
   const nav = document.getElementById('site-nav');
   function updateNav() {
