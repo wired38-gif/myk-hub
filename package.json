@@ -5,8 +5,8 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "build": "node scripts/ensure-sites.js",
-    "prestart": "node scripts/ensure-sites.js",
+    "build": "node ./scripts/ensure-sites.js",
+    "prestart": "node ./scripts/ensure-sites.js",
     "start": "node server.js",
     "dev": "npm start"
   },

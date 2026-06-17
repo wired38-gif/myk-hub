@@ -1,6 +1,6 @@
 {
   "start": "node server.js",
-  "build": "node scripts/ensure-sites.js",
+  "build": "node ./scripts/ensure-sites.js",
   "allowedHosts": [
     "myk.ac",
     "www.myk.ac",
