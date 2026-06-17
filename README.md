@@ -29,6 +29,24 @@ If you connected the parent monorepo (`Myks-Brain`), GoDaddy will not find `pack
 
 Default target is also read from `config/brain-proxy-target.json` when env vars are unset.
 
+### Node.js runtime (no dashboard picker)
+
+GoDaddy **Node.js PaaS** (beta) often has **no Runtime / Node version dropdown** in Settings. That is normal — you are not missing a UI.
+
+**How the platform picks a version** (first match wins on most buildpack-style hosts):
+
+| Source | This repo | Effect |
+|--------|-----------|--------|
+| **`.node-version`** | `18.20.0` | Local `nvm` / `fnm`; GoDaddy *may* read it if supported |
+| **`package.json` → `engines.node`** | `>=18` | Declares minimum; does **not** block Node 22 |
+| **Platform default** | — | Often **Node 22** on new apps when no picker exists |
+
+**You can ignore Node version for the ENOENT errors.** Preview failures on `/app/package.json` or `/app/scripts/ensure-sites.js` mean the Git checkout is empty or conflicted (phantom commit) — not a Node 18 vs 22 mismatch. Fix with [GoDaddy Preview reset](#godaddy-preview-must-pass-before-publish) below.
+
+- **Stuck on Node 22 with no picker:** leave it — Express + this hub run fine on 22. `engines.node` is `>=18` so deploy should not reject 22.
+- **Want Node 18 but no picker:** add or commit `.node-version` with `18.20.0` (already present) and redeploy; if the platform still uses 22, that is acceptable — no code change required.
+- **cPanel “Setup Node.js App”** (classic hosting) *does* have a version dropdown; that is a different product from Node.js PaaS.
+
 ### Local run
 
 ```bash
@@ -62,7 +80,7 @@ If pull still fails, open the repo on GoDaddy and reset local changes, then rede
 | **Root path** (app name tab) | **blank** — URL prefix only; unrelated to Git checkout |
 | **Build command** | `npm run build` (or leave default — runs `node ./scripts/ensure-sites.js`) |
 | **Start command** | `npm start` → `node server.js` |
-| **Runtime** | **Node.js 18** (Settings → Runtime). Node 22 works locally but 18 matches `.node-version`. |
+| **Runtime** | No dropdown on PaaS — platform default (often **22**) is fine. Repo allows **>=18** via `engines.node`; `.node-version` is for local dev. |
 | **Env vars** | `PORT` is set by GoDaddy. Optional: `BRAIN_PROXY_*` for `/brain`. |
 
 **Verify GitHub before redeploy:** open [raw package.json on main](https://raw.githubusercontent.com/wired38-gif/myk-hub/main/package.json) — you must see JSON with `"start": "node server.js"`.
