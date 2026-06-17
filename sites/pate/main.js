@@ -43,6 +43,32 @@
     gate.remove();
   }
 
+  // ── Global landing motion (cloudy drift video + neon fallback) ──
+  function initLandingMotion() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      document.body.classList.add('motion-reduced');
+      return;
+    }
+    const globalVideo = document.querySelector('.global-cloudy-video');
+    if (globalVideo) {
+      globalVideo.addEventListener('error', () => {
+        document.body.classList.add('motion-video-fallback');
+      });
+      const globalPlay = globalVideo.play();
+      if (globalPlay && typeof globalPlay.catch === 'function') {
+        globalPlay.catch(() => document.body.classList.add('motion-video-fallback'));
+      }
+    }
+    document.querySelectorAll('.hero-motion-video, .inspire-video').forEach((vid) => {
+      const attempt = vid.play();
+      if (attempt && typeof attempt.catch === 'function') {
+        attempt.catch(() => {});
+      }
+    });
+  }
+  initLandingMotion();
+
   // ── Scrolled nav state ──────────────────
   const nav = document.getElementById('site-nav');
   function updateNav() {

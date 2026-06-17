@@ -41,15 +41,42 @@ a { text-decoration: none; }
 }
 
 /* ─── BASE ─── */
+html {
+  background: #060504;
+}
 body {
   font-family: var(--font-body);
-  background:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(229, 168, 48, 0.06) 0%, transparent 55%),
-    linear-gradient(180deg, var(--brown) 0%, var(--black) 40%, #060504 100%);
+  background: transparent;
   color: var(--white);
   font-size: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
+}
+/* Semi-transparent scrim so fixed cloudy video reads through the page */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(229, 168, 48, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(20, 15, 8, 0.78) 0%, rgba(10, 8, 4, 0.82) 40%, rgba(6, 5, 4, 0.88) 100%);
+}
+body.motion-video-fallback::after {
+  background:
+    radial-gradient(ellipse 90% 70% at 30% 20%, rgba(229, 168, 48, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 80% 80%, rgba(255, 140, 0, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(20, 15, 8, 0.82) 0%, rgba(10, 8, 4, 0.86) 100%);
+  animation: landing-gradient-drift 24s ease-in-out infinite alternate;
+}
+body.motion-reduced::after {
+  animation: none;
+}
+@keyframes landing-gradient-drift {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  100% { filter: hue-rotate(8deg) brightness(1.05); }
 }
 body.entry-locked {
   overflow: hidden;
@@ -402,6 +429,22 @@ body.entry-locked {
   position: absolute;
   inset: 0;
 }
+.hero-motion-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.28;
+  filter: grayscale(30%) contrast(1.08);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-img {
+  position: relative;
+  z-index: 1;
+}
 .hero-img {
   width: 100%;
   height: 100%;
@@ -411,6 +454,7 @@ body.entry-locked {
 .hero-vignette {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(
     to bottom,
     rgba(0,0,0,0.2) 0%,
@@ -1228,6 +1272,7 @@ body.entry-locked {
 .hero-img-alt {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1244,14 +1289,21 @@ body.entry-locked {
 .global-cloudy-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -3;
   pointer-events: none;
+  overflow: hidden;
 }
 .global-cloudy-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.08;
+  opacity: 0.22;
+  filter: grayscale(35%) contrast(1.05);
+  transform: scale(1.06);
+}
+body.motion-reduced .global-cloudy-bg,
+body.motion-reduced .hero-motion-video {
+  display: none;
 }
 
 /* ─── CLOUDY DRIFT INTERLUDE ─── */
@@ -1900,7 +1952,7 @@ body.entry-locked {
 .neon-spikes-bg {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -4;
   pointer-events: none;
   overflow: hidden;
 }
@@ -1936,17 +1988,17 @@ body.entry-locked {
 }
 
 @keyframes spike-drift {
-  0%   { opacity: 0;    transform: translate(0, 0) scale(1); }
-  15%  { opacity: 1; }
-  50%  { opacity: 0.7;  transform: translate(80px, 60px) scale(1.2); }
-  85%  { opacity: 1; }
-  100% { opacity: 0;    transform: translate(0, 0) scale(1); }
+  0%   { opacity: 0.25; transform: translate(0, 0) scale(1); }
+  15%  { opacity: 0.85; }
+  50%  { opacity: 0.55; transform: translate(80px, 60px) scale(1.2); }
+  85%  { opacity: 0.8; }
+  100% { opacity: 0.25; transform: translate(0, 0) scale(1); }
 }
 
 /* Third spike — centre pulse, warm orange */
 .neon-spikes-mid {
   position: fixed;
-  z-index: -2;
+  z-index: -4;
   pointer-events: none;
   width: 800px;
   height: 500px;
@@ -2349,4 +2401,68 @@ body.entry-locked {
 .brand-myk .inspire-cta:hover {
   background: rgba(200,200,220,0.08) !important;
   color: #fff !important;
+}
+
+
+/* ─── LANDING MOTION + CARD READABILITY (2026-06) ─── */
+.cloudy-text span {
+  color: rgba(255, 255, 255, 0.92) !important;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85), 0 0 24px rgba(0, 0, 0, 0.5);
+}
+.cloudy-sep {
+  color: var(--gold) !important;
+  opacity: 0.85 !important;
+}
+.panel-sub,
+.album-panel .panel-sub,
+.video-panel .panel-sub {
+  color: rgba(255, 255, 255, 0.92) !important;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+.strip-item-dark {
+  background: rgba(8, 6, 4, 0.92);
+  box-shadow: inset 0 0 0 1px rgba(229, 168, 48, 0.18);
+}
+.strip-quote,
+.strip-origin {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+.gp-text {
+  background: rgba(12, 10, 6, 0.96);
+}
+.gp-caption {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+.brand-myk .myk-name,
+.brand-myk .myk-tagline,
+.brand-bruso .bruso-name,
+.brand-bruso .bruso-tagline {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
+}
+.brand-myk .myk-name {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+}
+.brand-myk .inspire-cta,
+.brand-bruso .inspire-cta {
+  background: rgba(0, 0, 0, 0.35);
+  text-shadow: none;
+}
+.inspire-inner.brand-myk,
+.inspire-inner.brand-bruso {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.photo-strip {
+  background: rgba(10, 8, 4, 0.72);
+}
+.gallery-section {
+  background: rgba(10, 8, 4, 0.78);
+}
+.venues-section {
+  background: rgba(20, 15, 8, 0.88);
+}
+.radio-section,
+.connect-section {
+  background: rgba(10, 8, 4, 0.9);
 }
