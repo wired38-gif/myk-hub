@@ -366,6 +366,27 @@
     }
 
     /* ─── Hero ─── */
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.42;
+    }
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(7, 11, 16, 0.92) 0%, rgba(7, 11, 16, 0.55) 45%, rgba(7, 11, 16, 0.75) 100%),
+        linear-gradient(to top, var(--color-bg) 0%, transparent 35%);
+    }
+
     .hero {
       position: relative;
       min-height: calc(100dvh - 2.5rem);
@@ -558,7 +579,30 @@
     .service-col {
       padding: clamp(var(--space-8), 4vw, var(--space-12));
       border-left: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
     }
+    .service-col__thumb {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.22;
+      transition: opacity var(--transition-interactive);
+    }
+    .service-col__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .service-col__thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--color-surface) 15%, rgba(12, 18, 25, 0.85) 100%);
+    }
+    .service-col:hover .service-col__thumb { opacity: 0.32; }
+    .service-col > *:not(.service-col__thumb) { position: relative; z-index: 1; }
 
     .service-col:first-child {
       border-left: none;
@@ -613,7 +657,7 @@
 
     .work-item {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 120px 1fr auto;
       align-items: start;
       gap: var(--space-8);
       padding: var(--space-8) 0;
@@ -630,6 +674,29 @@
 
     .work-item:hover {
       border-left-color: var(--color-text);
+    }
+
+    .work-item__thumb {
+      width: 120px;
+      height: 88px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--color-surface-2);
+    }
+    .work-item__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 640px) {
+      .work-item {
+        grid-template-columns: 1fr;
+      }
+      .work-item__thumb {
+        width: 100%;
+        height: 140px;
+      }
     }
 
     .work-item__domain {
@@ -687,12 +754,34 @@
       padding: var(--space-8) var(--space-8);
       background: var(--color-surface-2);
       border: 1px solid var(--color-border);
-      min-height: 180px;
+      min-height: 220px;
       text-decoration: none;
       transition: border-color var(--transition-interactive), background var(--transition-interactive);
       position: relative;
       overflow: hidden;
     }
+
+    .network-tile__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.28;
+      transition: opacity var(--transition-interactive);
+    }
+    .network-tile__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .network-tile__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--color-surface-2) 0%, rgba(17, 26, 36, 0.55) 100%);
+    }
+    .network-tile:hover .network-tile__bg { opacity: 0.38; }
+    .network-tile > div,
+    .network-tile > .network-tile__arrow { position: relative; z-index: 1; }
 
     .network-tile::before {
       content: '';
@@ -704,6 +793,7 @@
       background: var(--color-text);
       opacity: 0;
       transition: opacity var(--transition-interactive);
+      z-index: 2;
     }
 
     .network-tile:hover {
@@ -960,6 +1050,9 @@
 
   <!-- ─── Hero ─── -->
   <section class="hero" aria-label="MYK introduction">
+    <div class="hero__bg" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80" alt="" loading="lazy" width="1600" height="900" />
+    </div>
     <div class="container" style="position: relative; z-index: 1;">
       <p class="hero__eyebrow fade-up"><span class="term-prompt">$</span> systems_builder — creative technology studio · est. 1974</p>
 
@@ -1005,6 +1098,7 @@
 
       <div class="services__grid">
         <div class="service-col fade-up">
+          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
           <p class="service-col__num">01</p>
           <h3 class="service-col__title">Creator Software</h3>
           <p class="service-col__body">
@@ -1012,6 +1106,7 @@
           </p>
         </div>
         <div class="service-col fade-up fade-up--delay-1">
+          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
           <p class="service-col__num">02</p>
           <h3 class="service-col__title">Studio Systems</h3>
           <p class="service-col__body">
@@ -1019,6 +1114,7 @@
           </p>
         </div>
         <div class="service-col fade-up fade-up--delay-2">
+          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
           <p class="service-col__num">03</p>
           <h3 class="service-col__title">Team Infrastructure</h3>
           <p class="service-col__body">
@@ -1042,6 +1138,9 @@
 
       <div class="work-list" role="list">
         <article class="work-item fade-up" role="listitem">
+          <div class="work-item__thumb">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80" alt="Live music and artist platform interface" loading="lazy" width="600" height="400" />
+          </div>
           <div>
             <p class="work-item__domain">patemusic.live</p>
             <p class="work-item__desc">Artist platform, music promotion, and fan engagement system. Built to support an independent artist's full digital presence — catalog, releases, and audience relationship in a single cohesive environment.</p>
@@ -1050,6 +1149,9 @@
         </article>
 
         <article class="work-item fade-up fade-up--delay-1" role="listitem">
+          <div class="work-item__thumb">
+            <img src="https://images.unsplash.com/photo-1460661419201-fd7912660ffc?w=600&q=80" alt="Creative studio and design workspace" loading="lazy" width="600" height="400" />
+          </div>
           <div>
             <p class="work-item__domain">ltibyjmichael.com</p>
             <p class="work-item__desc">Creative design studio and portfolio system. A digital environment for a working designer — showcasing craft, managing client work, and establishing a professional presence with editorial precision.</p>
@@ -1058,6 +1160,9 @@
         </article>
 
         <article class="work-item fade-up fade-up--delay-2" role="listitem">
+          <div class="work-item__thumb">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Custom e-commerce product display" loading="lazy" width="600" height="400" />
+          </div>
           <div>
             <p class="work-item__domain">queenscustoms.shop</p>
             <p class="work-item__desc">Custom product e-commerce with a bespoke tumbler builder. End-to-end commerce architecture — product configuration, order management, and brand experience built to spec around a custom product offering.</p>
@@ -1066,6 +1171,9 @@
         </article>
 
         <article class="work-item fade-up fade-up--delay-3" role="listitem">
+          <div class="work-item__thumb">
+            <img src="https://images.unsplash.com/photo-1639765487017-a4063872e1a1?w=600&q=80" alt="Abstract encrypted systems visualization" loading="lazy" width="600" height="400" />
+          </div>
           <div>
             <p class="work-item__domain">[REDACTED]</p>
             <p class="work-item__desc">Private client system operating under NDA. Enterprise-grade infrastructure for a confidential creative operation. Further details available upon execution of a mutual non-disclosure agreement.</p>
@@ -1089,6 +1197,8 @@
 
       <div class="network__grid">
         <a href="https://patemusic.live" class="network-tile fade-up" target="_blank" rel="noopener noreferrer" aria-label="Visit PATE Music at patemusic.live">
+          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
+          
           <div>
             <p class="network-tile__name">PATE</p>
             <p class="network-tile__domain">patemusic.live</p>
@@ -1098,6 +1208,8 @@
         </a>
 
         <a href="https://ltibyjmichael.com" class="network-tile fade-up fade-up--delay-1" target="_blank" rel="noopener noreferrer" aria-label="Visit LTI by JMichael at ltibyjmichael.com">
+          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
+          
           <div>
             <p class="network-tile__name">LTI</p>
             <p class="network-tile__domain">ltibyjmichael.com</p>
@@ -1107,6 +1219,8 @@
         </a>
 
         <a href="https://queenscustoms.shop" class="network-tile fade-up fade-up--delay-2" target="_blank" rel="noopener noreferrer" aria-label="Visit Queens Customs at queenscustoms.shop">
+          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
+          
           <div>
             <p class="network-tile__name">QUEENS</p>
             <p class="network-tile__domain">queenscustoms.shop</p>
