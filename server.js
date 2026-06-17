@@ -139,10 +139,10 @@ app.get('*', (req, res, next) => {
   res.sendFile(path.join(SITES_ROOT, site, 'index.html'));
 });
 
-const PORT = process.env.PORT || 20010;
-const HOST = process.env.HOST || '0.0.0.0';
-app.listen(PORT, HOST, () => {
-  console.log(`MYK Hub running on ${HOST}:${PORT}`);
+const server = app;
+server.listen(process.env.PORT || 20010, '0.0.0.0', () => {
+  const port = process.env.PORT || 20010;
+  console.log(`MYK Hub running on 0.0.0.0:${port}`);
   if (BRAIN_ENABLED) {
     console.log(`Brain proxy: ${BRAIN_PREFIX} -> ${BRAIN_TARGET}`);
   }
