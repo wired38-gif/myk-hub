@@ -54,7 +54,8 @@ If pull still fails, open the repo on GoDaddy and reset local changes, then rede
 
 ### Troubleshooting ENOENT `/app/package.json`
 
-1. Confirm GoDaddy is linked to **`wired38-gif/myk-hub`**, not `Myks-Brain`.
-2. Application root must be **empty** or `.` — not a subdirectory.
-3. Redeploy after changing repo or root path.
-4. `airo-sandbox` warnings about missing `/git-repo` usually mean the Git checkout failed (wrong repo, branch, or root path).
+1. Confirm GoDaddy is linked to **`wired38-gif/myk-hub`**, not `Myks-Brain`. App display name **`myk_hub`** is fine; the GitHub slug is **`myk-hub`** (hyphen). Repo `wired38-gif/myk_hub` does not exist.
+2. Application root must be **empty** or `.` — **not** `sites/myk-hub`, `sites/`, or any subfolder (those paths are from the monorepo on your Mac; this repo has `package.json` only at the root).
+3. Branch **`main`**. Start: **`npm start`**. Build: **`npm run build`** or `node scripts/ensure-sites.js`.
+4. Redeploy after changing repo or root path. If pull failed with merge conflicts, reset platform git state per [MERGE.md](./MERGE.md), then redeploy.
+5. `airo-sandbox` warnings about missing `/git-repo` usually mean the Git checkout failed (wrong repo, branch, or root path).

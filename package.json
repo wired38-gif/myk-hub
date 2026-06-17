@@ -1,7 +1,7 @@
 {
   "name": "myk-hub",
   "version": "1.0.0",
-  "description": "MYK multi-domain hub — serves patemusic.live, myk.ac, and ltibyjmichael.com from one Node.js app",
+  "description": "MYK multi-domain hub \u2014 serves patemusic.live, myk.ac, and ltibyjmichael.com from one Node.js app",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
@@ -17,5 +17,10 @@
     "express": "^4.18.2",
     "http-proxy-middleware": "^3.0.5",
     "vite": "^6.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wired38-gif/myk-hub.git"
+  },
+  "homepage": "https://github.com/wired38-gif/myk-hub#readme"
 }
