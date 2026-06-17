@@ -1,6 +1,29 @@
 # GoDaddy myk-hub — nuclear reset when Git pull won't refresh
 
-Use this when **Deployment info → Git commit** shows a SHA that **does not exist on GitHub** (e.g. `e792b78`) and Preview keeps failing with:
+## Preview vs Publish — two different pipelines
+
+GoDaddy Node PaaS runs **different code paths** for Preview/Pull vs Publish. Your logs show this clearly:
+
+| | **Publish (works)** | **Preview / Git pull (fails)** |
+|---|---------------------|--------------------------------|
+| Archive | Extracts `/dist/current` (~58–59 MB) → `/app` | **No** archive extraction lines |
+| `node_modules` | Present → **skip** `npm install` + build | `airo-sandbox`: `/app/node_modules` **missing** |
+| Start | `prestart` / `ensure-sites` OK → `node server.js` on `PORT` | `ENOENT` `/app/package.json` or `/app/scripts/ensure-sites.js` |
+| Sites | Real `sites/*/index.html` served | Sometimes stub sites, then `ENOENT` on `sites/myk/index.html` |
+
+**Bottom line:** A **published** deploy can be healthy while **Preview** keeps failing. That is expected until `/app` is populated the same way Publish does (archive extract or full zip upload).
+
+### What to do
+
+1. **Skip Preview — Publish the last good deploy** if Deployment info already shows a working commit and live `https://myk.ac/health` is OK. Preview is not required for production.
+2. **OR upload a Publish-style zip** (includes `node_modules`; typically ~58–80 MB depending on site assets) via the manual upload / Publish path — see **Path A** below. This matches the working archive flow.
+3. **Do not expect Git Pull / Preview alone to fix an empty sandbox.** Until GoDaddy extracts an archive or you reset `/app` (Path B/C), Preview will keep showing `airo-sandbox` + ENOENT even when GitHub `main` is correct.
+
+`.airo/config.json` lives on GoDaddy's platform (not in this repo). Local source of truth: `.godaddy` (start/build commands) + `scripts/build-godaddy-zip.sh`.
+
+---
+
+Use the reset paths below when **Deployment info → Git commit** shows a SHA that **does not exist on GitHub** (e.g. `e792b78`) and Preview keeps failing with:
 
 ```text
 ENOENT: no such file or directory, open '/app/package.json'
@@ -9,7 +32,7 @@ ENOENT: ... '/app/scripts/ensure-sites.js'
 
 That means GoDaddy's `/app` checkout is **empty or conflicted**. Pushing more commits to GitHub or clicking **Pull** again will **not** fix it until the platform filesystem is replaced.
 
-**GitHub truth (verify first):** [wired38-gif/myk-hub `main`](https://github.com/wired38-gif/myk-hub) should be **`c7dae1e` or newer**. Root must include `package.json`, `server.js`, `scripts/`, `sites/`, `config/`, `.godaddy`, `vite.config.js`.
+**GitHub truth (verify first):** [wired38-gif/myk-hub `main`](https://github.com/wired38-gif/myk-hub) should be current. Root must include `package.json`, `server.js`, `scripts/`, `sites/` (real `index.html` for myk/lti/pate), `config/`, `.godaddy`, `vite.config.js`.
 
 ---
 
@@ -17,14 +40,14 @@ That means GoDaddy's `/app` checkout is **empty or conflicted**. Pushing more co
 
 ### Path A — Zip upload (fastest, bypasses broken Git) ⭐
 
-1. On your Mac, use the pre-built zip (or rebuild):
+1. On your Mac, rebuild the **Publish-style** zip (runs `npm ci`, bundles `node_modules`):
    ```bash
    cd ~/Desktop/myks-app/sites/myk-hub
    bash scripts/build-godaddy-zip.sh
-   # → dist/myk-hub-deploy.zip (~51 MB) and /tmp/myk-hub-deploy-<sha>.zip
+   # → dist/myk-hub-deploy.zip (~58-80 MB) and /tmp/myk-hub-deploy-<sha>.zip
    ```
 2. GoDaddy → **myk_hub** (or your Node app) → **Settings** → **Deployment** (or **Upload** / **Manual deploy** if shown).
-3. Upload **`dist/myk-hub-deploy.zip`** (max **~100 MB** on GoDaddy Node; current bundle is ~51 MB).
+3. Upload **`dist/myk-hub-deploy.zip`** through the **Publish / upload** path (max **~100 MB** on GoDaddy Node; bundle is typically ~58–80 MB with `node_modules` + site assets).
 4. Set:
    | Setting | Value |
    |---------|--------|
@@ -32,9 +55,9 @@ That means GoDaddy's `/app` checkout is **empty or conflicted**. Pushing more co
    | **Start command** | `npm start` |
    | **Node runtime** | **18** |
    | **Application root** | blank / `.` |
-5. Re-enter env vars below → **Preview** → **Publish**.
+5. Re-enter env vars below → **Publish** (Preview optional — see **Preview vs Publish** above).
 
-Zip contents: `package.json`, `server.js`, `scripts/`, `sites/`, `config/`, `.godaddy`, `vite.config.js`, `index.html`, `package-lock.json`. **No** `node_modules`, **no** `.env`.
+Zip contents: everything above **plus** `node_modules/` from `npm ci` (matches Publish archive — platform skips install/build). **No** `.env`.
 
 If the UI has no zip upload, use **Path B** (delete + recreate with Git) or **Path C** (SSH wipe).
 
@@ -143,8 +166,8 @@ Tags/branches do **not** fix a corrupted `/app` by themselves — still use Path
 | Check | Expected |
 |-------|----------|
 | Deployment **Git commit** | `c7dae1e` or newer, [exists on GitHub](https://github.com/wired38-gif/myk-hub/commits/main) |
-| Preview build log | `npm run build` runs `ensure-sites.js` without ENOENT |
-| Preview start | `node server.js` listens on `PORT` |
+| Preview build log | With zip Publish: skip install (node_modules present) or `ensure-sites.js` OK |
+| Preview start | Optional — **Publish** is what matters for live traffic |
 | Live | `https://myk.ac/health` → JSON `ok: true` |
 
 ---
