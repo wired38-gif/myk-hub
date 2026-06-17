@@ -9,6 +9,10 @@ GoDaddy Node.js PaaS **edits `vite.config.js` on the server** for hostname routi
 
 Until the platform repo is out of conflict state, **new commits on GitHub do not deploy**.
 
+### Phantom commit (e.g. `e792b78` not on GitHub)
+
+If **Deployment info → Git commit** shows a short SHA that returns 404 on GitHub, GoDaddy never checked out `origin/main` — it is serving a **local platform commit** from a failed merge. Preview fails with ENOENT for `/app/package.json` and `/app/scripts/ensure-sites.js` because `/app` is empty or conflicted. **Hard reset** (method A below) or **disconnect/reconnect Git** is required; pushing more commits to GitHub alone will not fix preview until the platform resets.
+
 ## Fix on the platform (pick one)
 
 ### A. Hard reset (recommended)
