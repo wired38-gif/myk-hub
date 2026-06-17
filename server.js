@@ -106,8 +106,15 @@ app.use((_req, res, next) => {
   next();
 });
 
+function isBrainPath(req) {
+  const p = (req.path || req.url.split('?')[0] || '').replace(/\/$/, '') || '/';
+  return p === BRAIN_PREFIX || p.startsWith(`${BRAIN_PREFIX}/`);
+}
+
 // Per-domain static file serving
 app.use((req, res, next) => {
+  if (BRAIN_ENABLED && isBrainPath(req)) return next();
+
   const site = resolveSite(req);
   const siteDir = path.join(SITES_ROOT, site);
 
@@ -119,7 +126,15 @@ app.use((req, res, next) => {
 });
 
 // SPA / clean URL fallback — serve index.html for unmatched routes
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
+  if (BRAIN_ENABLED && isBrainPath(req)) {
+    res.status(502).json({
+      ok: false,
+      error: 'brain_proxy_unavailable',
+      hint: 'Check BRAIN_PROXY_TARGET and redeploy myk-hub',
+    });
+    return;
+  }
   const site = resolveSite(req);
   res.sendFile(path.join(SITES_ROOT, site, 'index.html'));
 });
