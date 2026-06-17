@@ -44,6 +44,7 @@ This hub is **plain Express** — not a Vite SPA — but **keep `vite.config.js`
 - **`vite.config.js`** — `server.allowedHosts` must match **`.godaddy`** `allowedHosts` (platform reads both).
 - **`vite`** is a **devDependency** so `npm install` succeeds if the platform invokes the Vite CLI.
 - **`npm run build`** stays **`node scripts/ensure-sites.js` only** — no `vite build` in the build script unless GoDaddy requires it.
+- **`index.html`** at the **repo root** — stub entry so GoDaddy’s automatic **`vite build`** step does not fail with `Could not resolve entry module "index.html"`. Express still serves `sites/<name>/`; ignore `dist/` output.
 
 ### Merge conflicts on GoDaddy pull
 
