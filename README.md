@@ -47,6 +47,8 @@ This hub is **plain Express** — not a Vite SPA — but **keep `vite.config.js`
 
 ### Merge conflicts on GoDaddy pull
 
+See **[MERGE.md](./MERGE.md)** for hard-reset steps and the modify/delete + add/add root cause. Keep `vite.config.js` as a **single line** matching `.godaddy` `allowedHosts`.
+
 If pull still fails, open the repo on GoDaddy and reset local changes, then redeploy from latest `main`. Never commit `<<<<<<<` conflict markers.
 
 ### Troubleshooting ENOENT `/app/package.json`
