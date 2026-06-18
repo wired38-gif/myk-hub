@@ -723,6 +723,93 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* ─── Engineering (flagship systems) ─── */
+    .engineering {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .engineering__header {
+      margin-bottom: clamp(var(--space-10), 5vw, var(--space-16));
+    }
+
+    .eng-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 768px) {
+      .eng-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .eng-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-interactive);
+    }
+
+    .eng-card:hover {
+      border-color: var(--color-accent-dim);
+    }
+
+    .eng-card__tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-terminal);
+      letter-spacing: 0.04em;
+    }
+
+    .eng-card__tag::before {
+      content: '// ';
+      color: var(--color-text-faint);
+    }
+
+    .eng-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+    }
+
+    .eng-card__body {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .eng-card__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-top: var(--space-2);
+    }
+
+    .eng-card__link {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .eng-card__link:hover {
+      color: var(--color-primary-hover);
+    }
+
+    .eng-card__link::after {
+      content: ' →';
+    }
+
     /* ─── Network ─── */
     .network {
       background: var(--color-surface);
@@ -1033,6 +1120,7 @@
 
       <ul class="nav__links" id="navLinks" role="list">
         <li><a href="#services">Systems</a></li>
+        <li><a href="#engineering">Engineering</a></li>
         <li><a href="#portfolio">Studio</a></li>
         <li><a href="#network">Clients</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1121,6 +1209,58 @@
             Collaboration frameworks, workflow systems, and project management architecture designed for production and engineering teams. From concept to release, every touchpoint intentional and every handoff clean.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Engineering (additive — flagship systems) ─── -->
+  <section class="section engineering" id="engineering" aria-labelledby="engineering-title">
+    <div class="container container--narrow">
+      <div class="engineering__header fade-up">
+        <p class="section__label">Engineering</p>
+        <h2 class="section__title" id="engineering-title">Flagship systems<br/>we operate.</h2>
+        <p class="section__intro" style="margin-top: 1.25rem;">
+          Production-grade platforms built and maintained in-house — local AI gateways, public chat products, multi-domain infrastructure, and distributed inference.
+        </p>
+      </div>
+
+      <div class="eng-grid">
+        <article class="eng-card fade-up">
+          <p class="eng-card__tag">local_ai_engine</p>
+          <h3 class="eng-card__title">MyksBrain</h3>
+          <p class="eng-card__body">Express gateway coordinating five capability pillars, autopilot self-build, Tauri desktop shell, and file-backed memory — runs on Apple Silicon without mandatory cloud API keys.</p>
+          <div class="eng-card__links">
+            <a href="https://github.com/wired38-gif/Myks-Brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://myk.ac/brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">Live demo</a>
+          </div>
+        </article>
+
+        <article class="eng-card fade-up fade-up--delay-1">
+          <p class="eng-card__tag">public_chat_product</p>
+          <h3 class="eng-card__title">Ask Myk</h3>
+          <p class="eng-card__body">PIN-gated public chat at askmyk.io — avatar-led UX, Cloudflare tunnel to the same gateway, direct Ollama replies for responsive Q&amp;A.</p>
+          <div class="eng-card__links">
+            <a href="https://askmyk.io" class="eng-card__link" target="_blank" rel="noopener noreferrer">askmyk.io</a>
+          </div>
+        </article>
+
+        <article class="eng-card fade-up fade-up--delay-2">
+          <p class="eng-card__tag">multi_domain_hub</p>
+          <h3 class="eng-card__title">myk-hub</h3>
+          <p class="eng-card__body">Single Express host serving multiple portfolio domains with Host-header routing and a configurable reverse proxy for the AI engine at /brain.</p>
+          <div class="eng-card__links">
+            <a href="https://github.com/wired38-gif/myk-hub" class="eng-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <article class="eng-card fade-up fade-up--delay-3">
+          <p class="eng-card__tag">distributed_inference</p>
+          <h3 class="eng-card__title">Dual-hive</h3>
+          <p class="eng-card__body">Mac gateway as control plane with optional remote Ollama offload — unified health API, graceful degradation when the remote node is offline.</p>
+          <div class="eng-card__links">
+            <a href="https://github.com/wired38-gif/Myks-Brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">Hive status API</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
