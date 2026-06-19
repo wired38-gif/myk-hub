@@ -8,36 +8,31 @@
   <meta property="og:title" content="LTI by JMichael — Design Studio · Houston, TX" />
   <meta property="og:description" content="Custom logos, album covers, apparel, brand kits and creative services from an independent Texas artist. The Inspire® line. The 072 Collection." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0a0a0a" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0a0a08" />
+  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── DESIGN TOKENS — Futura Lab × Brain Dead ─── */
+    /* ─── DESIGN TOKENS ─── */
     :root {
-      --color-bg:           #0a0a0a;
-      --color-surface:      #111111;
-      --color-surface-2:    #1a1a1a;
-      --color-border:       #2e2e2e;
-      --color-text:         #f2f0ea;
-      --color-text-muted:   #8a8880;
-      --color-text-faint:   #555550;
-      --color-primary:      #c8ff00;
-      --color-primary-hover:#b0e600;
-      --color-primary-soft: rgba(200, 255, 0, 0.12);
-      --color-primary-mid:  rgba(200, 255, 0, 0.35);
-      --color-primary-faint:rgba(200, 255, 0, 0.06);
-      --color-accent:       #574cd5;
-      --color-accent-2:     #ff4d4d;
+      --color-bg:           #0a0a08;
+      --color-surface:      #111110;
+      --color-surface-2:    #1a1917;
+      --color-border:       #2a2926;
+      --color-text:         #e8e6e1;
+      --color-text-muted:   #8a8884;
+      --color-text-faint:   #504e4b;
+      --color-primary:      #c8682a;
+      --color-primary-hover:#a8501e;
 
-      --font-display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
-      --font-body:    'IBM Plex Mono', 'Courier New', monospace;
+      --font-display: 'Zodiak', Georgia, serif;
+      --font-body:    'Cabinet Grotesk', system-ui, sans-serif;
 
-      --transition-interactive: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-      --radius-sm: 0;
-      --radius-md: 0;
-      --radius-lg: 0;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
     }
 
     /* ─── RESET & BASE ─── */
@@ -50,19 +45,11 @@
     }
 
     body {
-      background:
-        linear-gradient(180deg, #111 0%, var(--color-bg) 30%),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 79px,
-          rgba(255,255,255,0.02) 79px,
-          rgba(255,255,255,0.02) 80px
-        );
+      background: var(--color-bg);
       color: var(--color-text);
       font-family: var(--font-body);
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: 16px;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
@@ -88,6 +75,12 @@
       to { opacity: 1; }
     }
 
+    /* ─── MARQUEE ─── */
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
     /* ─── NAV ─── */
     .nav {
       position: fixed;
@@ -99,10 +92,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 clamp(20px, 5vw, 60px);
-      height: 56px;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      height: 64px;
+      background: rgba(10,10,8,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border);
       transition: box-shadow var(--transition-interactive);
     }
@@ -125,25 +118,24 @@
     }
     .nav-links a {
       font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--color-text-muted);
       transition: color var(--transition-interactive);
     }
-    .nav-links a:hover { color: var(--color-primary); }
+    .nav-links a:hover { color: var(--color-text); }
 
     .nav-cta {
-      background: var(--color-accent) !important;
+      background: var(--color-primary);
       color: #fff !important;
-      padding: 8px 16px !important;
-      border-radius: 0 !important;
-      font-weight: 600 !important;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
       transition: background var(--transition-interactive), transform var(--transition-interactive) !important;
     }
     .nav-cta:hover {
-      background: color-mix(in srgb, var(--color-accent) 85%, #fff) !important;
+      background: var(--color-primary-hover) !important;
       transform: translateY(-1px);
     }
 
@@ -172,7 +164,7 @@
     .nav-mobile {
       display: none;
       position: fixed;
-      inset: 56px 0 0 0;
+      inset: 64px 0 0 0;
       z-index: 99;
       background: var(--color-bg);
       padding: 32px clamp(20px, 5vw, 60px);
@@ -195,69 +187,75 @@
       .nav-hamburger { display: flex; }
     }
 
-    main {
-      padding-top: 56px;
+    /* ─── MARQUEE STRIP ─── */
+    .marquee-strip {
+      margin-top: 64px;
+      overflow: hidden;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 10px 0;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee-scroll 28s linear infinite;
+      will-change: transform;
+    }
+    .marquee-track span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      padding: 0 32px;
+    }
+    .marquee-track span.dot {
+      color: var(--color-text-faint);
+      padding: 0;
+      font-size: 8px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
     }
 
     /* ─── HERO ─── */
     .hero {
-      min-height: calc(100vh - 56px);
+      min-height: calc(100vh - 64px - 38px);
       display: flex;
       align-items: center;
       padding: clamp(60px, 10vw, 120px) clamp(20px, 7vw, 80px);
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .hero__photo {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .hero__photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
-    }
-    .hero__photo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.82) 100%),
-        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(87,76,213,0.12) 0%, transparent 60%);
     }
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 1;
       background:
-        radial-gradient(ellipse 40% 50% at 5% 90%, rgba(200,255,0,0.06) 0%, transparent 55%);
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,104,42,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,104,42,0.04) 0%, transparent 60%);
       pointer-events: none;
     }
+    /* Decorative large "LTI" watermark */
     .hero::after {
-      content: 'LAB';
+      content: 'LTI';
       position: absolute;
-      right: -1vw;
+      right: -2vw;
       top: 50%;
       transform: translateY(-50%);
       font-family: var(--font-display);
-      font-size: clamp(160px, 22vw, 340px);
+      font-size: clamp(180px, 24vw, 380px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(200,255,0,0.06);
+      -webkit-text-stroke: 1px rgba(200,104,42,0.07);
       pointer-events: none;
       line-height: 1;
       user-select: none;
-      letter-spacing: -0.04em;
     }
 
     .hero-inner {
       position: relative;
-      z-index: 2;
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
@@ -271,52 +269,32 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--color-accent);
+      color: var(--color-primary);
       margin-bottom: 24px;
     }
     .hero-eyebrow::before {
       content: '';
       display: block;
-      width: 20px;
-      height: 2px;
+      width: 24px;
+      height: 1px;
       background: var(--color-primary);
     }
     .hero-heading {
       font-family: var(--font-display);
-      font-size: clamp(48px, 7.5vw, 96px);
+      font-size: clamp(52px, 8vw, 108px);
       font-weight: 700;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
       color: var(--color-text);
       margin-bottom: 28px;
     }
     .hero-heading em {
-      font-style: normal;
+      font-style: italic;
       color: var(--color-primary);
-    }
-
-    .hero-disciplines {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .hero-discipline {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-      padding: 8px 12px;
-      background: transparent;
     }
     .hero-sub {
       font-size: 16px;
@@ -356,23 +334,20 @@
     .btn:active { transform: translateY(0) !important; }
     .btn-primary {
       background: var(--color-primary);
-      color: #0a0a0a;
-      border-radius: 0;
+      color: #fff;
     }
     .btn-primary:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 4px 4px 0 var(--color-accent);
+      box-shadow: 0 8px 24px rgba(200,104,42,0.35);
     }
     .btn-ghost {
       background: transparent;
       color: var(--color-text);
       border: 1px solid var(--color-border);
-      border-radius: 0;
     }
     .btn-ghost:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
+      border-color: var(--color-text-muted);
       transform: translateY(-2px);
     }
 
@@ -380,35 +355,6 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-    }
-    .hero-mosaic {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 8px;
-      min-height: 280px;
-    }
-    .hero-mosaic__cell {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-      min-height: 120px;
-    }
-    .hero-mosaic__cell img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      min-height: 120px;
-    }
-    .hero-mosaic__cell--main {
-      grid-row: span 2;
-    }
-    .hero-mosaic__cell::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.55) 0%, transparent 50%);
-      pointer-events: none;
     }
     .hero-badge-row {
       display: flex;
@@ -419,20 +365,20 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--color-text-muted);
-      background: transparent;
+      background: var(--color-surface-2);
       border: 1px solid var(--color-border);
-      padding: 6px 12px;
-      border-radius: 0;
+      padding: 6px 14px;
+      border-radius: 100px;
     }
     .badge.accent {
       color: var(--color-primary);
-      border-color: var(--color-primary);
-      background: rgba(200,255,0,0.06);
+      border-color: rgba(200,104,42,0.3);
+      background: rgba(200,104,42,0.08);
     }
 
     .hero-stat-grid {
@@ -441,7 +387,7 @@
       gap: 1px;
       background: var(--color-border);
       border: 1px solid var(--color-border);
-      border-radius: 0;
+      border-radius: var(--radius-md);
       overflow: hidden;
     }
     .hero-stat {
@@ -514,81 +460,6 @@
       .hero-heading { font-size: clamp(44px, 13vw, 72px); }
     }
 
-    /* ─── SHOP ROW — Futura Laboratories category tiles ─── */
-    .shop-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--color-border);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .shop-tile {
-      background: var(--color-surface);
-      padding: clamp(28px, 4vw, 52px);
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 20px;
-      position: relative;
-      overflow: hidden;
-      transition:
-        background var(--transition-interactive),
-        transform var(--transition-interactive);
-    }
-    .shop-tile:hover {
-      background: var(--color-surface-2);
-      transform: translateY(-2px);
-    }
-    .shop-tile__label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-text-faint);
-    }
-    .shop-tile__title {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3vw, 34px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      color: var(--color-text);
-    }
-    .shop-tile__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.32;
-      transition: opacity var(--transition-interactive);
-    }
-    .shop-tile__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .shop-tile__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.45) 100%);
-    }
-    .shop-tile:hover .shop-tile__bg { opacity: 0.42; }
-    .shop-tile > * { position: relative; z-index: 1; }
-
-    .shop-tile__cta {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-    }
-    @media (max-width: 768px) {
-      .shop-row { grid-template-columns: 1fr; }
-    }
-
     /* ─── SECTION SHARED ─── */
     section { padding: clamp(80px, 10vw, 140px) clamp(20px, 7vw, 80px); }
 
@@ -601,28 +472,26 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--color-accent);
+      color: var(--color-primary);
       margin-bottom: 20px;
     }
     .section-label::before {
       content: '';
       display: block;
       width: 20px;
-      height: 2px;
+      height: 1px;
       background: var(--color-primary);
     }
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(32px, 4.5vw, 56px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
+      line-height: 1.05;
       letter-spacing: -0.02em;
       color: var(--color-text);
       margin-bottom: 20px;
@@ -730,56 +599,27 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 0;
+      padding: 36px;
       display: flex;
       flex-direction: column;
-      gap: 0;
-      position: relative;
-      overflow: hidden;
+      gap: 16px;
       transition:
         border-color var(--transition-interactive),
         transform var(--transition-interactive),
         box-shadow var(--transition-interactive);
     }
-
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      inset: 14px;
-      border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
-      border-radius: calc(var(--radius-lg) - 6px);
-      pointer-events: none;
-    }
-
     .bento-card:hover {
-      border-color: color-mix(in srgb, var(--color-primary) 50%, var(--color-border));
+      border-color: rgba(200,104,42,0.4);
       transform: translateY(-3px);
-      box-shadow: 0 16px 48px rgba(224, 122, 95, 0.12);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     }
     .bento-card.featured {
       background: var(--color-surface-2);
     }
-    .bento-media {
-      height: 160px;
-      overflow: hidden;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .bento-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .bento-body {
-      padding: 28px 36px 36px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      flex: 1;
-    }
     .bento-icon {
       width: 48px;
       height: 48px;
-      background: var(--color-primary-soft);
+      background: rgba(200,104,42,0.12);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
@@ -829,11 +669,7 @@
     }
 
     /* ─── COLLECTIONS ─── */
-    .collections {
-      background:
-        linear-gradient(rgba(10,10,10,0.97), rgba(10,10,10,0.97)),
-        url('https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80') center/cover no-repeat;
-    }
+    .collections { background: var(--color-surface); }
     .collections-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -853,44 +689,24 @@
       min-height: 360px;
       justify-content: flex-end;
     }
-    .collection-block__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.38;
-    }
-    .collection-block__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .collection-block__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.35) 100%);
-    }
-    .collection-block > *:not(.collection-block__bg):not(.collection-number) { position: relative; z-index: 1; }
-
     .collection-block::before {
       content: '';
       position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
     }
     .collection-block.inspire::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--color-primary-soft) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,104,42,0.12) 0%, transparent 70%);
     }
     .collection-block.zero72::before {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--color-primary-faint) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,104,42,0.06) 0%, transparent 70%);
     }
     .collection-number {
       font-family: var(--font-display);
       font-size: clamp(80px, 14vw, 180px);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(200, 255, 0, 0.15);
+      -webkit-text-stroke: 1px rgba(200,104,42,0.15);
       line-height: 1;
       position: absolute;
       top: 20px;
@@ -979,8 +795,8 @@
       width: 52px;
       height: 52px;
       border-radius: var(--radius-md);
-      background: rgba(200, 255, 0, 0.1);
-      border: 1px solid rgba(200, 255, 0, 0.2);
+      background: rgba(200,104,42,0.1);
+      border: 1px solid rgba(200,104,42,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1044,13 +860,13 @@
         box-shadow var(--transition-interactive);
     }
     .pricing-card:hover {
-      border-color: rgba(200, 255, 0, 0.4);
+      border-color: rgba(200,104,42,0.4);
       transform: translateY(-4px);
       box-shadow: 0 16px 48px rgba(0,0,0,0.5);
     }
     .pricing-card.featured-card {
-      background: var(--color-primary-faint);
-      border-color: var(--color-primary-mid);
+      background: rgba(200,104,42,0.06);
+      border-color: rgba(200,104,42,0.35);
     }
     .pricing-card.featured-card:hover {
       border-color: var(--color-primary);
@@ -1117,7 +933,7 @@
       text-transform: uppercase;
       color: var(--color-primary);
       padding: 12px;
-      border: 1px solid rgba(200, 255, 0, 0.3);
+      border: 1px solid rgba(200,104,42,0.3);
       border-radius: var(--radius-sm);
       transition:
         background var(--transition-interactive),
@@ -1230,7 +1046,7 @@
     input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
     input:focus, select:focus, textarea:focus {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.15);
+      box-shadow: 0 0 0 3px rgba(200,104,42,0.15);
     }
     select {
       cursor: pointer;
@@ -1262,7 +1078,7 @@
     .form-submit:hover {
       background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px var(--color-primary-mid);
+      box-shadow: 0 8px 24px rgba(200,104,42,0.35);
     }
     .form-submit:active { transform: translateY(0); }
     .form-note {
@@ -1419,7 +1235,7 @@
     .form-success-icon {
       width: 56px;
       height: 56px;
-      background: var(--color-primary-soft);
+      background: rgba(200,104,42,0.12);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1441,11 +1257,11 @@
           <!-- "LTI" letterforms -->
           <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
           <!-- accent underline bar -->
-          <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8ff00"/>
+          <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8682a"/>
           <!-- "by JMichael" small text -->
           <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
           <!-- small star/dot accent -->
-          <circle cx="143" cy="8" r="3" fill="#574cd5" opacity="0.7"/>
+          <circle cx="143" cy="8" r="3" fill="#c8682a" opacity="0.7"/>
         </svg>
       </a>
 
@@ -1470,28 +1286,44 @@
     </div>
   </header>
 
+  <!-- ═══════════════════════════════ MARQUEE ═══════════════════════════ -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Custom Art</span><span class="dot">·</span>
+      <span>Limited Drops</span><span class="dot">·</span>
+      <span>072 Collection</span><span class="dot">·</span>
+      <span>Texas Heritage</span><span class="dot">·</span>
+      <span>Inspire®</span><span class="dot">·</span>
+      <span>Pate Music Collab</span><span class="dot">·</span>
+      <span>Brand Kits</span><span class="dot">·</span>
+      <span>Album Art</span><span class="dot">·</span>
+      <span>Houston, TX</span><span class="dot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span>Custom Art</span><span class="dot">·</span>
+      <span>Limited Drops</span><span class="dot">·</span>
+      <span>072 Collection</span><span class="dot">·</span>
+      <span>Texas Heritage</span><span class="dot">·</span>
+      <span>Inspire®</span><span class="dot">·</span>
+      <span>Pate Music Collab</span><span class="dot">·</span>
+      <span>Brand Kits</span><span class="dot">·</span>
+      <span>Album Art</span><span class="dot">·</span>
+      <span>Houston, TX</span><span class="dot">·</span>
+    </div>
+  </div>
+
   <main>
 
     <!-- ═══════════════════════════ HERO ════════════════════════════════ -->
     <section class="hero" id="top" aria-labelledby="hero-heading">
-      <div class="hero__photo" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1499789740591-49de82a74c93?w=1600&q=80" alt="" loading="lazy" width="1600" height="900" />
-      </div>
       <div class="hero-inner">
         <div class="hero-content">
-          <div class="hero-eyebrow">Houston, Texas · Art in all forms</div>
-          <div class="hero-disciplines" aria-label="Creative disciplines">
-            <span class="hero-discipline">Digital Art</span>
-            <span class="hero-discipline">Music Merch</span>
-            <span class="hero-discipline">Apparel</span>
-            <span class="hero-discipline">Brand Design</span>
-          </div>
+          <div class="hero-eyebrow">Houston, Texas</div>
           <h1 class="hero-heading display" id="hero-heading">
             Design<br />
             by <em>J</em>Michael
           </h1>
           <p class="hero-sub">
-            <strong>Digital · Musical · Wearable · Visual.</strong><br />
+            <strong>Custom Art · Apparel · Creative Services.</strong><br />
             Independent Texas artist blending music culture, street art, and design into work that actually means something. Every piece is original — no templates, no shortcuts.
           </p>
           <div class="hero-ctas">
@@ -1501,22 +1333,11 @@
         </div>
 
         <div class="hero-visual">
-          <div class="hero-mosaic" aria-hidden="true">
-            <div class="hero-mosaic__cell hero-mosaic__cell--main">
-              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Abstract digital artwork in vivid color" loading="lazy" width="800" height="1000" />
-            </div>
-            <div class="hero-mosaic__cell">
-              <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" alt="Streetwear apparel flat lay" loading="lazy" width="800" height="600" />
-            </div>
-            <div class="hero-mosaic__cell">
-              <img src="https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Creative studio workspace with art supplies" loading="lazy" width="800" height="600" />
-            </div>
-          </div>
           <div class="hero-badge-row">
             <span class="badge accent">Est. 2024</span>
             <span class="badge">Inspire® Line</span>
             <span class="badge">072 Collection</span>
-            <span class="badge">Music Merch</span>
+            <span class="badge">Pate Music</span>
           </div>
 
           <div class="hero-stat-grid">
@@ -1539,31 +1360,10 @@
             <div class="collection-pill">Inspire® by JMichael — Streetwear</div>
             <div class="collection-pill">072 Collection — Original Characters</div>
             <div class="collection-pill">Texas Heritage Collection</div>
-            <div class="collection-pill">Artist Series — Music Merch</div>
+            <div class="collection-pill">Pate Music Collab Series</div>
           </div>
         </div>
       </div>
-    </section>
-
-    <section class="shop-row" aria-label="Studio categories">
-      <a href="#services" class="shop-tile">
-        <span class="shop-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1460661419201-fd7912660ffc?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></span>
-        <span class="shop-tile__label">Custom Work</span>
-        <span class="shop-tile__title">Digital Art</span>
-        <span class="shop-tile__cta">Explore →</span>
-      </a>
-      <a href="#apparel" class="shop-tile">
-        <span class="shop-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></span>
-        <span class="shop-tile__label">Limited Runs</span>
-        <span class="shop-tile__title">Apparel Drops</span>
-        <span class="shop-tile__cta">Shop →</span>
-      </a>
-      <a href="#contact" class="shop-tile">
-        <span class="shop-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></span>
-        <span class="shop-tile__label">Open Now</span>
-        <span class="shop-tile__title">Commissions</span>
-        <span class="shop-tile__cta">Start →</span>
-      </a>
     </section>
 
     <hr class="divider" />
@@ -1584,7 +1384,7 @@
               JMichael is an independent creative out of <strong>Houston, TX</strong> — the kind of artist that doesn't fit neatly into one box. Design, apparel, music merch, brand work. If it needs to look like something real, that's the work.
             </p>
             <p class="about-body">
-              LTI started as a way to put everything under one roof: the <strong>Inspire® streetwear line</strong>, digital art commissions, music merch for independent artists, and custom brand kits for artists and small businesses who deserve better than generic.
+              LTI started as a way to put everything under one roof: the <strong>Inspire® streetwear line</strong>, digital art commissions, collabs with <strong>Pate Music</strong>, and custom brand kits for artists and small businesses who deserve better than generic.
             </p>
             <p class="about-body">
               <strong>ADHD-driven creativity</strong> is a feature, not a flaw. It means every project gets obsessive attention to the details that matter — composition, color theory, cultural context. The work feels alive because it is.
@@ -1641,79 +1441,72 @@
           </div>
           <p class="section-body">From a single logo to a full brand identity — the scope is up to you. Every project starts with a conversation.</p>
         </div>
-<div class="bento">
+
+        <div class="bento">
           <div class="bento-card featured reveal">
-            <div class="bento-media"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80" alt="Custom digital art and illustration" loading="lazy" width="900" height="500" /></div>
-            <div class="bento-body">
-              <div class="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
-                  <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
-                  <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
-                  <path d="M15.5 15.5c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" fill="currentColor" stroke="none"/>
-                </svg>
-              </div>
-              <div class="bento-title display">Custom Digital Art</div>
-              <div class="bento-desc">Logos, album covers, event posters, brand kits — all original artwork, no stock assets. Designed around your vision, delivered at print and screen resolution.</div>
-              <div class="bento-footer">
-                <div class="bento-price">Starting at $35</div>
-                <span class="bento-tag">Most popular</span>
-              </div>
+            <div class="bento-icon">
+              <!-- Palette icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
+                <path d="M15.5 15.5c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="bento-title display">Custom Digital Art</div>
+            <div class="bento-desc">Logos, album covers, event posters, brand kits — all original artwork, no stock assets. Designed around your vision, delivered at print and screen resolution.</div>
+            <div class="bento-footer">
+              <div class="bento-price">Starting at $35</div>
+              <span class="bento-tag">Most popular</span>
             </div>
           </div>
 
           <div class="bento-card reveal" id="apparel">
-            <div class="bento-media"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=900&q=80" alt="Limited edition streetwear drops" loading="lazy" width="900" height="500" /></div>
-            <div class="bento-body">
-              <div class="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 8l3-5h3a3 3 0 006 0h3l3 5-3 2v11H6V10L3 8z"/>
-                </svg>
-              </div>
-              <div class="bento-title display">Limited Apparel</div>
-              <div class="bento-desc">The Inspire® line, 072 Collection, and Texas Heritage Collection. Original character designs and graffiti-script pieces on limited-run tees, hoodies, and prints. Shop coming soon.</div>
-              <div class="bento-footer">
-                <div class="bento-price">Shop Coming Soon</div>
-                <span class="bento-tag">Limited runs</span>
-              </div>
+            <div class="bento-icon">
+              <!-- Shirt icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8l3-5h3a3 3 0 006 0h3l3 5-3 2v11H6V10L3 8z"/>
+              </svg>
+            </div>
+            <div class="bento-title display">Limited Apparel</div>
+            <div class="bento-desc">The Inspire® line, 072 Collection, and Texas Heritage Collection. Original character designs and graffiti-script pieces on limited-run tees, hoodies, and prints. Shop coming soon.</div>
+            <div class="bento-footer">
+              <div class="bento-price">Shop Coming Soon</div>
+              <span class="bento-tag">Limited runs</span>
             </div>
           </div>
 
           <div class="bento-card reveal">
-            <div class="bento-media"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80" alt="Music merchandise and artist collabs" loading="lazy" width="900" height="500" /></div>
-            <div class="bento-body">
-              <div class="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18V5l12-2v13"/>
-                  <circle cx="6" cy="18" r="3"/>
-                  <circle cx="18" cy="16" r="3"/>
-                </svg>
-              </div>
-              <div class="bento-title display">Music Merch & Collabs</div>
-              <div class="bento-desc">Working with independent artists and labels on merchandise, album visuals, and artist series prints. Original designs that respect the music and the audience.</div>
-              <div class="bento-footer">
-                <div class="bento-price">Contact for rates</div>
-                <span class="bento-tag">Collab-based</span>
-              </div>
+            <div class="bento-icon">
+              <!-- Music icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+            </div>
+            <div class="bento-title display">Music Merch & Collabs</div>
+            <div class="bento-desc">Working with Pate Music and independent artists on merchandise, album visuals, and artist series prints. Original designs that respect the music and the audience.</div>
+            <div class="bento-footer">
+              <div class="bento-price">Contact for rates</div>
+              <span class="bento-tag">Collab-based</span>
             </div>
           </div>
 
           <div class="bento-card reveal">
-            <div class="bento-media"><img src="https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Brand design and creative direction" loading="lazy" width="900" height="500" /></div>
-            <div class="bento-body">
-              <div class="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/>
-                  <path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke-width="1.2"/>
-                </svg>
-              </div>
-              <div class="bento-title display">Creative Services</div>
-              <div class="bento-desc">Website design, social content, brand identity systems, and creative direction. Full-service creative for artists and small businesses that need more than a logo.</div>
-              <div class="bento-footer">
-                <div class="bento-price">Contact for pricing</div>
-                <span class="bento-tag">Custom scope</span>
-              </div>
+            <div class="bento-icon">
+              <!-- Globe icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="bento-title display">Creative Services</div>
+            <div class="bento-desc">Website design, social content, brand identity systems, and creative direction. Full-service creative for artists and small businesses that need more than a logo.</div>
+            <div class="bento-footer">
+              <div class="bento-price">Contact for pricing</div>
+              <span class="bento-tag">Custom scope</span>
             </div>
           </div>
         </div>
@@ -1723,7 +1516,6 @@
     <hr class="divider" />
 
     <!-- ═══════════════════════════ COLLECTIONS ══════════════════════════ -->
-
     <section class="collections reveal" aria-labelledby="collections-heading">
       <div class="section-inner">
         <div class="section-label" style="margin-bottom:40px;">Collections</div>
@@ -1734,7 +1526,6 @@
         <div class="collections-grid">
           <!-- Inspire -->
           <div class="collection-block inspire">
-            <div class="collection-block__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1200&q=80" alt="" loading="lazy" width="1200" height="800" /></div>
             <div class="collection-number" aria-hidden="true">I</div>
             <div class="collection-tag">Inspire® by JMichael — EST. 2024</div>
             <div class="collection-name display">
@@ -1752,7 +1543,6 @@
 
           <!-- 072 -->
           <div class="collection-block zero72">
-            <div class="collection-block__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80" alt="" loading="lazy" width="1200" height="800" /></div>
             <div class="collection-number" aria-hidden="true">072</div>
             <div class="collection-tag">072 Collection — Original Characters</div>
             <div class="collection-name display">
@@ -2052,9 +1842,9 @@
           <div class="footer-logo">
             <svg viewBox="0 0 148 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="auto" aria-label="LTI by JMichael">
               <text x="0" y="28" font-family="'Zodiak', Georgia, serif" font-size="28" font-weight="700" fill="#e8e6e1" letter-spacing="-0.5">LTI</text>
-              <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8ff00"/>
+              <rect x="0" y="32" width="52" height="2" rx="1" fill="#c8682a"/>
               <text x="60" y="22" font-family="'Cabinet Grotesk', sans-serif" font-size="9" font-weight="700" fill="#8a8884" letter-spacing="1.5">BY JMICHAEL</text>
-              <circle cx="143" cy="8" r="3" fill="#574cd5" opacity="0.7"/>
+              <circle cx="143" cy="8" r="3" fill="#c8682a" opacity="0.7"/>
             </svg>
           </div>
           <p class="footer-brand-desc">Independent Texas creative studio doing custom digital art, limited apparel, music merch, and brand design. Houston-rooted, culture-driven, always original.</p>
@@ -2083,21 +1873,22 @@
           </div>
 
           <div class="footer-nav-group">
-            <div class="footer-nav-title">Web &amp; Support</div>
+            <div class="footer-nav-title">Family Sites</div>
             <ul class="footer-nav-links">
-              <li><a href="https://myk.ac" target="_blank" rel="noopener noreferrer">Designs by MYK</a></li>
+              <li><a href="https://queenscustoms.shop" target="_blank" rel="noopener noreferrer">queenscustoms.shop</a></li>
+              <li><a href="https://patemusic.live" target="_blank" rel="noopener noreferrer">patemusic.live</a></li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copy">© 2026 LTI by JMichael. All rights reserved.</div>
+        <div class="footer-copy">© 2026 Design by JMichael. A MYK Brand.</div>
         <ul class="footer-links">
           <li><a href="#contact">Commission</a></li>
           <li><a href="#services">Services</a></li>
         </ul>
-        <div class="myk-tag">Site by <a href="https://myk.ac" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Designs by MYK</a></div>
+        <div class="myk-tag">A MYK Brand</div>
       </div>
     </div>
   </footer>
@@ -2168,7 +1959,7 @@
         const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          const navHeight = 88;
+          const navHeight = 64;
           const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
           window.scrollTo({ top, behavior: 'smooth' });
         }
