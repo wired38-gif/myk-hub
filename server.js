@@ -67,9 +67,35 @@ function resolveSite(req) {
   return 'myk';
 }
 
+/**
+ * Browser-facing host for WorkOS callbacks + session cookies.
+ * Prefer myk.ac over GoDaddy PaaS / Cloudflare forwarded hosts (airoapp, etc.).
+ */
+function publicForwardedHost(req) {
+  const pick = (value) =>
+    String(value || '')
+      .split(',')[0]
+      .trim()
+      .split(':')[0]
+      .toLowerCase();
+  // x-hub-host is set by the Cloudflare worker and survives GoDaddy edge rewrites.
+  const candidates = [
+    pick(req.headers['x-hub-host']),
+    pick(req.headers.host),
+    pick(req.headers['x-forwarded-host']),
+  ].filter(Boolean);
+  const isCustom = (h) => h === 'myk.ac' || h === 'www.myk.ac';
+  const isPaasNoise = (h) =>
+    h.includes('airoapp.ai') || h.includes('godaddy') || h.endsWith('.internal');
+  const custom = candidates.find(isCustom);
+  if (custom) return custom;
+  const clean = candidates.find((h) => !isPaasNoise(h));
+  return clean || candidates[0] || '';
+}
+
 function brainProxyHeaders(proxyReq, req, extra = {}) {
   proxyReq.setHeader('X-Forwarded-Proto', 'https');
-  const publicHost = req.headers['x-forwarded-host'] || req.headers.host;
+  const publicHost = publicForwardedHost(req);
   if (publicHost) proxyReq.setHeader('X-Forwarded-Host', publicHost);
   if (extra.forwardedPrefix) {
     proxyReq.setHeader('X-Forwarded-Prefix', extra.forwardedPrefix);
@@ -96,10 +122,12 @@ if (BRAIN_ENABLED) {
   // Site Editor + same-host auth/assets — keep full path (no mount strip).
   // changeOrigin:true so Cloudflare (brain.askmyk.io) accepts the upstream Host.
   // Public host stays on myk.ac via X-Forwarded-Host (WorkOS / cookies use that).
+  // xfwd:false — we set X-Forwarded-* ourselves; library xfwd would overwrite with brain host.
   app.use(
     createProxyMiddleware({
       target: BRAIN_TARGET,
       changeOrigin: true,
+      xfwd: false,
       ws: true,
       pathFilter(pathname) {
         const p = String(pathname || '').replace(/\/$/, '') || '/';
