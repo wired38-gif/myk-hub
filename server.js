@@ -96,7 +96,11 @@ function publicForwardedHost(req) {
 function brainProxyHeaders(proxyReq, req, extra = {}) {
   proxyReq.setHeader('X-Forwarded-Proto', 'https');
   const publicHost = publicForwardedHost(req);
-  if (publicHost) proxyReq.setHeader('X-Forwarded-Host', publicHost);
+  if (publicHost) {
+    proxyReq.setHeader('X-Forwarded-Host', publicHost);
+    // Brain WorkOS reads x-hub-host as a first-class public host signal.
+    proxyReq.setHeader('X-Hub-Host', publicHost);
+  }
   if (extra.forwardedPrefix) {
     proxyReq.setHeader('X-Forwarded-Prefix', extra.forwardedPrefix);
   }
