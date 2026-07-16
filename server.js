@@ -94,11 +94,12 @@ if (BRAIN_ENABLED) {
   );
 
   // Site Editor + same-host auth/assets — keep full path (no mount strip).
-  // changeOrigin:false so Host stays myk.ac → WorkOS/cookies bind to myk.ac.
+  // changeOrigin:true so Cloudflare (brain.askmyk.io) accepts the upstream Host.
+  // Public host stays on myk.ac via X-Forwarded-Host (WorkOS / cookies use that).
   app.use(
     createProxyMiddleware({
       target: BRAIN_TARGET,
-      changeOrigin: false,
+      changeOrigin: true,
       ws: true,
       pathFilter(pathname) {
         const p = String(pathname || '').replace(/\/$/, '') || '/';
