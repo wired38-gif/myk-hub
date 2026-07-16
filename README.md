@@ -23,11 +23,11 @@ If you connected the parent monorepo (`Myks-Brain`), GoDaddy will not find `pack
 | Variable | Example | Purpose |
 |----------|---------|---------|
 | `PORT` | *(set by GoDaddy)* | App listen port |
-| `BRAIN_PROXY_ENABLED` | `1` | Enable `/brain` proxy |
-| `BRAIN_PROXY_TARGET` | `https://your-tunnel.example` | Gateway URL |
-| `BRAIN_PROXY_PREFIX` | `/brain` | URL prefix |
+| `BRAIN_PROXY_ENABLED` | `1` | Enable `/brain` + `/siteeditor` proxy |
+| `BRAIN_PROXY_TARGET` | `https://brain.askmyk.io` | Gateway public URL (named tunnel) |
+| `BRAIN_PROXY_PREFIX` | `/brain` | Prefix stripped for `/brain` only |
 
-Default target is also read from `config/brain-proxy-target.json` when env vars are unset.
+`/siteeditor` (and `/api/siteeditor`, login helpers) reuse the same target **without** stripping the path. See `docs/SITE-EDITOR.md` in Myks-Brain.
 
 ### Node.js runtime (no dashboard picker)
 

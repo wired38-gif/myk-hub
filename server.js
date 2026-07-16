@@ -67,7 +67,17 @@ function resolveSite(req) {
   return 'myk';
 }
 
+function brainProxyHeaders(proxyReq, req, extra = {}) {
+  proxyReq.setHeader('X-Forwarded-Proto', 'https');
+  const publicHost = req.headers['x-forwarded-host'] || req.headers.host;
+  if (publicHost) proxyReq.setHeader('X-Forwarded-Host', publicHost);
+  if (extra.forwardedPrefix) {
+    proxyReq.setHeader('X-Forwarded-Prefix', extra.forwardedPrefix);
+  }
+}
+
 if (BRAIN_ENABLED) {
+  // /brain → gateway root (strip prefix)
   app.use(
     BRAIN_PREFIX,
     createProxyMiddleware({
@@ -76,9 +86,36 @@ if (BRAIN_ENABLED) {
       ws: true,
       pathRewrite: { [`^${BRAIN_PREFIX}`]: '' },
       on: {
-        proxyReq(proxyReq) {
-          proxyReq.setHeader('X-Forwarded-Prefix', BRAIN_PREFIX);
-          proxyReq.setHeader('X-Forwarded-Proto', 'https');
+        proxyReq(proxyReq, req) {
+          brainProxyHeaders(proxyReq, req, { forwardedPrefix: BRAIN_PREFIX });
+        },
+      },
+    })
+  );
+
+  // Site Editor + same-host auth/assets — keep full path (no mount strip).
+  // changeOrigin:false so Host stays myk.ac → WorkOS/cookies bind to myk.ac.
+  app.use(
+    createProxyMiddleware({
+      target: BRAIN_TARGET,
+      changeOrigin: false,
+      ws: true,
+      pathFilter(pathname) {
+        const p = String(pathname || '').replace(/\/$/, '') || '/';
+        if (p === '/siteeditor' || p.startsWith('/siteeditor/')) return true;
+        if (p === '/api/siteeditor' || p.startsWith('/api/siteeditor/')) return true;
+        if (p === '/site-editor.js' || p === '/site-editor-picker.js') return true;
+        if (p === '/login' || p.startsWith('/login/')) return true;
+        if (p === '/api/auth' || p.startsWith('/api/auth/')) return true;
+        if (p === '/assets/askmyk' || p.startsWith('/assets/askmyk/')) return true;
+        // Login page deps (askmyk-auth.html)
+        if (p === '/askmyk-auth.js' || p === '/gateway.js' || p === '/icon.svg') return true;
+        if (p === '/styles/askmyk.css' || p.startsWith('/styles/askmyk')) return true;
+        return false;
+      },
+      on: {
+        proxyReq(proxyReq, req) {
+          brainProxyHeaders(proxyReq, req);
         },
       },
     })
@@ -111,9 +148,26 @@ function isBrainPath(req) {
   return p === BRAIN_PREFIX || p.startsWith(`${BRAIN_PREFIX}/`);
 }
 
+function isSiteEditorProxyPath(req) {
+  const p = (req.path || req.url.split('?')[0] || '').replace(/\/$/, '') || '/';
+  if (p === '/siteeditor' || p.startsWith('/siteeditor/')) return true;
+  if (p === '/api/siteeditor' || p.startsWith('/api/siteeditor/')) return true;
+  if (p === '/site-editor.js' || p === '/site-editor-picker.js') return true;
+  if (p === '/login' || p.startsWith('/login/')) return true;
+  if (p === '/api/auth' || p.startsWith('/api/auth/')) return true;
+  if (p === '/assets/askmyk' || p.startsWith('/assets/askmyk/')) return true;
+  if (p === '/askmyk-auth.js' || p === '/gateway.js' || p === '/icon.svg') return true;
+  if (p === '/styles/askmyk.css' || p.startsWith('/styles/askmyk')) return true;
+  return false;
+}
+
+function isProxiedBrainPath(req) {
+  return isBrainPath(req) || isSiteEditorProxyPath(req);
+}
+
 // Per-domain static file serving
 app.use((req, res, next) => {
-  if (BRAIN_ENABLED && isBrainPath(req)) return next();
+  if (BRAIN_ENABLED && isProxiedBrainPath(req)) return next();
 
   const site = resolveSite(req);
   const siteDir = path.join(SITES_ROOT, site);
@@ -127,7 +181,7 @@ app.use((req, res, next) => {
 
 // SPA / clean URL fallback — serve index.html for unmatched routes
 app.get('*', (req, res, next) => {
-  if (BRAIN_ENABLED && isBrainPath(req)) {
+  if (BRAIN_ENABLED && isProxiedBrainPath(req)) {
     res.status(502).json({
       ok: false,
       error: 'brain_proxy_unavailable',
@@ -145,5 +199,6 @@ server.listen(process.env.PORT || 20010, '0.0.0.0', () => {
   console.log(`MYK Hub running on 0.0.0.0:${port}`);
   if (BRAIN_ENABLED) {
     console.log(`Brain proxy: ${BRAIN_PREFIX} -> ${BRAIN_TARGET}`);
+    console.log(`Site Editor proxy: /siteeditor (+ /api/siteeditor, login) -> ${BRAIN_TARGET}`);
   }
 });
