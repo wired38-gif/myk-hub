@@ -4,6 +4,11 @@ const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
+// ── Queens Customs Admin Portal ────────────────────────────────────────────────
+const { adminRouter } = require('./admin/index');
+const { seedMasterAdmin } = require('./admin/seed');
+seedMasterAdmin().catch(err => console.error('[QC-Admin] Seed error:', err.message));
+
 const BRAIN_PREFIX = (process.env.BRAIN_PROXY_PREFIX || '/brain').replace(/\/$/, '');
 const BRAIN_PROXY_FILE = path.join(__dirname, 'config', 'brain-proxy-target.json');
 
@@ -38,6 +43,10 @@ const SITE_MAP = {
   'www.ltibyjmichael.com': 'lti',
   'designbyjmichael.com': 'lti',
   'www.designbyjmichael.com': 'lti',
+  // Queens Customs Shop
+  'queenscustoms.shop': 'queenscustoms',
+  'www.queenscustoms.shop': 'queenscustoms',
+  'admin.queenscustoms.shop': 'queenscustoms',
 };
 
 const SITES_ROOT = path.join(__dirname, 'sites');
@@ -197,6 +206,53 @@ function isSiteEditorProxyPath(req) {
 function isProxiedBrainPath(req) {
   return isBrainPath(req) || isSiteEditorProxyPath(req);
 }
+
+// ── Queens Customs Admin subdomain detection ───────────────────────────────────
+function isAdminSubdomain(req) {
+  return hostCandidates(req).some(h => h === 'admin.queenscustoms.shop');
+}
+
+// Admin API routes (JWT-protected) — handle before static serving
+// Note: no express.json() here — admin routes self-parse request bodies via stream
+app.use(async (req, res, next) => {
+  const pathname = req.path || '/';
+  // Public website hooks (callable from any QC origin)
+  const isPublicWebhook = (
+    (pathname === '/api/orders' && req.method === 'POST') ||
+    (pathname === '/api/inquiries' && req.method === 'POST') ||
+    (pathname === '/api/products' && req.method === 'GET')
+  );
+  // Admin API and admin subdomain paths
+  const isAdminPath = pathname.startsWith('/api/admin/') || isPublicWebhook;
+
+  if (!isAdminSubdomain(req) && !isAdminPath) return next();
+
+  const handled = await adminRouter(req, res);
+  if (handled !== false) return;
+  next();
+});
+
+// Serve /admin/* HTML pages on the admin subdomain
+app.use((req, res, next) => {
+  if (!isAdminSubdomain(req)) return next();
+
+  const pathname = req.path || '/';
+  const pageMap = {
+    '/':                  'admin/login.html',
+    '/login':             'admin/login.html',
+    '/admin':             'admin/login.html',
+    '/admin/':            'admin/login.html',
+    '/admin/login':       'admin/login.html',
+    '/admin/operations':  'admin/operations.html',
+    '/admin/setup-wizard': 'admin/setup-wizard.html',
+    '/qc-integration.js': 'qc-integration.js',
+  };
+  const file = pageMap[pathname.replace(/\/$/, '') || '/'];
+  if (file) {
+    return res.sendFile(path.join(__dirname, 'sites', 'queenscustoms', file));
+  }
+  next();
+});
 
 // Per-domain static file serving
 app.use((req, res, next) => {

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Queens Customs — Operations Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { navy: '#0C0A15', dark: '#04030A', accent: '#3B82F6', purple: '#6366F1', surface: '#14122C' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #04030A; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass { background: rgba(12,10,21,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(59,130,246,0.12); }
+    .card { background: #0C0A15; border: 1px solid rgba(255,255,255,0.06); }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0C0A15; }
+    ::-webkit-scrollbar-thumb { background: #2E294E; border-radius: 4px; }
+    .tab-btn.active { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.4); color: #60a5fa; }
+    .status-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: capitalize; }
+    .status-pending   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .status-processing { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .status-shipped   { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .status-delivered { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .status-new   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .status-replied { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .status-active { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .status-out_of_stock { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .modal-overlay { background: rgba(4,3,10,0.85); backdrop-filter: blur(8px); }
+    tr:hover td { background: rgba(59,130,246,0.04); }
+    .sidebar-link { transition: all 0.15s; border-radius: 0.75rem; }
+    .sidebar-link:hover { background: rgba(59,130,246,0.1); color: #93c5fd; }
+    .sidebar-link.active { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    @media (max-width: 1024px) { #sidebar { transform: translateX(-100%); transition: transform 0.3s; } #sidebar.open { transform: translateX(0); } }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 z-40 flex flex-col glass border-r border-slate-800/50 py-6 px-4">
+    <div class="flex items-center gap-3 mb-8 px-2">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="text-sm font-bold text-white">Queens Customs</div>
+        <div class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">Operations</div>
+      </div>
+    </div>
+
+    <nav class="flex-1 space-y-1">
+      <div class="text-[10px] font-bold text-slate-600 uppercase tracking-widest px-3 mb-2">Dashboard</div>
+      <button onclick="showTab('overview')" id="nav-overview" class="sidebar-link active w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </button>
+      <button onclick="showTab('orders')" id="nav-orders" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+        <span id="orders-badge" class="ml-auto text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full hidden"></span>
+      </button>
+      <button onclick="showTab('inquiries')" id="nav-inquiries" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Inquiries
+        <span id="inquiries-badge" class="ml-auto text-[10px] font-bold bg-amber-500 text-black px-2 py-0.5 rounded-full hidden"></span>
+      </button>
+      <button onclick="showTab('products')" id="nav-products" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Products
+      </button>
+
+      <div class="text-[10px] font-bold text-slate-600 uppercase tracking-widest px-3 mb-2 mt-5">Admin</div>
+      <button onclick="showTab('users')" id="nav-users" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Admin Users
+      </button>
+    </nav>
+
+    <div class="mt-auto space-y-2 border-t border-slate-800/50 pt-4">
+      <a href="/admin/setup-wizard" class="sidebar-link flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Setup Wizard
+      </a>
+      <button onclick="logout()" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-red-400 hover:bg-red-950/20 hover:text-red-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+      <div class="px-3 py-2">
+        <div class="text-[10px] text-slate-600 font-medium" id="user-display">Loading…</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MOBILE OVERLAY -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 z-30 lg:hidden" onclick="closeSidebar()"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 lg:ml-64 min-h-screen flex flex-col">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-20 flex items-center justify-between px-6 py-4 border-b border-slate-800/50 bg-brand-dark/80 backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <button class="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400" onclick="toggleSidebar()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div>
+          <h1 id="page-title" class="text-lg font-bold text-white">Overview</h1>
+          <p class="text-xs text-slate-500" id="page-subtitle">Store performance summary</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-800/50 text-emerald-400 text-xs font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Live
+        </div>
+        <button onclick="refreshData()" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-blue-600/50 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- TAB CONTENT -->
+    <div class="flex-1 p-6">
+
+      <!-- ── OVERVIEW ─────────────────────────────────── -->
+      <section id="tab-overview" class="tab-section">
+        <div id="overview-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <!-- filled by JS -->
+        </div>
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div class="card rounded-2xl p-5">
+            <h3 class="font-bold text-slate-200 mb-4 text-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+              Recent Orders
+            </h3>
+            <div id="recent-orders-list"></div>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <h3 class="font-bold text-slate-200 mb-4 text-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              New Inquiries
+            </h3>
+            <div id="recent-inquiries-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ORDERS ─────────────────────────────────────── -->
+      <section id="tab-orders" class="tab-section hidden">
+        <div class="card rounded-2xl overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800/50">
+            <h3 class="font-bold text-slate-200 text-sm">All Orders</h3>
+            <input oninput="filterTable('orders-tbody', this.value)" placeholder="Search orders…" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-blue-600/50 w-48" />
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-slate-800/50">
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Order #</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Customer</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden md:table-cell">Channel</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Date</th>
+                <th class="px-5 py-3"></th>
+              </tr></thead>
+              <tbody id="orders-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── INQUIRIES ──────────────────────────────────── -->
+      <section id="tab-inquiries" class="tab-section hidden">
+        <div class="card rounded-2xl overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800/50">
+            <h3 class="font-bold text-slate-200 text-sm">Customer Inquiries</h3>
+            <input oninput="filterTable('inquiries-tbody', this.value)" placeholder="Search…" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-blue-600/50 w-48" />
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-slate-800/50">
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">From</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Subject</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Date</th>
+                <th class="px-5 py-3"></th>
+              </tr></thead>
+              <tbody id="inquiries-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PRODUCTS ───────────────────────────────────── -->
+      <section id="tab-products" class="tab-section hidden">
+        <div class="card rounded-2xl overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800/50">
+            <h3 class="font-bold text-slate-200 text-sm">Product Inventory</h3>
+            <input oninput="filterTable('products-tbody', this.value)" placeholder="Search products…" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-blue-600/50 w-48" />
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-slate-800/50">
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Product</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden md:table-cell">SKU</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Price</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Stock</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Sales</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                <th class="px-5 py-3"></th>
+              </tr></thead>
+              <tbody id="products-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ADMIN USERS ────────────────────────────────── -->
+      <section id="tab-users" class="tab-section hidden">
+        <div class="card rounded-2xl overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800/50">
+            <h3 class="font-bold text-slate-200 text-sm">Admin Users</h3>
+            <button onclick="openUserModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Admin
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-slate-800/50">
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Email</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Role</th>
+                <th class="text-left px-5 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Created</th>
+                <th class="px-5 py-3"></th>
+              </tr></thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /p-6 -->
+  </main>
+
+  <!-- ── MODALS ─────────────────────────────────────────── -->
+
+  <!-- Inquiry Reply Modal -->
+  <div id="inquiry-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="modal-overlay absolute inset-0" onclick="closeModal('inquiry-modal')"></div>
+    <div class="relative w-full max-w-lg glass rounded-2xl p-6 shadow-2xl">
+      <h3 class="font-bold text-white text-lg mb-4" id="inquiry-modal-title">Inquiry Details</h3>
+      <div id="inquiry-modal-body" class="mb-4"></div>
+      <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Reply Message</label>
+      <textarea id="inquiry-reply" rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50 resize-none mb-4" placeholder="Type your reply to the customer…"></textarea>
+      <div class="flex gap-3">
+        <button onclick="submitReply()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all">Send Reply</button>
+        <button onclick="closeModal('inquiry-modal')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-all">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Status Modal -->
+  <div id="order-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="modal-overlay absolute inset-0" onclick="closeModal('order-modal')"></div>
+    <div class="relative w-full max-w-md glass rounded-2xl p-6 shadow-2xl">
+      <h3 class="font-bold text-white text-lg mb-4">Update Order Status</h3>
+      <div id="order-modal-info" class="mb-4 p-3 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300"></div>
+      <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">New Status</label>
+      <select id="order-status-select" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50 mb-4">
+        <option value="pending">Pending</option>
+        <option value="processing">Processing</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+      </select>
+      <div class="flex gap-3">
+        <button onclick="submitOrderStatus()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all">Update Status</button>
+        <button onclick="closeModal('order-modal')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-all">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Edit Modal -->
+  <div id="product-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="modal-overlay absolute inset-0" onclick="closeModal('product-modal')"></div>
+    <div class="relative w-full max-w-md glass rounded-2xl p-6 shadow-2xl">
+      <h3 class="font-bold text-white text-lg mb-4">Edit Product</h3>
+      <input type="hidden" id="product-edit-id" />
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Price ($)</label>
+          <input type="number" id="product-edit-price" step="0.01" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Inventory</label>
+          <input type="number" id="product-edit-inventory" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50" />
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Status</label>
+        <select id="product-edit-status" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50">
+          <option value="active">Active</option>
+          <option value="out_of_stock">Out of Stock</option>
+          <option value="discontinued">Discontinued</option>
+        </select>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="submitProductEdit()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all">Save Changes</button>
+        <button onclick="closeModal('product-modal')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-all">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin User Modal -->
+  <div id="user-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="modal-overlay absolute inset-0" onclick="closeModal('user-modal')"></div>
+    <div class="relative w-full max-w-md glass rounded-2xl p-6 shadow-2xl">
+      <h3 id="user-modal-title" class="font-bold text-white text-lg mb-4">Add Admin User</h3>
+      <input type="hidden" id="user-edit-id" />
+      <div class="mb-4">
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
+        <input type="email" id="user-edit-email" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50" placeholder="admin@queenscustoms.shop" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Password <span id="user-pw-hint" class="normal-case font-normal text-slate-500">(leave blank to keep unchanged)</span></label>
+        <input type="password" id="user-edit-password" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none focus:border-blue-600/50" placeholder="Minimum 8 characters" />
+      </div>
+      <div id="user-modal-error" class="hidden mb-3 p-2.5 rounded-xl bg-red-950/50 border border-red-800/50 text-red-300 text-xs"></div>
+      <div class="flex gap-3">
+        <button onclick="submitUserForm()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all">Save</button>
+        <button onclick="closeModal('user-modal')" class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-all">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const API = '';
+let TOKEN = sessionStorage.getItem('admin_token') || localStorage.getItem('admin_token');
+let currentInquiryId = null;
+let currentOrderId = null;
+
+// ── Auth guard ────────────────────────────────────────────────────────────────
+if (!TOKEN) { window.location.href = '/admin/login'; }
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    ...opts,
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}`, ...(opts.headers || {}) },
+  });
+  if (res.status === 401) { logout(); return null; }
+  return res;
+}
+
+function logout() {
+  sessionStorage.removeItem('admin_token'); localStorage.removeItem('admin_token');
+  window.location.href = '/admin/login';
+}
+
+// ── Tab system ────────────────────────────────────────────────────────────────
+const tabs = ['overview', 'orders', 'inquiries', 'products', 'users'];
+const titles = { overview: ['Overview','Store performance summary'], orders: ['Orders','Manage fulfillment & status'], inquiries: ['Customer Inquiries','View & reply to messages'], products: ['Products','Inventory & pricing management'], users: ['Admin Users','Manage portal access'] };
+
+function showTab(name) {
+  tabs.forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== name);
+    const nav = document.getElementById(`nav-${t}`);
+    if (nav) { nav.classList.toggle('active', t === name); nav.classList.toggle('text-slate-400', t !== name); }
+  });
+  const [title, sub] = titles[name];
+  document.getElementById('page-title').textContent = title;
+  document.getElementById('page-subtitle').textContent = sub;
+  if (name === 'overview') loadOverview();
+  if (name === 'orders') loadOrders();
+  if (name === 'inquiries') loadInquiries();
+  if (name === 'products') loadProducts();
+  if (name === 'users') loadUsers();
+  closeSidebar();
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+let ordersData = [], inquiriesData = [], productsData = [];
+
+async function loadOverview() {
+  const [o, i, p] = await Promise.all([loadOrders(true), loadInquiries(true), loadProducts(true)]);
+  const stats = document.getElementById('overview-stats');
+  stats.innerHTML = `
+    <div class="card rounded-2xl p-5">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Total Revenue</div>
+      <div class="text-2xl font-extrabold text-white mono">$${o.stats?.revenue || '0.00'}</div>
+      <div class="text-xs text-slate-500 mt-1">${o.stats?.total || 0} orders total</div>
+    </div>
+    <div class="card rounded-2xl p-5">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Pending Orders</div>
+      <div class="text-2xl font-extrabold text-amber-400 mono">${o.stats?.pending || 0}</div>
+      <div class="text-xs text-slate-500 mt-1">${o.stats?.processing || 0} processing</div>
+    </div>
+    <div class="card rounded-2xl p-5">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">New Inquiries</div>
+      <div class="text-2xl font-extrabold text-blue-400 mono">${(i||[]).filter(x=>x.status==='new').length}</div>
+      <div class="text-xs text-slate-500 mt-1">${(i||[]).length} total messages</div>
+    </div>
+    <div class="card rounded-2xl p-5">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Products</div>
+      <div class="text-2xl font-extrabold text-emerald-400 mono">${p.stats?.active || 0}</div>
+      <div class="text-xs text-slate-500 mt-1">${p.stats?.outOfStock || 0} out of stock</div>
+    </div>`;
+
+  // Recent
+  document.getElementById('recent-orders-list').innerHTML = ordersData.slice(0,5).map(o => `
+    <div class="flex items-center justify-between py-2.5 border-b border-slate-800/50 last:border-0">
+      <div>
+        <div class="text-sm font-semibold text-white mono">${o.orderNumber}</div>
+        <div class="text-xs text-slate-500">${o.customer.name}</div>
+      </div>
+      <span class="status-pill status-${o.status}">${o.status}</span>
+    </div>`).join('');
+
+  document.getElementById('recent-inquiries-list').innerHTML = inquiriesData.filter(i=>i.status==='new').slice(0,5).map(i => `
+    <div class="flex items-center justify-between py-2.5 border-b border-slate-800/50 last:border-0">
+      <div>
+        <div class="text-sm font-semibold text-white">${i.name}</div>
+        <div class="text-xs text-slate-500 truncate max-w-[200px]">${i.subject}</div>
+      </div>
+      <button onclick="showTab('inquiries')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">Reply →</button>
+    </div>`).join('') || '<p class="text-slate-600 text-sm py-4 text-center">No new inquiries</p>';
+}
+
+async function loadOrders(returnData = false) {
+  const res = await api('/api/admin/orders');
+  if (!res) return {};
+  const data = await res.json();
+  ordersData = data.orders || [];
+
+  if (!returnData) {
+    const badge = document.getElementById('orders-badge');
+    badge.textContent = data.stats?.pending || 0;
+    badge.classList.toggle('hidden', !data.stats?.pending);
+
+    const tbody = document.getElementById('orders-tbody');
+    if (tbody) tbody.innerHTML = ordersData.map(o => `
+      <tr>
+        <td class="px-5 py-3.5 mono text-xs font-semibold text-blue-400">${o.orderNumber}</td>
+        <td class="px-5 py-3.5"><div class="font-semibold text-sm text-white">${o.customer.name}</div><div class="text-[11px] text-slate-500">${o.customer.email}</div></td>
+        <td class="px-5 py-3.5 text-slate-400 text-xs hidden md:table-cell">${o.channel}</td>
+        <td class="px-5 py-3.5 mono text-sm font-bold text-white">$${o.total}</td>
+        <td class="px-5 py-3.5"><span class="status-pill status-${o.status}">${o.status}</span></td>
+        <td class="px-5 py-3.5 text-slate-500 text-xs hidden lg:table-cell">${new Date(o.createdAt).toLocaleDateString()}</td>
+        <td class="px-5 py-3.5"><button onclick="openOrderModal('${o.id}','${o.orderNumber}','${o.status}')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold whitespace-nowrap">Update →</button></td>
+      </tr>`).join('');
+  }
+  return data;
+}
+
+async function loadInquiries(returnData = false) {
+  const res = await api('/api/admin/inquiries');
+  if (!res) return [];
+  inquiriesData = await res.json();
+
+  if (!returnData) {
+    const newCount = inquiriesData.filter(i => i.status === 'new').length;
+    const badge = document.getElementById('inquiries-badge');
+    badge.textContent = newCount;
+    badge.classList.toggle('hidden', !newCount);
+
+    const tbody = document.getElementById('inquiries-tbody');
+    if (tbody) tbody.innerHTML = inquiriesData.map(i => `
+      <tr>
+        <td class="px-5 py-3.5"><div class="font-semibold text-sm text-white">${i.name}</div><div class="text-[11px] text-slate-500">${i.email}</div></td>
+        <td class="px-5 py-3.5 text-slate-300 text-sm">${i.subject}</td>
+        <td class="px-5 py-3.5"><span class="status-pill status-${i.status}">${i.status}</span></td>
+        <td class="px-5 py-3.5 text-slate-500 text-xs hidden lg:table-cell">${new Date(i.createdAt).toLocaleDateString()}</td>
+        <td class="px-5 py-3.5"><button onclick="openInquiryModal('${i.id}')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">${i.status==='replied'?'View':'Reply →'}</button></td>
+      </tr>`).join('');
+  }
+  return inquiriesData;
+}
+
+async function loadProducts(returnData = false) {
+  const res = await api('/api/admin/products');
+  if (!res) return {};
+  const data = await res.json();
+  productsData = data.products || [];
+
+  if (!returnData) {
+    const tbody = document.getElementById('products-tbody');
+    if (tbody) tbody.innerHTML = productsData.map(p => `
+      <tr>
+        <td class="px-5 py-3.5"><div class="font-semibold text-sm text-white">${p.name}</div><div class="text-[11px] text-slate-500">${p.category}</div></td>
+        <td class="px-5 py-3.5 mono text-xs text-slate-400 hidden md:table-cell">${p.sku}</td>
+        <td class="px-5 py-3.5 mono text-sm font-bold text-white">$${p.price}</td>
+        <td class="px-5 py-3.5"><span class="${p.inventory === 0 ? 'text-red-400' : p.inventory < 10 ? 'text-amber-400' : 'text-emerald-400'} font-bold text-sm mono">${p.inventory}</span></td>
+        <td class="px-5 py-3.5 text-slate-400 text-sm hidden lg:table-cell">${p.sales}</td>
+        <td class="px-5 py-3.5"><span class="status-pill status-${p.status}">${p.status.replace('_',' ')}</span></td>
+        <td class="px-5 py-3.5"><button onclick="openProductModal('${p.id}','${p.price}','${p.inventory}','${p.status}')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">Edit →</button></td>
+      </tr>`).join('');
+  }
+  return data;
+}
+
+async function loadUsers() {
+  const res = await api('/api/admin/users');
+  if (!res) return;
+  const users = await res.json();
+  const me = JSON.parse(localStorage.getItem('admin_user') || '{}');
+  document.getElementById('users-tbody').innerHTML = users.map(u => `
+    <tr>
+      <td class="px-5 py-3.5"><div class="font-semibold text-sm text-white">${u.email}</div>${u.id===me.id ? '<div class="text-[11px] text-blue-400 font-semibold">You</div>' : ''}</td>
+      <td class="px-5 py-3.5"><span class="status-pill ${u.role==='superadmin'?'status-delivered':'status-processing'}">${u.role}</span></td>
+      <td class="px-5 py-3.5 text-slate-500 text-xs hidden lg:table-cell">${new Date(u.createdAt).toLocaleDateString()}</td>
+      <td class="px-5 py-3.5 flex gap-2 justify-end">
+        <button onclick="openUserModal('${u.id}','${u.email}')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">Edit</button>
+        ${u.id!==me.id ? `<button onclick="deleteUser('${u.id}','${u.email}')" class="text-xs text-red-400 hover:text-red-300 font-semibold">Delete</button>` : ''}
+      </td>
+    </tr>`).join('');
+}
+
+function refreshData() { const active = tabs.find(t => !document.getElementById(`tab-${t}`).classList.contains('hidden')); showTab(active); }
+
+// ── Modal helpers ──────────────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+function openInquiryModal(id) {
+  const inq = inquiriesData.find(i => i.id === id);
+  if (!inq) return;
+  currentInquiryId = id;
+  document.getElementById('inquiry-modal-title').textContent = inq.subject;
+  document.getElementById('inquiry-modal-body').innerHTML = `
+    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 mb-3">
+      <div class="text-xs font-bold text-slate-500 mb-1">${inq.name} &lt;${inq.email}&gt;</div>
+      <p class="text-sm text-slate-300">${inq.message}</p>
+    </div>
+    ${inq.reply ? `<div class="p-3 rounded-xl bg-blue-950/20 border border-blue-800/30"><div class="text-xs font-bold text-blue-500 mb-1">Your Previous Reply</div><p class="text-sm text-slate-300">${inq.reply}</p></div>` : ''}`;
+  document.getElementById('inquiry-reply').value = inq.reply || '';
+  openModal('inquiry-modal');
+}
+
+async function submitReply() {
+  const reply = document.getElementById('inquiry-reply').value.trim();
+  if (!reply) return;
+  const res = await api(`/api/admin/inquiries/${currentInquiryId}`, { method: 'PUT', body: JSON.stringify({ status: 'replied', reply }) });
+  if (res?.ok) { closeModal('inquiry-modal'); loadInquiries(); }
+}
+
+function openOrderModal(id, number, status) {
+  currentOrderId = id;
+  document.getElementById('order-modal-info').textContent = `Order: ${number}`;
+  document.getElementById('order-status-select').value = status;
+  openModal('order-modal');
+}
+
+async function submitOrderStatus() {
+  const status = document.getElementById('order-status-select').value;
+  const res = await api(`/api/admin/orders/${currentOrderId}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
+  if (res?.ok) { closeModal('order-modal'); loadOrders(); }
+}
+
+function openProductModal(id, price, inventory, status) {
+  document.getElementById('product-edit-id').value = id;
+  document.getElementById('product-edit-price').value = price;
+  document.getElementById('product-edit-inventory').value = inventory;
+  document.getElementById('product-edit-status').value = status;
+  openModal('product-modal');
+}
+
+async function submitProductEdit() {
+  const id = document.getElementById('product-edit-id').value;
+  const updates = {
+    price: document.getElementById('product-edit-price').value,
+    inventory: parseInt(document.getElementById('product-edit-inventory').value),
+    status: document.getElementById('product-edit-status').value,
+  };
+  const res = await api(`/api/admin/products/${id}`, { method: 'PUT', body: JSON.stringify(updates) });
+  if (res?.ok) { closeModal('product-modal'); loadProducts(); }
+}
+
+function openUserModal(id, email) {
+  document.getElementById('user-edit-id').value = id || '';
+  document.getElementById('user-edit-email').value = email || '';
+  document.getElementById('user-edit-password').value = '';
+  document.getElementById('user-modal-title').textContent = id ? 'Edit Admin User' : 'Add Admin User';
+  document.getElementById('user-pw-hint').textContent = id ? '(leave blank to keep unchanged)' : '(required)';
+  document.getElementById('user-modal-error').classList.add('hidden');
+  openModal('user-modal');
+}
+
+async function submitUserForm() {
+  const id = document.getElementById('user-edit-id').value;
+  const email = document.getElementById('user-edit-email').value.trim();
+  const password = document.getElementById('user-edit-password').value;
+  const errEl = document.getElementById('user-modal-error');
+  errEl.classList.add('hidden');
+
+  if (!email) { errEl.textContent = 'Email is required'; errEl.classList.remove('hidden'); return; }
+  if (!id && !password) { errEl.textContent = 'Password is required for new users'; errEl.classList.remove('hidden'); return; }
+
+  const body = { email };
+  if (password) body.password = password;
+
+  const res = await api(id ? `/api/admin/users/${id}` : '/api/admin/users', { method: id ? 'PUT' : 'POST', body: JSON.stringify(body) });
+  const data = await res.json();
+  if (!res.ok) { errEl.textContent = data.error || 'Failed to save'; errEl.classList.remove('hidden'); return; }
+  closeModal('user-modal');
+  loadUsers();
+}
+
+async function deleteUser(id, email) {
+  if (!confirm(`Delete admin user "${email}"? This cannot be undone.`)) return;
+  const res = await api(`/api/admin/users/${id}`, { method: 'DELETE' });
+  if (res?.ok) loadUsers();
+}
+
+// ── Search filter ────────────────────────────────────────────────────────────
+function filterTable(tbodyId, query) {
+  const q = query.toLowerCase();
+  document.getElementById(tbodyId).querySelectorAll('tr').forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ── Sidebar mobile ────────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('hidden');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.add('hidden');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(function init() {
+  const user = JSON.parse(localStorage.getItem('admin_user') || '{}');
+  document.getElementById('user-display').textContent = user.email || 'Admin';
+  showTab('overview');
+})();
+</script>
+</body>
+</html>
