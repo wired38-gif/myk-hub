@@ -1,293 +1,59 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const fs = require('fs');
+
 const app = express();
 
-// ── Queens Customs Admin Portal ────────────────────────────────────────────────
-const { adminRouter } = require('./admin/index');
-const { seedMasterAdmin } = require('./admin/seed');
-seedMasterAdmin().catch(err => console.error('[QC-Admin] Seed error:', err.message));
-
-const BRAIN_PREFIX = (process.env.BRAIN_PROXY_PREFIX || '/brain').replace(/\/$/, '');
-const BRAIN_PROXY_FILE = path.join(__dirname, 'config', 'brain-proxy-target.json');
-
-function loadBrainTargetFromFile() {
-  try {
-    const raw = fs.readFileSync(BRAIN_PROXY_FILE, 'utf8');
-    const parsed = JSON.parse(raw);
-    return String(parsed.url || parsed.target || '').replace(/\/$/, '');
-  } catch {
-    return '';
-  }
-}
-
-const fileBrainTarget = loadBrainTargetFromFile();
-const BRAIN_TARGET = (process.env.BRAIN_PROXY_TARGET || fileBrainTarget || '').replace(/\/$/, '');
-const BRAIN_ENABLED =
-  (process.env.BRAIN_PROXY_ENABLED === '1'
-    || (process.env.BRAIN_PROXY_ENABLED !== '0' && Boolean(fileBrainTarget)))
-  && BRAIN_TARGET;
-
-console.log(`[myk-hub] BRAIN_PROXY enabled=${!!BRAIN_ENABLED} prefix=${BRAIN_PREFIX} target=${BRAIN_TARGET ? BRAIN_TARGET.slice(0, 40) + '...' : '(empty)'}`);
-
-// Map each hostname to its site folder under sites/
+// Map each hostname to its site folder
 const SITE_MAP = {
   'patemusic.live': 'pate',
   'www.patemusic.live': 'pate',
   'myk.ac': 'myk',
   'www.myk.ac': 'myk',
-  'pate.myk.ac': 'pate',
-  'lti.myk.ac': 'lti',
   'ltibyjmichael.com': 'lti',
   'www.ltibyjmichael.com': 'lti',
   'designbyjmichael.com': 'lti',
   'www.designbyjmichael.com': 'lti',
-  // Queens Customs Shop
-  'queenscustoms.shop': 'queenscustoms',
-  'www.queenscustoms.shop': 'queenscustoms',
-  'admin.queenscustoms.shop': 'queenscustoms',
 };
 
-const SITES_ROOT = path.join(__dirname, 'sites');
-
-function hostCandidates(req) {
-  const parts = [];
-  const add = (value) => {
-    if (!value) return;
-    const raw = Array.isArray(value) ? value.join(',') : String(value);
-    for (const piece of raw.toLowerCase().split(',')) {
-      const host = piece.trim().split(':')[0];
-      if (host) parts.push(host);
-    }
-  };
-  // X-Hub-Host is set by the Cloudflare worker and is not rewritten by GoDaddy edge.
-  add(req.headers['x-hub-host']);
-  add(req.headers['x-forwarded-host']);
-  add(req.headers.host);
-  return parts;
+function resolveSite(hostHeader) {
+  const host = (hostHeader || '').toLowerCase().split(':')[0];
+  return SITE_MAP[host] || 'myk';
 }
 
-function resolveSite(req) {
-  for (const host of hostCandidates(req)) {
-    const site = SITE_MAP[host];
-    if (site) return site;
-  }
-  return 'myk';
-}
-
-/**
- * Browser-facing host for WorkOS callbacks + session cookies.
- * Prefer myk.ac over GoDaddy PaaS / Cloudflare forwarded hosts (airoapp, etc.).
- */
-function publicForwardedHost(req) {
-  const pick = (value) =>
-    String(value || '')
-      .split(',')[0]
-      .trim()
-      .split(':')[0]
-      .toLowerCase();
-  // x-hub-host is set by the Cloudflare worker and survives GoDaddy edge rewrites.
-  const candidates = [
-    pick(req.headers['x-hub-host']),
-    pick(req.headers.host),
-    pick(req.headers['x-forwarded-host']),
-  ].filter(Boolean);
-  const isCustom = (h) => h === 'myk.ac' || h === 'www.myk.ac';
-  const isPaasNoise = (h) =>
-    h.includes('airoapp.ai') || h.includes('godaddy') || h.endsWith('.internal');
-  const custom = candidates.find(isCustom);
-  if (custom) return custom;
-  const clean = candidates.find((h) => !isPaasNoise(h));
-  return clean || candidates[0] || '';
-}
-
-function brainProxyHeaders(proxyReq, req, extra = {}) {
-  proxyReq.setHeader('X-Forwarded-Proto', 'https');
-  const publicHost = publicForwardedHost(req);
-  if (publicHost) {
-    proxyReq.setHeader('X-Forwarded-Host', publicHost);
-    // Brain WorkOS reads x-hub-host as a first-class public host signal.
-    proxyReq.setHeader('X-Hub-Host', publicHost);
-  }
-  if (extra.forwardedPrefix) {
-    proxyReq.setHeader('X-Forwarded-Prefix', extra.forwardedPrefix);
-  }
-}
-
-if (BRAIN_ENABLED) {
-  // /brain → gateway root (strip prefix)
-  app.use(
-    BRAIN_PREFIX,
-    createProxyMiddleware({
-      target: BRAIN_TARGET,
-      changeOrigin: true,
-      ws: true,
-      pathRewrite: { [`^${BRAIN_PREFIX}`]: '' },
-      on: {
-        proxyReq(proxyReq, req) {
-          brainProxyHeaders(proxyReq, req, { forwardedPrefix: BRAIN_PREFIX });
-        },
-      },
-    })
-  );
-
-  // Site Editor + same-host auth/assets — keep full path (no mount strip).
-  // changeOrigin:true so Cloudflare (brain.askmyk.io) accepts the upstream Host.
-  // Public host stays on myk.ac via X-Forwarded-Host (WorkOS / cookies use that).
-  // xfwd:false — we set X-Forwarded-* ourselves; library xfwd would overwrite with brain host.
-  app.use(
-    createProxyMiddleware({
-      target: BRAIN_TARGET,
-      changeOrigin: true,
-      xfwd: false,
-      ws: true,
-      pathFilter(pathname) {
-        const p = String(pathname || '').replace(/\/$/, '') || '/';
-        if (p === '/siteeditor' || p.startsWith('/siteeditor/')) return true;
-        if (p === '/api/siteeditor' || p.startsWith('/api/siteeditor/')) return true;
-        if (p === '/site-editor.js' || p === '/site-editor-picker.js') return true;
-        if (p === '/login' || p.startsWith('/login/')) return true;
-        if (p === '/api/auth' || p.startsWith('/api/auth/')) return true;
-        if (p === '/assets/askmyk' || p.startsWith('/assets/askmyk/')) return true;
-        // Login page deps (askmyk-auth.html)
-        if (p === '/askmyk-auth.js' || p === '/gateway.js' || p === '/icon.svg') return true;
-        if (p === '/styles/askmyk.css' || p.startsWith('/styles/askmyk')) return true;
-        return false;
-      },
-      on: {
-        proxyReq(proxyReq, req) {
-          brainProxyHeaders(proxyReq, req);
-        },
-      },
-    })
-  );
-}
-
-app.get(['/health', '/_health/liveness', '/_health/readiness'], (_req, res) => {
-  res.json({ ok: true, service: 'myk-hub' });
-});
-
-// Force HTTPS behind GoDaddy / Cloudflare reverse proxy
 app.use((req, res, next) => {
   const proto = req.headers['x-forwarded-proto'];
-  if (proto === 'http') {
+  if (proto && proto !== 'https') {
     return res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
-  next();
-});
-
-// Security headers for all sites
-app.use((_req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   next();
 });
 
-function isBrainPath(req) {
-  const p = (req.path || req.url.split('?')[0] || '').replace(/\/$/, '') || '/';
-  return p === BRAIN_PREFIX || p.startsWith(`${BRAIN_PREFIX}/`);
-}
-
-function isSiteEditorProxyPath(req) {
-  const p = (req.path || req.url.split('?')[0] || '').replace(/\/$/, '') || '/';
-  if (p === '/siteeditor' || p.startsWith('/siteeditor/')) return true;
-  if (p === '/api/siteeditor' || p.startsWith('/api/siteeditor/')) return true;
-  if (p === '/site-editor.js' || p === '/site-editor-picker.js') return true;
-  if (p === '/login' || p.startsWith('/login/')) return true;
-  if (p === '/api/auth' || p.startsWith('/api/auth/')) return true;
-  if (p === '/assets/askmyk' || p.startsWith('/assets/askmyk/')) return true;
-  if (p === '/askmyk-auth.js' || p === '/gateway.js' || p === '/icon.svg') return true;
-  if (p === '/styles/askmyk.css' || p.startsWith('/styles/askmyk')) return true;
-  return false;
-}
-
-function isProxiedBrainPath(req) {
-  return isBrainPath(req) || isSiteEditorProxyPath(req);
-}
-
-// ── Queens Customs Admin subdomain detection ───────────────────────────────────
-function isAdminSubdomain(req) {
-  return hostCandidates(req).some(h => h === 'admin.queenscustoms.shop');
-}
-
-// Admin API routes (JWT-protected) — handle before static serving
-// Note: no express.json() here — admin routes self-parse request bodies via stream
-app.use(async (req, res, next) => {
-  const pathname = req.path || '/';
-  // Public website hooks (callable from any QC origin)
-  const isPublicWebhook = (
-    (pathname === '/api/orders' && req.method === 'POST') ||
-    (pathname === '/api/inquiries' && req.method === 'POST') ||
-    (pathname === '/api/products' && req.method === 'GET')
-  );
-  // Admin API and admin subdomain paths
-  const isAdminPath = pathname.startsWith('/api/admin/') || isPublicWebhook;
-
-  if (!isAdminSubdomain(req) && !isAdminPath) return next();
-
-  const handled = await adminRouter(req, res);
-  if (handled !== false) return;
-  next();
-});
-
-// Serve /admin/* HTML pages on the admin subdomain
 app.use((req, res, next) => {
-  if (!isAdminSubdomain(req)) return next();
+  const site = resolveSite(req.headers.host);
+  const siteRoot = path.join(__dirname, 'sites', site);
+  const indexPath = path.join(siteRoot, 'index.html');
 
-  const pathname = req.path || '/';
-  const pageMap = {
-    '/':                  'admin/login.html',
-    '/login':             'admin/login.html',
-    '/admin':             'admin/login.html',
-    '/admin/':            'admin/login.html',
-    '/admin/login':       'admin/login.html',
-    '/admin/operations':  'admin/operations.html',
-    '/admin/setup-wizard': 'admin/setup-wizard.html',
-    '/qc-integration.js': 'qc-integration.js',
-  };
-  const file = pageMap[pathname.replace(/\/$/, '') || '/'];
-  if (file) {
-    return res.sendFile(path.join(__dirname, 'sites', 'queenscustoms', file));
+  // Serve real files under the site root (assets, images, etc.)
+  if (req.path !== '/' && !req.path.endsWith('/')) {
+    const safeRel = path.normalize(decodeURIComponent(req.path)).replace(/^(\.\.[/\\])+/, '');
+    const filePath = path.join(siteRoot, safeRel);
+    if (filePath.startsWith(siteRoot) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      return res.sendFile(filePath);
+    }
   }
-  next();
+
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+
+  return res.status(404).send('Site not found');
 });
 
-// Per-domain static file serving
-app.use((req, res, next) => {
-  if (BRAIN_ENABLED && isProxiedBrainPath(req)) return next();
-
-  const site = resolveSite(req);
-  const siteDir = path.join(SITES_ROOT, site);
-
-  express.static(siteDir, {
-    index: ['index.html'],
-    extensions: ['html'],
-    fallthrough: true,
-  })(req, res, next);
-});
-
-// SPA / clean URL fallback — serve index.html for unmatched routes
-app.get('*', (req, res, next) => {
-  if (BRAIN_ENABLED && isProxiedBrainPath(req)) {
-    res.status(502).json({
-      ok: false,
-      error: 'brain_proxy_unavailable',
-      hint: 'Check BRAIN_PROXY_TARGET and redeploy myk-hub',
-    });
-    return;
-  }
-  const site = resolveSite(req);
-  res.sendFile(path.join(SITES_ROOT, site, 'index.html'));
-});
-
-const server = app;
-server.listen(process.env.PORT || 20010, '0.0.0.0', () => {
-  const port = process.env.PORT || 20010;
-  console.log(`MYK Hub running on 0.0.0.0:${port}`);
-  if (BRAIN_ENABLED) {
-    console.log(`Brain proxy: ${BRAIN_PREFIX} -> ${BRAIN_TARGET}`);
-    console.log(`Site Editor proxy: /siteeditor (+ /api/siteeditor, login) -> ${BRAIN_TARGET}`);
-  }
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`MYK Hub running on port ${PORT}`);
 });

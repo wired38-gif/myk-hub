@@ -1,1542 +1,853 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MYK — Systems Builder · Creative Technology Studio</title>
-  <meta name="description" content="MYK is a private creative technology studio. Custom design software, personalized creator studios, and team management systems for production and engineering." />
+  <title>MYK — Custom Systems for Those Who Build</title>
+  <meta name="description" content="MYK is a private creative technology studio. Custom software, studio systems, and team infrastructure — the identity hub behind MYK Brands." />
   <meta property="og:title" content="MYK — Custom Systems for Those Who Build" />
-  <meta property="og:description" content="MYK is a private creative technology studio building custom software, studio systems, and team infrastructure for serious creative operations." />
+  <meta property="og:description" content="Private creative technology studio. Purpose-built software and operational infrastructure." />
   <meta property="og:type" content="website" />
-
-  <!-- Fonts — engineering studio stack -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Design Tokens — engineering studio ─── */
     :root {
-      --color-bg: #070b10;
-      --color-surface: #0c1219;
-      --color-surface-2: #111a24;
-      --color-border: #1e2a3a;
-      --color-text: #e8eef4;
-      --color-text-muted: #8fa3b8;
-      --color-text-faint: #5c7088;
-      --color-primary: #22d3ee;
-      --color-primary-hover: #67e8f9;
-      --color-accent: #22d3ee;
-      --color-accent-dim: rgba(34, 211, 238, 0.35);
-      --color-terminal: #4ade80;
-
-      --font-display: 'IBM Plex Sans', system-ui, sans-serif;
-      --font-body: 'IBM Plex Sans', system-ui, sans-serif;
-      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-
-      --text-xs:   clamp(0.6875rem, 0.65rem + 0.2vw, 0.8125rem);
-      --text-sm:   clamp(0.875rem, 0.82rem + 0.25vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
-      --text-lg:   clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
-      --text-xl:   clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
-      --text-2xl:  clamp(2rem, 1rem + 3vw, 4rem);
-      --text-3xl:  clamp(2.75rem, 0.5rem + 6vw, 6.5rem);
-      --text-hero: clamp(2.75rem, 0.5rem + 8vw, 7.5rem);
-
-      --space-1:  0.25rem;
-      --space-2:  0.5rem;
-      --space-3:  0.75rem;
-      --space-4:  1rem;
-      --space-5:  1.25rem;
-      --space-6:  1.5rem;
-      --space-8:  2rem;
-      --space-10: 2.5rem;
-      --space-12: 3rem;
-      --space-16: 4rem;
-      --space-20: 5rem;
-      --space-24: 6rem;
-      --space-32: 8rem;
-
-      --radius-sm: 2px;
-      --radius-md: 4px;
-      --radius-lg: 6px;
-
-      --transition-interactive: 160ms cubic-bezier(0.16, 1, 0.3, 1);
-
-      --content-narrow:  640px;
-      --content-default: 960px;
-      --content-wide:    1200px;
-
-      --nav-h: 3.5rem;
+      --bg: #33373D;
+      --bg-mid: #2b2f35;
+      --bg-deep: #05070c;
+      --fg: #ffffff;
+      --muted: #a0a4a8;
+      --cyan: #22d3ee;
+      --violet: #a78bfa;
+      --magenta: #e879f9;
+      --border: rgba(255,255,255,0.1);
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Outfit", system-ui, sans-serif;
+      --nav-h: 4.5rem;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    /* ─── Base Reset ─── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      scroll-behavior: smooth;
-      scroll-padding-top: var(--nav-h);
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
     body {
       min-height: 100dvh;
       font-family: var(--font-body);
-      font-size: var(--text-base);
-      color: var(--color-text);
-      background-color: var(--color-bg);
-      line-height: 1.65;
+      color: var(--fg);
+      background: radial-gradient(ellipse 120% 80% at 50% -10%, #2b2f35 0%, var(--bg-deep) 55%);
+      line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-
-    img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
-    input, button, textarea, select { font: inherit; color: inherit; }
-    h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.15; }
-    p, li { text-wrap: pretty; }
-
+    img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; background: none; border: none; }
+    button, input, textarea { font: inherit; color: inherit; }
+    ::selection { background: color-mix(in oklab, var(--cyan) 35%, transparent); color: #fff; }
 
-    ::selection {
-      background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-      color: var(--color-text);
+    .backdrop {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+      background: var(--bg-deep);
     }
-
-    :focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    /* ─── Grid + scanline ─── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.45;
-      background-image:
-        linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.12) 2px,
-        rgba(0, 0, 0, 0.12) 4px
-      );
-      opacity: 0.25;
-    }
-
-
-    .term-prompt { color: var(--color-terminal); font-family: var(--font-mono); margin-right: 0.35em; }
-    .term-ok { color: var(--color-terminal); font-family: var(--font-mono); margin-right: 0.35em; }
-
-    .stack-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      list-style: none;
-      margin-bottom: var(--space-10);
-      max-width: 52ch;
-    }
-    .stack-chips li {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      letter-spacing: 0.02em;
-      color: var(--color-text);
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      padding: 0.35rem 0.65rem;
-      border-radius: var(--radius-sm);
-    }
-    .stack-chips li::before {
-      content: '// ';
-      color: var(--color-terminal);
-    }
-
-    .section__label {
-      font-family: var(--font-mono);
-      text-transform: lowercase;
-    }
-    .section__label::before {
-      content: '/* ';
-      color: var(--color-text-faint);
-    }
-    .section__label::after {
-      content: ' */';
-      color: var(--color-text-faint);
-    }
-
-    .service-col__num {
-      font-family: var(--font-mono);
-      color: var(--color-terminal);
-    }
-
-    .work-item__domain {
-      font-family: var(--font-mono);
-      font-size: var(--text-lg);
-    }
-    .work-item:hover {
-      border-left-color: var(--color-accent);
-    }
-
-    .network-tile::before {
-      background: var(--color-accent);
-    }
-    .network-tile:hover {
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.15);
-    }
-
-    .hero__eyebrow {
-      font-family: var(--font-mono);
-      font-size: clamp(0.65rem, 0.6rem + 0.25vw, 0.8rem);
-      color: var(--color-text-muted);
-      letter-spacing: 0.02em;
-    }
-
-    .hero__headline em {
-      color: var(--color-accent);
-    }
-
-    /* ─── Layout Utility ─── */
-    .container {
-      width: 100%;
-      max-width: var(--content-wide);
-      margin-inline: auto;
-      padding-inline: clamp(var(--space-6), 5vw, var(--space-16));
-    }
-
-    .container--narrow {
-      max-width: var(--content-default);
-    }
-
-    /* ─── Navigation ─── */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.35s ease, background 0.35s ease;
-    }
-
-    .nav.scrolled {
-      border-bottom-color: var(--color-border);
-      background: color-mix(in srgb, var(--color-bg) 96%, transparent);
-    }
-
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .nav__logo {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      text-decoration: none;
-    }
-
-    .nav__logo svg {
-      height: 28px;
-      width: auto;
-    }
-
-    .nav__logo svg path,
-    .nav__logo svg line {
-      stroke: var(--color-text) !important;
-    }
-
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: var(--space-8);
-      list-style: none;
-    }
-
-    .nav__links a {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: none;
-      color: var(--color-text-muted);
-      transition: color var(--transition-interactive);
-      position: relative;
-    }
-
-    .nav__links a::after {
-      content: '';
+    .backdrop__sphere {
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--color-text);
-      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      left: 50%; top: 38%;
+      width: min(92vw, 820px); height: min(92vw, 820px);
+      transform: translate(-50%, -50%);
+      animation: breathe 14s ease-in-out infinite;
     }
-
-    .nav__links a:hover {
-      color: var(--color-text);
+    .backdrop__sphere img {
+      width: 100%; height: 100%; object-fit: contain;
+      opacity: 0.88;
+      animation: hueflash 8s ease-in-out infinite;
+      filter: saturate(1.2);
     }
-
-    .nav__links a:hover::after {
-      width: 100%;
+    .backdrop__glow-cyan,
+    .backdrop__glow-mag {
+      position: absolute; inset: -8%; border-radius: 50%;
+      filter: blur(40px);
     }
-
-    .nav__meta {
-      font-size: var(--text-xs);
-      font-variant-numeric: tabular-nums;
-      color: var(--color-text-faint);
-      letter-spacing: 0.04em;
-      white-space: nowrap;
+    .backdrop__glow-cyan {
+      background: radial-gradient(circle, rgba(34,211,238,0.35) 0%, transparent 58%);
+      animation: pulse 5.5s ease-in-out infinite;
     }
-
-    @media (max-width: 900px) {
-      .nav__meta { display: none; }
+    .backdrop__glow-mag {
+      inset: -4%;
+      background: radial-gradient(circle at 70% 40%, rgba(232,121,249,0.32) 0%, transparent 55%);
+      animation: pulse 4.2s ease-in-out infinite 0.8s;
+      opacity: 0.5;
     }
-
-    .nav__toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      padding: var(--space-2);
-      background: none;
-      border: none;
-      cursor: pointer;
+    #sparks {
+      position: absolute; inset: 0; width: 100%; height: 100%;
     }
-
-    .nav__toggle span {
-      display: block;
-      width: 22px;
-      height: 1px;
-      background: var(--color-text-muted);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    @media (max-width: 640px) {
-      .nav__links { display: none; }
-      .nav__links.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--nav-h);
-        left: 0;
-        right: 0;
-        background: var(--color-surface);
-        border-bottom: 1px solid var(--color-border);
-        padding: var(--space-6) var(--space-6);
-        gap: var(--space-5);
-      }
-      .nav__toggle { display: flex; }
-    }
-
-    /* ─── Hero ─── */
-    .hero__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .hero__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.42;
-    }
-    .hero__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
+    .backdrop__vignette {
+      position: absolute; inset: 0;
       background:
-        linear-gradient(105deg, rgba(7, 11, 16, 0.92) 0%, rgba(7, 11, 16, 0.55) 45%, rgba(7, 11, 16, 0.75) 100%),
-        linear-gradient(to top, var(--color-bg) 0%, transparent 35%);
+        radial-gradient(ellipse 70% 55% at 50% 35%, transparent 20%, rgba(5,7,12,0.55) 70%, rgba(5,7,12,0.92) 100%),
+        linear-gradient(180deg, transparent 40%, rgba(28,31,36,0.85) 100%);
     }
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      25% { transform: translate(-50%, -50%) scale(1.06) rotate(1.5deg); }
+      50% { transform: translate(-50%, -50%) scale(0.98) rotate(-1deg); }
+      75% { transform: translate(-50%, -50%) scale(1.04) rotate(0.8deg); }
+    }
+    @keyframes hueflash {
+      0%, 100% { filter: hue-rotate(0deg) saturate(1.1); opacity: 0.55; }
+      25% { filter: hue-rotate(25deg) saturate(1.35); opacity: 0.8; }
+      50% { filter: hue-rotate(-10deg) saturate(1.2); opacity: 0.65; }
+      75% { filter: hue-rotate(40deg) saturate(1.4); opacity: 0.85; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50% { opacity: 0.7; transform: scale(1.08); }
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+
+    .hero-blur {
+      pointer-events: none; position: absolute; inset-inline: 0; bottom: 0; z-index: 2;
+      height: 10rem;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      mask-image: linear-gradient(to top, black 12%, transparent 92%);
+      -webkit-mask-image: linear-gradient(to top, black 12%, transparent 92%);
+    }
+    .hero__float-logo {
+      position: absolute; right: 1.25rem; bottom: 2.5rem;
+      width: 7rem; pointer-events: none;
+      animation: floaty 7s ease-in-out infinite;
+      filter: drop-shadow(0 0 24px rgba(56,189,248,0.4));
+      display: none;
+    }
+    @media (min-width: 768px) { .hero__float-logo { display: block; right: 2rem; width: 8.5rem; } }
+    .gallery--wide { grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 700px) { .gallery--wide { grid-template-columns: repeat(4, 1fr); } }
+    .gallery--covers { margin-top: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .gallery--covers { grid-template-columns: 1.4fr 1fr 1fr; } }
+    .gallery--covers img { aspect-ratio: 16/7; object-fit: cover; }
+    .brand-house {
+      margin-top: 2.5rem; padding: 1.5rem 1.35rem;
+      border-radius: 1.25rem; border: 1px solid rgba(34,211,238,0.28);
+      background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(232,121,249,0.08));
+      display: grid; gap: 1rem; align-items: center;
+    }
+    @media (min-width: 700px) {
+      .brand-house { grid-template-columns: auto 1fr auto; }
+    }
+    .brand-house img { width: 72px; height: 72px; object-fit: contain; }
+    .brand-house h3 { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; }
+    .brand-house p { color: var(--muted); font-size: 0.95rem; margin-top: 0.35rem; }
+    .hero { position: relative; }
+    .hero__row { grid-template-columns: 1fr !important; max-width: 40rem; }
+    .hero__visual { display: none !important; }
+
+    .shell { position: relative; z-index: 1; }
+
+    .nav {
+      position: fixed; inset: 0 0 auto; z-index: 40;
+      height: var(--nav-h);
+      transition: background 0.3s var(--ease), backdrop-filter 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(5,7,12,0.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__inner {
+      max-width: 72rem; margin: 0 auto;
+      padding: 0 1.25rem; height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) { .nav__inner { padding: 0 2rem; } }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem; letter-spacing: 0.08em; color: #fff;
+    }
+    .nav__logo span {
+      background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--violet), var(--cyan));
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      animation: shimmer 6s linear infinite;
+    }
+    .nav__links { display: none; list-style: none; gap: 2rem; align-items: center; }
+    @media (min-width: 768px) { .nav__links { display: flex; } }
+    .nav__links a {
+      font-size: 0.875rem; color: var(--muted); letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: #fff; }
+    .nav__cta {
+      display: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 999px; padding: 0.4rem 1rem;
+      font-size: 0.875rem; color: rgba(255,255,255,0.9);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .nav__cta:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.05); }
+    @media (min-width: 768px) { .nav__cta { display: inline-flex; } }
+    .nav__toggle {
+      display: flex; flex-direction: column; gap: 5px;
+      background: none; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 0.5rem; padding: 0.5rem 0.65rem; cursor: pointer;
+    }
+    @media (min-width: 768px) { .nav__toggle { display: none; } }
+    .nav__toggle span {
+      display: block; width: 18px; height: 1.5px; background: #fff;
+    }
+    .nav__mobile {
+      display: none; flex-direction: column; gap: 0.75rem;
+      padding: 1rem 1.25rem 1.25rem;
+      background: rgba(5,7,12,0.95); border-bottom: 1px solid var(--border);
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a { color: rgba(255,255,255,0.9); font-size: 1rem; }
 
     .hero {
-      position: relative;
-      min-height: calc(100dvh - 2.5rem);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-end;
-      text-align: left;
-      padding-top: calc(var(--nav-h) + 3rem);
-      padding-bottom: clamp(var(--space-16), 8vw, var(--space-24));
-      z-index: 1;
-      overflow: hidden;
+      min-height: 100dvh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: calc(var(--nav-h) + 2rem) 1.25rem 4rem;
+      max-width: 72rem; margin: 0 auto;
     }
-
-    .hero .container {
-      max-width: min(1400px, 96vw);
+    @media (min-width: 768px) { .hero { padding-left: 2rem; padding-right: 2rem; } }
+    .hero__row {
+      display: grid; gap: 2rem; align-items: center;
     }
-
-    .hero__eyebrow {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: none;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-6);
+    @media (min-width: 900px) {
+      .hero__row { grid-template-columns: 1.15fr 0.85fr; gap: 3rem; }
     }
-
-    .hero__headline {
+    .eyebrow {
+      font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.32em; color: var(--muted);
+    }
+    .hero h1 {
+      margin-top: 1rem;
       font-family: var(--font-display);
-      font-size: var(--text-hero);
-      font-weight: 300;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      color: var(--color-text);
-      margin-bottom: var(--space-10);
-      max-width: 14ch;
+      font-size: clamp(4.5rem, 14vw, 9rem);
+      font-weight: 400; line-height: 0.9; letter-spacing: -0.02em;
     }
-
-    .hero__headline em {
-      font-style: normal;
-      display: block;
-      font-weight: 500;
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(105deg, #fff 20%, var(--cyan) 45%, var(--magenta) 70%, #fff 90%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      animation: shimmer 8s linear infinite;
     }
-
-    .hero__est {
-      font-size: var(--text-xs);
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      text-transform: none;
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-8);
+    .hero__tag {
+      margin-top: 1.25rem;
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.85); font-weight: 300;
     }
-
-    .hero__tagline {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-style: normal;
-      font-weight: 400;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-8);
-      max-width: 42ch;
-      line-height: 1.5;
-    }
-
     .hero__sub {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      max-width: 48ch;
-      margin-bottom: var(--space-10);
-      line-height: 1.75;
-      font-weight: 400;
+      margin-top: 1rem; max-width: 32rem;
+      color: var(--muted); font-size: 1.05rem;
+    }
+    .hero__actions {
+      margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border-radius: 999px; padding: 0.8rem 1.4rem;
+      font-size: 0.9rem; font-weight: 500;
+      transition: transform 0.2s var(--ease), background 0.2s, border-color 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn--solid { background: #fff; color: var(--bg); }
+    .btn--solid:hover { background: #cffafe; }
+    .btn--ghost {
+      border: 1px solid rgba(255,255,255,0.2); color: #fff;
+    }
+    .btn--ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
+    .hero__visual {
+      display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
+      animation: floaty 7s ease-in-out infinite;
+    }
+    .hero__visual img {
+      width: 96px; height: 96px; object-fit: cover;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 0 40px rgba(34,211,238,0.15);
+    }
+    @media (min-width: 900px) {
+      .hero__visual img { width: 112px; height: 112px; }
+    }
+    .hero__photo {
+      width: min(100%, 280px) !important; height: auto !important;
+      border-radius: 1.5rem !important;
     }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-3);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      color: var(--color-bg);
-      background: var(--color-accent);
-      border: 1px solid var(--color-accent);
-      padding: var(--space-4) var(--space-8);
-      border-radius: var(--radius-sm);
-      transition: background var(--transition-interactive), color var(--transition-interactive), transform var(--transition-interactive);
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--color-accent);
-      transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(34, 211, 238, 0.2);
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: var(--space-10);
-      right: clamp(var(--space-6), 5vw, var(--space-16));
-      left: auto;
-      transform: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-2);
-      opacity: 0.4;
-    }
-
-    .scroll-indicator span {
-      font-size: var(--text-xs);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-    }
-
-    .scroll-indicator svg {
-      animation: scrollBob 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollBob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
-    }
-
-    /* ─── Section Common ─── */
     .section {
       position: relative;
-      z-index: 1;
-      padding-block: clamp(var(--space-16), 10vw, var(--space-32));
+      padding: 5.5rem 1.25rem;
+      max-width: 72rem; margin: 0 auto;
     }
-
-    .section__label {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: none;
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-6);
+    @media (min-width: 768px) { .section { padding: 7rem 2rem; } }
+    .section--band {
+      max-width: none;
+      background: rgba(255,255,255,0.02);
+      border-block: 1px solid var(--border);
     }
-
-    .section__title {
+    .section--band > .inner {
+      max-width: 72rem; margin: 0 auto;
+      padding-inline: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .section--band > .inner { padding-inline: 2rem; }
+    }
+    .label {
+      font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.28em; color: var(--muted);
+    }
+    .title {
+      margin-top: 0.75rem;
       font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 400;
-      color: var(--color-text);
-      margin-bottom: var(--space-4);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.1;
     }
+    .lede { margin-top: 1rem; max-width: 36rem; color: var(--muted); }
 
-    .section__intro {
-      font-size: var(--text-base);
-      color: var(--color-text-muted);
-      max-width: 52ch;
-      line-height: 1.7;
+    .grid-3 {
+      margin-top: 2.5rem;
+      display: grid; gap: 1.25rem;
     }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--color-border);
+    @media (min-width: 768px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease);
     }
-
-    /* ─── What We Build ─── */
-    .services {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
+    .card:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-3px);
     }
-
-    .services__header {
-      margin-bottom: clamp(var(--space-12), 6vw, var(--space-20));
+    .card__num {
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      color: var(--cyan); text-transform: uppercase;
     }
-
-    .services__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-1);
-    }
-
-    @media (max-width: 768px) {
-      .services__grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-    }
-
-    .service-col {
-      padding: clamp(var(--space-8), 4vw, var(--space-12));
-      border-left: 1px solid var(--color-border);
-      position: relative;
-      overflow: hidden;
-      min-height: 280px;
-    }
-    .service-col__thumb {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.22;
-      transition: opacity var(--transition-interactive);
-    }
-    .service-col__thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .service-col__thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, var(--color-surface) 15%, rgba(12, 18, 25, 0.85) 100%);
-    }
-    .service-col:hover .service-col__thumb { opacity: 0.32; }
-    .service-col > *:not(.service-col__thumb) { position: relative; z-index: 1; }
-
-    .service-col:first-child {
-      border-left: none;
-      padding-left: 0;
-    }
-
-    @media (max-width: 768px) {
-      .service-col {
-        border-left: none;
-        border-top: 1px solid var(--color-border);
-        padding-left: 0;
-        padding-right: 0;
-      }
-      .service-col:first-child {
-        border-top: none;
-      }
-    }
-
-    .service-col__num {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-6);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .service-col__title {
+    .card h3 {
+      margin-top: 0.75rem;
       font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 500;
-      color: var(--color-text);
-      margin-bottom: var(--space-4);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+      font-size: 1.65rem; font-weight: 400;
     }
+    .card p { margin-top: 0.65rem; font-size: 0.95rem; color: var(--muted); }
 
-    .service-col__body {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.75;
-    }
-
-    /* ─── Portfolio ─── */
-    .portfolio__header {
-      margin-bottom: clamp(var(--space-10), 5vw, var(--space-16));
-    }
-
-    .work-list {
-      display: flex;
-      flex-direction: column;
-    }
-
+    .work { margin-top: 2rem; display: grid; gap: 0; }
     .work-item {
-      display: grid;
-      grid-template-columns: 120px 1fr auto;
+      display: grid; gap: 0.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      grid-template-columns: 1fr auto;
       align-items: start;
-      gap: var(--space-8);
-      padding: var(--space-8) 0;
-      border-bottom: 1px solid var(--color-border);
-      border-left: 2px solid transparent;
-      padding-left: var(--space-6);
-      margin-left: calc(-1 * var(--space-6));
-      transition: border-left-color var(--transition-interactive);
+      transition: background 0.2s;
     }
-
-    .work-item:first-child {
-      border-top: 1px solid var(--color-border);
-    }
-
-    .work-item:hover {
-      border-left-color: var(--color-text);
-    }
-
-    .work-item__thumb {
-      width: 120px;
-      height: 88px;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: var(--color-surface-2);
-    }
-    .work-item__thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    @media (max-width: 640px) {
-      .work-item {
-        grid-template-columns: 1fr;
-      }
-      .work-item__thumb {
-        width: 100%;
-        height: 140px;
-      }
-    }
-
+    .work-item:first-child { border-top: 1px solid var(--border); }
     .work-item__domain {
       font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 400;
-      color: var(--color-text);
-      margin-bottom: var(--space-2);
-      letter-spacing: -0.03em;
+      font-size: 1.5rem;
     }
+    .work-item__desc { margin-top: 0.35rem; color: var(--muted); font-size: 0.95rem; max-width: 40rem; }
+    .work-item__year { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
 
-    .work-item__desc {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.6;
+    .network-grid {
+      margin-top: 2rem; display: grid; gap: 1rem;
     }
-
-    .work-item__year {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      padding-top: var(--space-1);
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* ─── Engineering (flagship systems) ─── */
-    .engineering {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .engineering__header {
-      margin-bottom: clamp(var(--space-10), 5vw, var(--space-16));
-    }
-
-    .eng-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-6);
-    }
-
-    @media (max-width: 768px) {
-      .eng-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .eng-card {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-      padding: var(--space-6);
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: border-color var(--transition-interactive);
-    }
-
-    .eng-card:hover {
-      border-color: var(--color-accent-dim);
-    }
-
-    .eng-card__tag {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--color-terminal);
-      letter-spacing: 0.04em;
-    }
-
-    .eng-card__tag::before {
-      content: '// ';
-      color: var(--color-text-faint);
-    }
-
-    .eng-card__title {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 500;
-      color: var(--color-text);
-      letter-spacing: -0.02em;
-    }
-
-    .eng-card__body {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    .eng-card__links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      margin-top: var(--space-2);
-    }
-
-    .eng-card__link {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--color-primary);
-      letter-spacing: 0.02em;
-    }
-
-    .eng-card__link:hover {
-      color: var(--color-primary-hover);
-    }
-
-    .eng-card__link::after {
-      content: ' →';
-    }
-
-    /* ─── Network ─── */
-    .network {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .network__header {
-      margin-bottom: clamp(var(--space-10), 5vw, var(--space-16));
-    }
-
-    .network__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-4);
-    }
-
-    @media (max-width: 640px) {
-      .network__grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-3);
-      }
-    }
-
+    @media (min-width: 768px) { .network-grid { grid-template-columns: repeat(3, 1fr); } }
     .network-tile {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: var(--space-8) var(--space-8);
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      min-height: 220px;
-      text-decoration: none;
-      transition: border-color var(--transition-interactive), background var(--transition-interactive);
-      position: relative;
-      overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 11rem; padding: 1.35rem;
+      border-radius: 1.25rem; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.25);
+      transition: border-color 0.25s, transform 0.25s var(--ease);
     }
-
-    .network-tile__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.28;
-      transition: opacity var(--transition-interactive);
-    }
-    .network-tile__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .network-tile__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, var(--color-surface-2) 0%, rgba(17, 26, 36, 0.55) 100%);
-    }
-    .network-tile:hover .network-tile__bg { opacity: 0.38; }
-    .network-tile > div,
-    .network-tile > .network-tile__arrow { position: relative; z-index: 1; }
-
-    .network-tile::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--color-text);
-      opacity: 0;
-      transition: opacity var(--transition-interactive);
-      z-index: 2;
-    }
-
-    .network-tile:hover {
-      border-color: var(--color-text);
-      background: var(--color-surface);
-    }
-
-    .network-tile:hover::before {
-      opacity: 1;
-    }
-
+    .network-tile:hover { border-color: rgba(34,211,238,0.45); transform: translateY(-3px); }
     .network-tile__name {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 400;
-      color: var(--color-text);
-      line-height: 1;
-      letter-spacing: -0.03em;
+      font-family: var(--font-display); font-size: 1.75rem;
+    }
+    .network-tile__domain { color: var(--cyan); font-size: 0.85rem; margin-top: 0.25rem; }
+    .network-tile__role { margin-top: 0.75rem; color: var(--muted); font-size: 0.9rem; }
+    .network-tile__arrow { margin-top: 1.25rem; font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+
+    .gallery {
+      margin-top: 2rem;
+      display: grid; gap: 0.75rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 700px) { .gallery { grid-template-columns: repeat(4, 1fr); } }
+    .gallery figure {
+      overflow: hidden; border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+    .gallery img {
+      width: 100%; aspect-ratio: 1; object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .gallery figure:hover img { transform: scale(1.06); }
+    .gallery figcaption {
+      padding: 0.55rem 0.75rem;
+      font-size: 0.7rem; color: var(--muted);
+      letter-spacing: 0.06em; text-transform: uppercase;
     }
 
-    .network-tile__domain {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.08em;
-      margin-top: var(--space-2);
+    .contact-wrap { max-width: 40rem; }
+    .form { margin-top: 2rem; display: grid; gap: 1rem; }
+    .form__row { display: grid; gap: 1rem; }
+    @media (min-width: 600px) { .form__row { grid-template-columns: 1fr 1fr; } }
+    .form label {
+      display: block; font-size: 0.7rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45);
     }
-
-    .network-tile__arrow {
-      font-size: var(--text-xs);
-      color: var(--color-text);
-      letter-spacing: 0;
-      opacity: 0;
-      transform: translateX(-6px);
-      transition: opacity var(--transition-interactive), transform var(--transition-interactive);
-    }
-
-    .network-tile:hover .network-tile__arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .network-tile__role {
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      margin-top: var(--space-3);
-      line-height: 1.5;
-    }
-
-    /* ─── Contact ─── */
-    .contact__inner {
-      max-width: 600px;
-    }
-
-    .contact__lede {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-style: normal;
-      color: var(--color-text);
-      margin-bottom: var(--space-8);
-      font-weight: 400;
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-    }
-
-    .contact__sub {
-      font-size: var(--text-sm);
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-10);
-      line-height: 1.7;
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-    }
-
-    .form__row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
-    }
-
-    @media (max-width: 520px) {
-      .form__row { grid-template-columns: 1fr; }
-    }
-
-    .form__group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    .form__label {
-      font-size: var(--text-xs);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-faint);
-    }
-
-    .form__input,
-    .form__textarea {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      color: var(--color-text);
-      padding: var(--space-3) var(--space-4);
-      font-size: var(--text-sm);
-      font-family: var(--font-body);
+    .form input, .form textarea {
+      margin-top: 0.4rem; width: 100%;
+      border-radius: 0.85rem; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.35); padding: 0.75rem 0.9rem;
       outline: none;
-      transition: border-color var(--transition-interactive);
-      border-radius: 0;
-      width: 100%;
-      -webkit-appearance: none;
     }
-
-    .form__input:focus,
-    .form__textarea:focus {
-      border-color: var(--color-text);
+    .form input:focus, .form textarea:focus {
+      border-color: rgba(34,211,238,0.45);
+      box-shadow: 0 0 0 3px rgba(34,211,238,0.12);
     }
-
-    .form__input::placeholder,
-    .form__textarea::placeholder {
-      color: var(--color-text-faint);
-    }
-
-    .form__textarea {
-      resize: vertical;
-      min-height: 120px;
-      line-height: 1.6;
-    }
-
-    .form__submit {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      color: var(--color-bg);
-      background: var(--color-terminal);
-      border: 1px solid var(--color-terminal);
-      padding: var(--space-3) var(--space-6);
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      transition: background var(--transition-interactive), color var(--transition-interactive);
-      margin-top: var(--space-2);
-    }
-
-    .form__submit:hover {
-      background: transparent;
-      color: var(--color-terminal);
-    }
-
+    .form textarea { min-height: 7rem; resize: vertical; }
     .form__confirm {
-      display: none;
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      padding: var(--space-3) 0;
-      font-style: italic;
+      display: none; color: var(--cyan); font-size: 0.9rem;
     }
+    .form__confirm.show { display: block; }
 
-    /* ─── Footer ─── */
     .footer {
-      position: relative;
-      z-index: 1;
-      padding-block: var(--space-8);
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.25rem 2rem;
+      background: rgba(0,0,0,0.25);
     }
-
     .footer__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
+      max-width: 72rem; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      justify-content: space-between; align-items: end;
+    }
+    @media (min-width: 768px) { .footer__inner { padding-inline: 0.75rem; } }
+    .footer__brand {
+      font-family: var(--font-display); font-size: 1.75rem;
+    }
+    .footer__meta { margin-top: 0.4rem; color: var(--muted); font-size: 0.9rem; max-width: 22rem; }
+    .footer__links {
+      display: flex; flex-wrap: wrap; gap: 1.25rem;
+      font-size: 0.875rem; color: var(--muted);
+    }
+    .footer__links a:hover { color: #fff; }
+    .footer__bar {
+      margin-top: 1.5rem; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.3);
     }
 
-    .footer__copy {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.04em;
-    }
-
-    .footer__tagline {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      font-family: var(--font-display);
-      font-style: normal;
-      font-weight: 400;
-    }
-
-    @media (max-width: 480px) {
-      .footer__inner { flex-direction: column; align-items: flex-start; }
-    }
-
-    /* ─── Fade-in on scroll ─── */
     .fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .fade-up--delay-1 { transition-delay: 0.1s; }
-    .fade-up--delay-2 { transition-delay: 0.2s; }
-    .fade-up--delay-3 { transition-delay: 0.3s; }
-    .fade-up--delay-4 { transition-delay: 0.4s; }
+    .fade-up.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
   </style>
 </head>
 <body>
-
-  <!-- ─── Navigation ─── -->
-  <nav class="nav" id="nav" aria-label="Primary navigation">
-    <div class="container nav__inner">
-      <a href="#" class="nav__logo" aria-label="MYK home">
-        <!-- MYK SVG Logo -->
-        <svg viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- M -->
-          <path d="M2 28V8L14 22L26 8V28" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- Y -->
-          <path d="M38 8L48 18V28" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <path d="M58 8L48 18" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- K -->
-          <path d="M68 8V28M68 18L80 8M68 18L80 28" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- Horizontal rule beneath -->
-          <line x1="2" y1="34" x2="80" y2="34" stroke="var(--color-accent-dim)" stroke-width="0.75" opacity="0.6"/>
-          <defs>
-
-          </defs>
-        </svg>
-      </a>
-
-      <ul class="nav__links" id="navLinks" role="list">
-        <li><a href="#services">Systems</a></li>
-        <li><a href="#engineering">Engineering</a></li>
-        <li><a href="#portfolio">Studio</a></li>
-        <li><a href="#network">Clients</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <time class="nav__meta" id="navTime" datetime="" aria-label="Current UTC time"></time>
-
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__sphere">
+      <div class="backdrop__glow-cyan"></div>
+      <div class="backdrop__glow-mag"></div>
+      <img src="assets/brand/network-sphere-bg.png" alt="" width="820" height="820" />
     </div>
-  </nav>
+    <canvas id="sparks"></canvas>
+    <div class="backdrop__vignette"></div>
+  </div>
 
-  <!-- ─── Hero ─── -->
-  <section class="hero" aria-label="MYK introduction">
-    <div class="hero__bg" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80" alt="" loading="lazy" width="1600" height="900" />
-    </div>
-    <div class="container" style="position: relative; z-index: 1;">
-      <p class="hero__eyebrow fade-up"><span class="term-prompt">$</span> systems_builder — creative technology studio · est. 1974</p>
+  <div class="shell">
+    <nav class="nav" id="nav" aria-label="Primary">
+      <div class="nav__inner">
+        <a class="nav__logo" href="#"><span>MYK</span></a>
+        <ul class="nav__links">
+          <li><a href="#services">Systems</a></li>
+          <li><a href="#studio">Studio</a></li>
+          <li><a href="#network">Network</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a class="nav__cta" href="https://mykbrands.com" target="_blank" rel="noopener noreferrer">MYK Brands</a>
+        <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav__mobile" id="navMobile">
+        <a href="#services">Systems</a>
+        <a href="#studio">Studio</a>
+        <a href="#network">Network</a>
+        <a href="#contact">Contact</a>
+        <a href="https://mykbrands.com" target="_blank" rel="noopener noreferrer">MYK Brands</a>
+      </div>
+    </nav>
 
-      <h1 class="hero__headline fade-up fade-up--delay-1">Engineering <em>custom systems</em> for builders.</h1>
+    <header class="hero">
+      <div class="hero__row">
+        <div>
+          <p class="eyebrow fade-up">Identity hub · Designs by Myk LLC</p>
+          <h1 class="fade-up d1"><em>MYK</em></h1>
+          <p class="hero__tag fade-up d2">Custom systems for those who build.</p>
+          <p class="hero__sub fade-up d3">
+            Purpose-built software, studio systems, and operational infrastructure —
+            the personal identity hub behind MYK Brands.
+          </p>
+          <div class="hero__actions fade-up d4">
+            <a class="btn btn--solid" href="#contact">Start a conversation →</a>
+            <a class="btn btn--ghost" href="https://mykbrands.com" target="_blank" rel="noopener noreferrer">MYK Brands</a>
+          </div>
+        </div>
+      </div>
+      <img class="hero__float-logo" src="assets/brand/myk-brands-logo.png" alt="" width="160" height="160" />
+      <div class="hero-blur" aria-hidden="true"></div>
+    </header>
 
-      <p class="hero__sub fade-up fade-up--delay-2">
-        We ship purpose-built software, studio tooling, and operational infrastructure — local-first AI, gateways, and production pipelines for teams that actually ship.
+    <section class="section" id="services">
+      <p class="label fade-up">What we build</p>
+      <h2 class="title fade-up d1">Three disciplines.<br />One standard.</h2>
+      <p class="lede fade-up d2">
+        Every system is designed around how you actually work — not templated, not retrofitted.
       </p>
-
-      <ul class="stack-chips fade-up fade-up--delay-2" aria-label="Stack and services">
-        <li>Custom gateways</li>
-        <li>Local AI / Ollama</li>
-        <li>Studio ops</li>
-        <li>E-commerce systems</li>
-        <li>Deploy &amp; DNS</li>
-      </ul>
-
-      <a href="#contact" class="btn-primary fade-up fade-up--delay-3">
-        Init contact →
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4"/>
-        </svg>
-      </a>
-    </div>
-
-    <div class="scroll-indicator" aria-hidden="true">
-      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1">
-        <path d="M8 4v8M5 9l3 3 3-3" stroke-width="1"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ─── What We Build ─── -->
-  <section class="section services" id="services" aria-labelledby="services-title">
-    <div class="container">
-      <div class="services__header fade-up">
-        <p class="section__label">What We Build</p>
-        <h2 class="section__title" id="services-title">Three disciplines.<br/>One standard.</h2>
-        <p class="section__intro" style="margin-top: 1.25rem;">
-          Every system we build is designed around how you actually work — not templated, not retrofitted. Purpose-built from the first line.
-        </p>
+      <div class="grid-3">
+        <article class="card fade-up">
+          <p class="card__num">01</p>
+          <h3>Creator Software</h3>
+          <p>Tools that mirror how you think, create, and release — your catalog, cadence, and craft. No bloated feature sets.</p>
+        </article>
+        <article class="card fade-up d1">
+          <p class="card__num">02</p>
+          <h3>Studio Systems</h3>
+          <p>Digital environments for production and engineering — internal tools to audience platforms that hold up at scale.</p>
+        </article>
+        <article class="card fade-up d2">
+          <p class="card__num">03</p>
+          <h3>Team Infrastructure</h3>
+          <p>Collaboration frameworks and workflow architecture for production teams — every handoff intentional.</p>
+        </article>
       </div>
+    </section>
 
-      <div class="services__grid">
-        <div class="service-col fade-up">
-          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          <p class="service-col__num">01</p>
-          <h3 class="service-col__title">Creator Software</h3>
-          <p class="service-col__body">
-            Tools built to mirror how you think, create, and release. We design software that adapts to your workflow — your catalog, your release cadence, your way. No bloated feature sets. No generic interfaces. Just the instrument you needed.
-          </p>
+    <section class="section section--band" id="studio">
+      <div class="inner">
+        <p class="label fade-up">Portfolio</p>
+        <h2 class="title fade-up d1">Selected systems</h2>
+        <p class="lede fade-up d2">Platforms, tools, and environments designed and deployed for the network.</p>
+        <div class="work">
+          <article class="work-item fade-up">
+            <div>
+              <p class="work-item__domain">patemusic.live</p>
+              <p class="work-item__desc">Artist platform — catalog, releases, and fan engagement in one cohesive environment.</p>
+            </div>
+            <span class="work-item__year">2024</span>
+          </article>
+          <article class="work-item fade-up d1">
+            <div>
+              <p class="work-item__domain">ltibyjmichael.com</p>
+              <p class="work-item__desc">Creative design studio portfolio and client system with editorial precision.</p>
+            </div>
+            <span class="work-item__year">2024</span>
+          </article>
+          <article class="work-item fade-up d2">
+            <div>
+              <p class="work-item__domain">queenscustoms.shop</p>
+              <p class="work-item__desc">Custom product commerce with bespoke tumbler builder and brand experience.</p>
+            </div>
+            <span class="work-item__year">2025</span>
+          </article>
+          <article class="work-item fade-up d3">
+            <div>
+              <p class="work-item__domain">MYK Brands</p>
+              <p class="work-item__desc">Product house for AskMyk, HomeConnect, Books, Career Studio, and connectors — live on Pages.</p>
+            </div>
+            <span class="work-item__year">2026</span>
+          </article>
         </div>
-        <div class="service-col fade-up fade-up--delay-1">
-          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          <p class="service-col__num">02</p>
-          <h3 class="service-col__title">Studio Systems</h3>
-          <p class="service-col__body">
-            Digital environments built around the realities of production and engineering work. From internal tools to audience-facing platforms, we architect studio infrastructure that holds up at scale and stays out of your way at ground level.
-          </p>
+
+        <div class="brand-house fade-up" style="margin-top: 3rem;">
+          <img src="assets/brand/myk-brands-logo.png" alt="MYK Brands" width="72" height="72" />
+          <div>
+            <h3>MYK Brands</h3>
+            <p>Product house for AskMyk, HomeConnect, Books, Career Studio, and connectors. myk.ac stays the identity hub.</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            <a class="btn btn--solid" href="https://mykbrands.com" target="_blank" rel="noopener noreferrer">mykbrands.com</a>
+            <a class="btn btn--ghost" href="https://mykbrands-com.pages.dev/" target="_blank" rel="noopener noreferrer">Pages preview</a>
+          </div>
         </div>
-        <div class="service-col fade-up fade-up--delay-2">
-          <div class="service-col__thumb" aria-hidden="true"><img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          <p class="service-col__num">03</p>
-          <h3 class="service-col__title">Team Infrastructure</h3>
-          <p class="service-col__body">
-            Collaboration frameworks, workflow systems, and project management architecture designed for production and engineering teams. From concept to release, every touchpoint intentional and every handoff clean.
-          </p>
+
+        <div class="gallery gallery--wide fade-up" style="margin-top: 2.5rem;">
+          <figure>
+            <img src="assets/brand/myk-brands-logo-source.png" alt="MYK Brands mark" />
+            <figcaption>MYK Brands</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/headshot.png" alt="Portrait" />
+            <figcaption>Portrait</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/mike-photo-0092.jpg" alt="Studio" />
+            <figcaption>Studio</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/askmyk-brain-mark.png" alt="AskMyk" />
+            <figcaption>AskMyk</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/memoji-grad.png" alt="" />
+            <figcaption>Learning</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/memoji-smile.png" alt="" />
+            <figcaption>Presence</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/book-gr8-playbook.png" alt="Gr8 Playbook" />
+            <figcaption>Gr8 Playbook</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/mike/art-creative-flow.png" alt="Creative flow" />
+            <figcaption>Creative flow</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/venture-askmyk.png" alt="AskMyk venture" />
+            <figcaption>AskMyk</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/venture-designsbymyk.png" alt="Designs by Myk" />
+            <figcaption>Designs by Myk</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/venture-homeconnect.png" alt="HomeConnect" />
+            <figcaption>HomeConnect</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/designs-by-myk-logo-400.png" alt="Designs by Myk logo" />
+            <figcaption>LLC mark</figcaption>
+          </figure>
+        </div>
+        <div class="gallery gallery--covers fade-up">
+          <figure>
+            <img src="assets/gallery/designs-by-myk-cover-1128x191.png" alt="Designs by Myk cover" />
+            <figcaption>Designs by Myk</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/scene-hero-wide.webp" alt="At work" />
+            <figcaption>At work</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/gallery/scene-desk.webp" alt="Desk" />
+            <figcaption>Desk</figcaption>
+          </figure>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── Engineering (additive — flagship systems) ─── -->
-  <section class="section engineering" id="engineering" aria-labelledby="engineering-title">
-    <div class="container container--narrow">
-      <div class="engineering__header fade-up">
-        <p class="section__label">Engineering</p>
-        <h2 class="section__title" id="engineering-title">Flagship systems<br/>we operate.</h2>
-        <p class="section__intro" style="margin-top: 1.25rem;">
-          Production-grade platforms built and maintained in-house — local AI gateways, public chat products, multi-domain infrastructure, and distributed inference.
-        </p>
-      </div>
-
-      <div class="eng-grid">
-        <article class="eng-card fade-up">
-          <p class="eng-card__tag">local_ai_engine</p>
-          <h3 class="eng-card__title">MyksBrain</h3>
-          <p class="eng-card__body">Express gateway coordinating five capability pillars, autopilot self-build, Tauri desktop shell, and file-backed memory — runs on Apple Silicon without mandatory cloud API keys.</p>
-          <div class="eng-card__links">
-            <a href="https://github.com/wired38-gif/Myks-Brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://myk.ac/brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">Live demo</a>
-          </div>
-        </article>
-
-        <article class="eng-card fade-up fade-up--delay-1">
-          <p class="eng-card__tag">public_chat_product</p>
-          <h3 class="eng-card__title">Ask Myk</h3>
-          <p class="eng-card__body">PIN-gated public chat at askmyk.io — avatar-led UX, Cloudflare tunnel to the same gateway, direct Ollama replies for responsive Q&amp;A.</p>
-          <div class="eng-card__links">
-            <a href="https://askmyk.io" class="eng-card__link" target="_blank" rel="noopener noreferrer">askmyk.io</a>
-          </div>
-        </article>
-
-        <article class="eng-card fade-up fade-up--delay-2">
-          <p class="eng-card__tag">multi_domain_hub</p>
-          <h3 class="eng-card__title">myk-hub</h3>
-          <p class="eng-card__body">Single Express host serving multiple portfolio domains with Host-header routing and a configurable reverse proxy for the AI engine at /brain.</p>
-          <div class="eng-card__links">
-            <a href="https://github.com/wired38-gif/myk-hub" class="eng-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        </article>
-
-        <article class="eng-card fade-up fade-up--delay-3">
-          <p class="eng-card__tag">distributed_inference</p>
-          <h3 class="eng-card__title">Dual-hive</h3>
-          <p class="eng-card__body">Mac gateway as control plane with optional remote Ollama offload — unified health API, graceful degradation when the remote node is offline.</p>
-          <div class="eng-card__links">
-            <a href="https://github.com/wired38-gif/Myks-Brain" class="eng-card__link" target="_blank" rel="noopener noreferrer">Hive status API</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── Portfolio ─── -->
-  <section class="section" id="portfolio" aria-labelledby="portfolio-title">
-    <div class="container container--narrow">
-      <div class="portfolio__header fade-up">
-        <p class="section__label">Portfolio</p>
-        <h2 class="section__title" id="portfolio-title">Selected Systems</h2>
-        <p class="section__intro" style="margin-top: 1.25rem;">
-          A curated record of platforms, tools, and environments we've designed and deployed for clients.
-        </p>
-      </div>
-
-      <div class="work-list" role="list">
-        <article class="work-item fade-up" role="listitem">
-          <div class="work-item__thumb">
-            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80" alt="Live music and artist platform interface" loading="lazy" width="600" height="400" />
-          </div>
-          <div>
-            <p class="work-item__domain">patemusic.live</p>
-            <p class="work-item__desc">Artist platform, music promotion, and fan engagement system. Built to support an independent artist's full digital presence — catalog, releases, and audience relationship in a single cohesive environment.</p>
-          </div>
-          <span class="work-item__year">2024</span>
-        </article>
-
-        <article class="work-item fade-up fade-up--delay-1" role="listitem">
-          <div class="work-item__thumb">
-            <img src="https://images.unsplash.com/photo-1460661419201-fd7912660ffc?w=600&q=80" alt="Creative studio and design workspace" loading="lazy" width="600" height="400" />
-          </div>
-          <div>
-            <p class="work-item__domain">ltibyjmichael.com</p>
-            <p class="work-item__desc">Creative design studio and portfolio system. A digital environment for a working designer — showcasing craft, managing client work, and establishing a professional presence with editorial precision.</p>
-          </div>
-          <span class="work-item__year">2024</span>
-        </article>
-
-        <article class="work-item fade-up fade-up--delay-2" role="listitem">
-          <div class="work-item__thumb">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Custom e-commerce product display" loading="lazy" width="600" height="400" />
-          </div>
-          <div>
-            <p class="work-item__domain">queenscustoms.shop</p>
-            <p class="work-item__desc">Custom product e-commerce with a bespoke tumbler builder. End-to-end commerce architecture — product configuration, order management, and brand experience built to spec around a custom product offering.</p>
-          </div>
-          <span class="work-item__year">2025</span>
-        </article>
-
-        <article class="work-item fade-up fade-up--delay-3" role="listitem">
-          <div class="work-item__thumb">
-            <img src="https://images.unsplash.com/photo-1639765487017-a4063872e1a1?w=600&q=80" alt="Abstract encrypted systems visualization" loading="lazy" width="600" height="400" />
-          </div>
-          <div>
-            <p class="work-item__domain">[REDACTED]</p>
-            <p class="work-item__desc">Private client system operating under NDA. Enterprise-grade infrastructure for a confidential creative operation. Further details available upon execution of a mutual non-disclosure agreement.</p>
-          </div>
-          <span class="work-item__year">2025</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── Network ─── -->
-  <section class="section network" id="network" aria-labelledby="network-title">
-    <div class="container">
-      <div class="network__header fade-up">
-        <p class="section__label">Client Work</p>
-        <h2 class="section__title" id="network-title">Sites we build<br/>and support.</h2>
-        <p class="section__intro" style="margin-top: 1.25rem;">
-          Each company operates independently. Designs by MYK handles web design, development, and ongoing support — the only intentional connection between these brands.
-        </p>
-      </div>
-
-      <div class="network__grid">
-        <a href="https://patemusic.live" class="network-tile fade-up" target="_blank" rel="noopener noreferrer" aria-label="Visit PATE Music at patemusic.live">
-          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          
+    <section class="section" id="network">
+      <p class="label fade-up">Our network</p>
+      <h2 class="title fade-up d1">MYK powers creative brands.</h2>
+      <p class="lede fade-up d2">Each brand is independent. The systems that run them are not.</p>
+      <div class="network-grid">
+        <a class="network-tile fade-up" href="https://patemusic.live" target="_blank" rel="noopener noreferrer">
           <div>
             <p class="network-tile__name">PATE</p>
             <p class="network-tile__domain">patemusic.live</p>
-            <p class="network-tile__role">Artist platform — music, releases, and fan engagement</p>
+            <p class="network-tile__role">Artist platform — music, releases, fan engagement</p>
           </div>
           <span class="network-tile__arrow">Visit →</span>
         </a>
-
-        <a href="https://ltibyjmichael.com" class="network-tile fade-up fade-up--delay-1" target="_blank" rel="noopener noreferrer" aria-label="Visit LTI by JMichael at ltibyjmichael.com">
-          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          
+        <a class="network-tile fade-up d1" href="https://ltibyjmichael.com" target="_blank" rel="noopener noreferrer">
           <div>
             <p class="network-tile__name">LTI</p>
             <p class="network-tile__domain">ltibyjmichael.com</p>
-            <p class="network-tile__role">Creative design studio — portfolio and client work</p>
+            <p class="network-tile__role">Creative design studio — portfolio &amp; clients</p>
           </div>
           <span class="network-tile__arrow">Visit →</span>
         </a>
-
-        <a href="https://queenscustoms.shop" class="network-tile fade-up fade-up--delay-2" target="_blank" rel="noopener noreferrer" aria-label="Visit Queens Customs at queenscustoms.shop">
-          <div class="network-tile__bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" alt="" loading="lazy" width="800" height="600" /></div>
-          
+        <a class="network-tile fade-up d2" href="https://queenscustoms.shop" target="_blank" rel="noopener noreferrer">
           <div>
             <p class="network-tile__name">QUEENS</p>
             <p class="network-tile__domain">queenscustoms.shop</p>
-            <p class="network-tile__role">Custom product commerce — tumblers and personalized goods</p>
+            <p class="network-tile__role">Custom product commerce</p>
           </div>
           <span class="network-tile__arrow">Visit →</span>
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── Contact ─── -->
-  <section class="section" id="contact" aria-labelledby="contact-title">
-    <div class="container">
-      <div class="contact__inner">
-        <p class="section__label fade-up">Contact</p>
-        <h2 class="section__title fade-up" id="contact-title">If you're here,<br/>you know why.</h2>
-
-        <p class="contact__lede fade-up fade-up--delay-1">
-          We don't take unsolicited briefs. We take the right conversations.
+    <section class="section section--band" id="contact">
+      <div class="inner contact-wrap">
+        <p class="label fade-up">Contact</p>
+        <h2 class="title fade-up d1">If you’re here,<br />you know why.</h2>
+        <p class="lede fade-up d2">
+          We take the right conversations. Tell us what you’re building —
+          or open a product request on MYK Brands when you have apps, URLs, and look-alikes ready.
         </p>
-        <p class="contact__sub fade-up fade-up--delay-1">
-          MYK operates by referral and by invitation. If you've found your way here with something serious in mind, the door is open. Tell us what you're building.
-        </p>
-
-        <form class="form fade-up fade-up--delay-2" id="contactForm" novalidate>
+        <form class="form fade-up d3" id="contactForm" novalidate>
           <div class="form__row">
-            <div class="form__group">
-              <label class="form__label" for="name">Name</label>
-              <input class="form__input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required />
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" autocomplete="name" placeholder="Your name" required />
             </div>
-            <div class="form__group">
-              <label class="form__label" for="email">Email</label>
-              <input class="form__input" type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required />
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required />
             </div>
           </div>
-          <div class="form__group">
-            <label class="form__label" for="message">What are you building?</label>
-            <textarea class="form__textarea" id="message" name="message" placeholder="Tell us about the project, the problem, or what you need." required></textarea>
+          <div>
+            <label for="message">What are you building?</label>
+            <textarea id="message" name="message" placeholder="Project, problem, or what you need." required></textarea>
           </div>
-          <button type="submit" class="form__submit">
-            Send message
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </button>
-          <p class="form__confirm" id="formConfirm" role="status" aria-live="polite">
-            Received. We'll be in touch if there's a fit.
-          </p>
+          <button class="btn btn--solid" type="submit">Send message →</button>
+          <p class="form__confirm" id="formConfirm" role="status">Received. We’ll be in touch if there’s a fit.</p>
         </form>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── Footer ─── -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <p class="footer__copy">© 2026 MYK. All rights reserved.</p>
-      <p class="footer__tagline"><span class="term-ok">●</span> systems online · built in-house</p>
-    </div>
-  </footer>
+    <footer class="footer">
+      <div class="footer__inner">
+        <div>
+          <p class="footer__brand">MYK</p>
+          <p class="footer__meta">
+            Identity hub for Designs by Myk LLC · product house at
+            <a href="https://mykbrands.com" style="color:var(--cyan)">mykbrands.com</a>
+            · <a href="https://mykbrands-com.pages.dev/" style="color:var(--cyan)">preview</a>.
+          </p>
+        </div>
+        <div class="footer__links">
+          <a href="#services">Systems</a>
+          <a href="#studio">Studio</a>
+          <a href="#network">Network</a>
+          <a href="#contact">Contact</a>
+          <a href="admin/store-connect.html">Store connect</a>
+          <a href="https://mykbrands-com.pages.dev/owner/" target="_blank" rel="noopener noreferrer">Owner portal</a>
+        </div>
+      </div>
+      <div class="footer__bar">© 2026 MYK · Designs by Myk LLC · Built different. By design.</div>
+    </footer>
+  </div>
 
   <script>
-    // ─── Nav UTC clock ───
     (function () {
-      const el = document.getElementById('navTime');
-      if (!el) return;
-
-      function tick() {
-        const now = new Date();
-        const h = String(now.getUTCHours()).padStart(2, '0');
-        const m = String(now.getUTCMinutes()).padStart(2, '0');
-        el.textContent = h + ':' + m + ' UTC';
-        el.setAttribute('datetime', now.toISOString());
-      }
-
-      tick();
-      setInterval(tick, 30000);
-    })();
-
-    // ─── Nav scroll behavior ───
-    (function () {
-      const nav = document.getElementById('nav');
-      let lastY = 0;
-
-      window.addEventListener('scroll', function () {
-        const y = window.scrollY;
-        if (y > 60) {
-          nav.classList.add('scrolled');
-        } else {
-          nav.classList.remove('scrolled');
-        }
-        lastY = y;
+      const nav = document.getElementById("nav");
+      const toggle = document.getElementById("navToggle");
+      const mobile = document.getElementById("navMobile");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 24);
       }, { passive: true });
-    })();
+      toggle?.addEventListener("click", () => {
+        const open = mobile.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+      mobile?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+        mobile.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }));
 
-    // ─── Mobile nav toggle ───
-    (function () {
-      const toggle = document.getElementById('navToggle');
-      const links  = document.getElementById('navLinks');
-
-      toggle.addEventListener('click', function () {
-        const open = links.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("in"); });
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+      document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+      requestAnimationFrame(() => {
+        document.querySelectorAll(".hero .fade-up").forEach((el) => el.classList.add("in"));
       });
 
-      // Close on link click
-      links.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-          links.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    })();
-
-    // ─── Scroll fade-in ───
-    (function () {
-      const els = document.querySelectorAll('.fade-up');
-
-      if (!window.IntersectionObserver) {
-        els.forEach(function (el) { el.classList.add('visible'); });
-        return;
-      }
-
-      const obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
-      });
-
-      // Hero elements visible immediately
-      document.querySelectorAll('.hero .fade-up').forEach(function (el, i) {
-        setTimeout(function () {
-          el.classList.add('visible');
-        }, i * 120);
-      });
-
-      // All others observed
-      els.forEach(function (el) {
-        if (!el.closest('.hero')) {
-          obs.observe(el);
-        }
-      });
-    })();
-
-    // ─── Contact form ───
-    (function () {
-      const form    = document.getElementById('contactForm');
-      const confirm = document.getElementById('formConfirm');
-
-      form.addEventListener('submit', function (e) {
+      const form = document.getElementById("contactForm");
+      const confirm = document.getElementById("formConfirm");
+      form?.addEventListener("submit", (e) => {
         e.preventDefault();
-        const name    = form.querySelector('#name').value.trim();
-        const email   = form.querySelector('#email').value.trim();
-        const message = form.querySelector('#message').value.trim();
-
-        if (!name || !email || !message) return;
-
-        // Disable form
-        Array.from(form.elements).forEach(function (el) { el.disabled = true; });
-
-        confirm.style.display = 'block';
-        confirm.style.opacity = '0';
-        setTimeout(function () {
-          confirm.style.transition = 'opacity 0.5s ease';
-          confirm.style.opacity    = '1';
-        }, 50);
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        confirm.classList.add("show");
+        form.reset();
       });
+
+      /* Multicolor data sparks over the network sphere */
+      const canvas = document.getElementById("sparks");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const colors = ["#22d3ee", "#e879f9", "#a78bfa", "#67e8f9", "#f0abfc", "#c4b5fd", "#ffffff"];
+      let w = 0, h = 0, particles = [], sparks = [], t = 0;
+      function resize() {
+        w = canvas.width = window.innerWidth * devicePixelRatio;
+        h = canvas.height = window.innerHeight * devicePixelRatio;
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        const n = Math.floor((window.innerWidth * window.innerHeight) / 14000);
+        particles = Array.from({ length: n }, () => ({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 1.6 + 0.4,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          c: colors[(Math.random() * colors.length) | 0],
+          a: Math.random() * 0.5 + 0.15,
+        }));
+      }
+      function fireSpark() {
+        const cx = window.innerWidth * 0.5;
+        const cy = window.innerHeight * 0.38;
+        const ang = Math.random() * Math.PI * 2;
+        const speed = 2.2 + Math.random() * 4.5;
+        sparks.push({
+          x: cx + (Math.random() - 0.5) * 180,
+          y: cy + (Math.random() - 0.5) * 180,
+          vx: Math.cos(ang) * speed,
+          vy: Math.sin(ang) * speed,
+          life: 1,
+          c: colors[(Math.random() * colors.length) | 0],
+          w: Math.random() * 2.2 + 0.8,
+        });
+      }
+      function frame() {
+        t++;
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        for (const p of particles) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = window.innerWidth;
+          if (p.x > window.innerWidth) p.x = 0;
+          if (p.y < 0) p.y = window.innerHeight;
+          if (p.y > window.innerHeight) p.y = 0;
+          ctx.globalAlpha = p.a * (0.7 + 0.3 * Math.sin(t * 0.02 + p.x));
+          ctx.fillStyle = p.c;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (t % 8 === 0) fireSpark();
+        for (let i = sparks.length - 1; i >= 0; i--) {
+          const s = sparks[i];
+          s.x += s.vx; s.y += s.vy; s.life -= 0.018;
+          s.vx *= 0.99; s.vy *= 0.99;
+          if (s.life <= 0) { sparks.splice(i, 1); continue; }
+          ctx.globalAlpha = Math.max(0, s.life);
+          ctx.strokeStyle = s.c;
+          ctx.lineWidth = s.w;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(s.x - s.vx * 3.5, s.y - s.vy * 3.5);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(frame);
+      }
+      window.addEventListener("resize", resize);
+      resize();
+      requestAnimationFrame(frame);
     })();
   </script>
-
 </body>
 </html>
